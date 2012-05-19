@@ -1,0 +1,22 @@
+#
+# Configure Using Gemfile
+# gem 'pg'
+#
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: condor3_development
+  pool: 5
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: condor3_test
+  pool: 5
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: condor3_production
+  pool: 5
+  username: condor3
