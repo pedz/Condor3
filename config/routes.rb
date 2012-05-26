@@ -1,4 +1,9 @@
 Condor3::Application.routes.draw do
+  match('swinfos/:item',
+        :controller => 'swinfos',
+        :action => 'show',
+        :constraints => { :item => /.*/ })
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,0 +1,2 @@
+module SwinfosHelper
+end

@@ -1,0 +1,4 @@
+# (delete-path-elements "^/usr/local/prvm/")
+# (prepend-path "/usr/local/prvm/ruby-1.9.3-p194/bin")
+delete-path-elements '^/usr/local/prvm/'
+prepend-path /usr/local/prvm/ruby-1.9.3-p194/bin
