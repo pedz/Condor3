@@ -27,6 +27,8 @@ class SwinfosController < ApplicationController
     logger.debug("Accepts = #{request.accepts.inspect}")
     @param = params[:item]
     find_items
+    @json_elements = Hash.new
+    @json_elements["items"] = @items
     respond_to do |format|
       format.html { render :action => "show" }
       format.json {

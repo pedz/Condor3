@@ -29,6 +29,9 @@ Condor3::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
+  # Add asset path for templates
+  config.assets.paths << Rails.root.join("app", "assets", "templates")
+
   # Do not compress assets
   config.assets.compress = false
 

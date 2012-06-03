@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Condor3 <%= @title %></title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body class="<%= controller.controller_name %>">
+  <head>
+    <meta charset="UTF-8">
+    <title>Condor3 <%= @title %></title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="<%= controller.controller_name %>">
 
-<%= yield %>
+    <%= yield %>
 
-</body>
+    <% if @json_elements %>
+      <script type="text/javascript">
+	json_elements = <%= @json_elements.to_json.html_safe %>
+      </script>
+    <% end %>
+  </body>
 </html>
