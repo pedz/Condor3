@@ -1,0 +1,3 @@
+[submodule "app/assets/javascripts/jsviews"]
+	path = app/assets/javascripts/jsviews
+	url = https://github.com/BorisMoore/jsviews.git
