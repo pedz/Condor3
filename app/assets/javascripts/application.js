@@ -12,4 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jsviews/jsrender
+//= require jsviews/jquery.observable
+//= require jsviews/jquery.views
 //= require_tree .

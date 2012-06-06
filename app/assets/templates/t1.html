@@ -1,32 +1,35 @@
-<script id="template1" type="text/x-jsrender">
+<script id='template1' type='text/x-jsrender'>
   <tr class='upd_apar_def'>
-    <td contextmenu='upd_apar_def_defect_menu_0' >
-      {{defect}}
-      <ul id='upd_apar_def_defect_menu_0'>
+    <td class='upd_apar_def-index'>
+      {{:#index + 1}}
+    </td>
+    <td class='upd_apar_def-defect'>
+      <a href='<%= 12345 %>'>{{:defect}}</a>
+      <ul style='display: none;'>
 	<li>Item 1</li>
 	<li>Item 2</li>
       </ul>
     </td>
-    <td>
-      {{apar}}
+    <td class='upd_apar_def-apar'>
+      {{:apar}}
     </td>
-    <td>
-      {{ptf}}
+    <td class='upd_apar_def-ptf'>
+      {{:ptf}}
     </td>
-    <td>
-      {{abstract}}
+    <td class='upd_apar_def-abstract'>
+      {{:abstract}}
     </td>
-    <td>
-      {{lpp}
+    <td class='upd_apar_def-lpp'>
+      {{:lpp}}
     </td>
-    <td>
-      {{vrmf}}
+    <td class='upd_apar_def-vrmf'>
+      {{:vrmf}}
     </td>
-    <td>
-      {{version}}
+    <td class='upd_apar_def-version'>
+      {{:version}}
     </td>
-    <td>
-      {{service_pack}}
+    <td class='upd_apar_def-service_pack'>
+      {{:service_pack}}
     </td>
   </tr>
 </script>

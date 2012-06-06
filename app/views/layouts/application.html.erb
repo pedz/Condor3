@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset='UTF-8'>
     <title>Condor3 <%= @title %></title>
-    <%= stylesheet_link_tag    "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
+    <%= stylesheet_link_tag    'application', :media => 'all' %>
+    <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
-  <body class="<%= controller.controller_name %>">
-
+  <body class='<%= controller.controller_name %>'>
+    <h2 class='title'>
+      <span>
+	<%= @title %>
+      </span>
+    </h2>
     <%= yield %>
-
     <% if @json_elements %>
-      <script type="text/javascript">
+      <script type='text/javascript'>
 	json_elements = <%= @json_elements.to_json.html_safe %>
       </script>
     <% end %>
