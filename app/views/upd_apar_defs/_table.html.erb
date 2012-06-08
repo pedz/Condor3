@@ -1,4 +1,15 @@
 <table class='upd_apar_defs'>
+  <script type='text/javascript'>
+    /*
+     * Note: We have to figure out the paths here in the view.  They
+     * are not available from the assets.
+     */
+     $.views.helpers({
+	 swinfo_path: function(val) {
+	     return '<%= swinfo_path("TARGET") %>'.replace("TARGET", val);
+	 }
+     });
+  </script>
   <thead>
     <tr>
       <th>#</th>

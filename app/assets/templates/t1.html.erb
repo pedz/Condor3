@@ -1,20 +1,24 @@
+<script id='template2' type='text/x-jsrender'>
+  <a href='{{:~swinfo_path(#data)}}'>{{:#data}}</a>
+</script>
+
 <script id='template1' type='text/x-jsrender'>
   <tr class='upd_apar_def'>
     <td class='upd_apar_def-index'>
       {{:#index + 1}}
     </td>
     <td class='upd_apar_def-defect'>
-      <a href='<%= 12345 %>'>{{:defect}}</a>
+      {{for defect tmpl='template2' /}}
       <ul style='display: none;'>
 	<li>Item 1</li>
 	<li>Item 2</li>
       </ul>
     </td>
     <td class='upd_apar_def-apar'>
-      {{:apar}}
+      {{for apar tmpl='template2' /}}
     </td>
     <td class='upd_apar_def-ptf'>
-      {{:ptf}}
+      {{for ptf tmpl='template2' /}}
     </td>
     <td class='upd_apar_def-abstract'>
       {{:abstract}}

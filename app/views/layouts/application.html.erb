@@ -16,7 +16,7 @@
     <%= yield %>
     <% if @json_elements %>
       <script type='text/javascript'>
-	json_elements = <%= @json_elements.to_json.html_safe %>
+	json_elements = <%= @json_elements.to_json.html_safe %>;
       </script>
     <% end %>
   </body>

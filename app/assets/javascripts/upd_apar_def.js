@@ -1,12 +1,12 @@
 $(document).ready(function () {
     var upd_apar_defs_contextmenu = function (event) {
-	console.log(event);
-	var ul = $($(event.target).children()[0]);
+	// 'this' will be the td which is the same as event.currentTarget
+	var children = $(this).children();
+	var ul = $(children[children.length - 1]);
 	var temp = {
 	    top: event.pageY,
 	    left: event.pageX
 	};
-	console.log(temp);
 	ul.css(temp);
 	ul.show();
 	return false;
