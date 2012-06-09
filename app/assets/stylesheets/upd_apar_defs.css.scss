@@ -26,6 +26,20 @@ table.upd_apar_defs {
     }
 
     tbody {
+	tr {
+	    cursor: pointer;
+
+	    .upd_apar_def_commands {
+		position: absolute;
+		list-style-type: none;
+		margin: 0px;
+		background-color: white;
+		box-shadow: 8px 8px 8px #222;
+		padding: 6px;
+		z-index: 1;
+	    }
+	}
+
 	tr:nth-child(odd) {
 	    background-color: rgb(212, 212, 212);
 	}
@@ -43,17 +57,14 @@ table.upd_apar_defs {
 	}
 	
 	td.upd_apar_def-defect {
-	    cursor: context-menu;
 	    text-align: right;
 	}
 
 	td.upd_apar_def-apar {
-	    cursor: context-menu;
 	    text-align: left;
 	}
 
 	td.upd_apar_def-ptf {
-	    cursor: context-menu;
 	    text-align: left;
 	}
 
@@ -62,12 +73,10 @@ table.upd_apar_defs {
 	}
 
 	td.upd_apar_def-lpp {
-	    cursor: context-menu;
 	    text-align: left;
 	}
 
 	td.upd_apar_def-vrmf {
-	    cursor: context-menu;
 	    text-align: left;
 	}
 
@@ -77,16 +86,6 @@ table.upd_apar_defs {
 
 	td.upd_apar_def-service_pack {
 	    text-align: left;
-	}
-
-	td ul {
-	    position: absolute;
-	    list-style-type: none;
-	    margin: 2px;
-	    background-color: white;
-	    box-shadow: 8px 8px 8px #222;
-	    padding: 6px;
-	    z-index: 1;
 	}
     }
 }
