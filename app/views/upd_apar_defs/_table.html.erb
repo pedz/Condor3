@@ -9,6 +9,12 @@
 	     return '<%= swinfo_path("TARGET") %>'.replace("TARGET", val);
 	 }
      });
+
+     $.views.tags({
+	 link_to: function (link, text) {
+	     return $.render.template2({link: link, text: text});
+	 }
+     });
   </script>
   <thead>
     <tr>
