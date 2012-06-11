@@ -1,12 +1,15 @@
 $(document).ready(function () {
     var upd_apar_defs_click = function (event) {
 	var ui = $($(this).find('.upd_apar_def_commands'));
-	var tbl = ui.parents('.upd_apar_defs');
-	ui.pedzConextMenu({
-	    top: event.pageY,
-	    left: event.pageX,
-	    container: tbl
-	});
+	console.log(ui);
+	ui.menu();
+	ui.show();
+	// var tbl = ui.parents('.upd_apar_defs');
+	// ui.pedzConextMenu({
+	//     top: event.pageY,
+	//     left: event.pageX,
+	//     container: tbl
+	// });
 	return false;
     };
 

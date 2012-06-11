@@ -15,4 +15,7 @@
 //= require jsviews/jsrender
 //= require jsviews/jquery.observable
 //= require jsviews/jquery.views
-//= require_tree .
+//= require jquery-ui-1.9.0m8/ui/jquery.ui.core.js
+//= require jquery-ui-1.9.0m8/ui/jquery.ui.widget.js
+//= require jquery-ui-1.9.0m8/ui/jquery.ui.menu.js
+//= require_directory .

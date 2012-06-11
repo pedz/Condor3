@@ -8,16 +8,16 @@
   <tr class='upd_apar_def'>
     <td class='upd_apar_def-index'>
       {{:#index + 1}}
-      <div class='upd_apar_def_commands' style='display: none;'>
-	<span>{{link_to ~swinfo_path(defect) defect /}}</span> |
-	<span>{{link_to ~swinfo_path(apar) apar /}}</span> |
-	<span>{{link_to ~swinfo_path(ptf) ptf /}}</span> |
-	<span>{{link_to ~swinfo_path(lpp + ' ' + vrmf) lpp + ' ' + vrmf /}}</span> |
-	<span>Item 5</span> |
-	<span>Item 6</span> |
-	<span>Item 7</span> |
-	<span>Item 8</span>
-      </div>
+      <ul class='upd_apar_def_commands' style='display: none;'>
+	<li>{{link_to ~swinfo_path(defect) defect /}}</li>
+	<li>{{link_to ~swinfo_path(apar) apar /}}</li>
+	<li>{{link_to ~swinfo_path(ptf) ptf /}}</li>
+	<li>{{link_to ~swinfo_path(lpp + ' ' + vrmf) lpp + ' ' + vrmf /}}</li>
+	<li>Item 5</li>
+	<li>Item 6</li>
+	<li>Item 7</li>
+	<li>Item 8</li>
+      </ul>
     </td>
     <td class='upd_apar_def-defect'>
       {{:defect}}
