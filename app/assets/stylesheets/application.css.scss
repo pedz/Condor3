@@ -8,23 +8,8 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
- *= require jquery-ui-1.9.0m8/themes/base/jquery-ui
+ *= html5-doctor-reset/html5-doctor-reset-stylesheet
+ *= condor
+ *= require jquery-ui-1.8.21.custom/css/smoothness/jquery-ui-1.8.21.custom.css
  *= require_directory .
-*/
-
-body {
-    background-color: lightblue;
-    margin: 0px;
-
-    h2.title {
-	text-align: center;
-
-	span {
-	    background-color: #8AADB8;
-	    font-weight: bold;
-	    border: 2px outset #68828A;
-	    padding: 6px;
-	}
-    }
-}
+ */

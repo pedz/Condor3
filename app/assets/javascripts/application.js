@@ -12,10 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui-1.8.21.custom/js/jquery-ui-1.8.21.custom.min.js
 //= require jsviews/jsrender
 //= require jsviews/jquery.observable
 //= require jsviews/jquery.views
-//= require jquery-ui-1.9.0m8/ui/jquery.ui.core.js
-//= require jquery-ui-1.9.0m8/ui/jquery.ui.widget.js
-//= require jquery-ui-1.9.0m8/ui/jquery.ui.menu.js
 //= require_directory .

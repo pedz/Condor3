@@ -1,0 +1,19 @@
+/*
+ * I wanted the CSS reset before this so application.css is just a digest
+ */
+body {
+    font-size: 62.5%;
+    background-color: lightblue;
+    margin: 0px;
+
+    h2.title {
+	text-align: center;
+
+	span {
+	    background-color: #8AADB8;
+	    font-weight: bold;
+	    border: 2px outset #68828A;
+	    padding: 6px;
+	}
+    }
+}
