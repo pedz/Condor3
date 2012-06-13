@@ -1,8 +1,4 @@
-<script id='template2' type='text/x-jsrender'>
-  <a href='{{:link}}'>
-    {{:text}}
-  </a>
-</script>
+<script id='template2' type='text/x-jsrender'><a href='{{:link}}' class='{{:klass}}'>{{:text}}</a></script>
 
 <script id='template1' type='text/x-jsrender'>
   <tr class='upd_apar_def'>
@@ -20,30 +16,36 @@
       </ul>
     </td>
     <td class='upd_apar_def-defect upd_apar_def_dual_button'>
-      <button>{{:defect}}</button>
-      <button></button>
+      <span class='foo'>
+	{{link_to ~swinfo_path(defect) "upd_apar_def_link" defect/}}<span class='upd_apar_def_span'></span>
+      </span>
     </td>
     <td class='upd_apar_def-apar upd_apar_def_dual_button'>
-      <button>{{:apar}}</button>
-      <button></button>
+      <span class='foo'>
+	{{link_to ~swinfo_path(apar) "upd_apar_def_link" apar/}}
+	<span class='upd_apar_def_span'></span>
+      </span>
     </td>
     <td class='upd_apar_def-ptf upd_apar_def_dual_button'>
-      <button>{{:ptf}}</button>
-      <button></button>
+      <span class='foo'>
+	{{link_to ~swinfo_path(ptf) "upd_apar_def_link" ptf/}}
+	<span class='upd_apar_def_span'></span>
+      </span>
     </td>
     <td class='upd_apar_def-abstract'>
       {{:abstract}}
     </td>
     <td class='upd_apar_def-lpp upd_apar_def_dual_button'>
-      <button>{{:lpp}}</button>
-      <button></button>
+      {{:lpp}}
     </td>
-    <td class='upd_apar_def-vrmf'>
-      {{:vrmf}}
+    <td class='upd_apar_def-vrmf upd_apar_def_dual_button'>
+      <span class='foo'>
+	{{link_to ~swinfo_path(lpp + ' ' + vrmf) "upd_apar_def_link" vrmf/}}
+	<span class='upd_apar_def_span'></span>
+      </span>
     </td>
     <td class='upd_apar_def-version upd_apar_def_dual_button'>
-      <button>{{:version}}</button>
-      <button></button>
+      {{:version}}
     </td>
     <td class='upd_apar_def-service_pack'>
       {{:service_pack}}

@@ -1,4 +1,4 @@
-<table class='upd_apar_defs' title='Single click for conext menu&#10Double click defect, apar, ptf or vrmf to do blah blah blah'>
+<table class='upd_apar_defs'>
   <script type='text/javascript'>
     /*
      * Note: We have to figure out the paths here in the view.  They
@@ -11,8 +11,8 @@
      });
 
      $.views.tags({
-	 link_to: function (link, text) {
-	     return $.render.template2({link: link, text: text});
+	 link_to: function (link, klass, text) {
+	     return $.render.template2({link: link, klass: klass, text: text});
 	 }
      });
   </script>
