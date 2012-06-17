@@ -4,21 +4,16 @@
   <tr class='upd_apar_def'>
     <td class='upd_apar_def-index'>
       {{:#index + 1}}
-      <ul class='upd_apar_def_commands' style='display: none;'>
-	<li>{{link_to ~swinfo_path(defect) defect /}}</li>
-	<li>{{link_to ~swinfo_path(apar) apar /}}</li>
-	<li>{{link_to ~swinfo_path(ptf) ptf /}}</li>
-	<li>{{link_to ~swinfo_path(lpp + ' ' + vrmf) lpp + ' ' + vrmf /}}</li>
-	<li>Item 5</li>
-	<li>Item 6</li>
-	<li>Item 7</li>
-	<li>Item 8</li>
-      </ul>
     </td>
     <td class='upd_apar_def-defect upd_apar_def_dual_button'>
-      <span class='foo'>
+      <div class='foo'>
 	{{link_to ~swinfo_path(defect) "upd_apar_def_link" defect/}}<span class='upd_apar_def_span'></span>
-      </span>
+	<ul class='upd_apar_def_commands' style='display: none;'>
+	  <li>Show CMVC Defect</li>
+	  <li>Show Code Changes</li>
+	  <li>Show APAR Draft</li>
+	</ul>
+      </div>
     </td>
     <td class='upd_apar_def-apar upd_apar_def_dual_button'>
       <span class='foo'>
