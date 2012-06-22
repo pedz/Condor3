@@ -53,11 +53,11 @@ $(document).ready(function () {
 	/*
 	 * Fix all the down arrows to be positioned just right
 	 */
-	$('.upd_apar_def_span').each(function () {
-	    var span = $(this);
-	    var link = span.prev();
-	    span.css('left', link.width() - 3);
-	});
+	// $('.upd_apar_def_span').each(function () {
+	//     var span = $(this);
+	//     var link = span.prev();
+	//     span.css('left', link.width() - 3);
+	// });
     }).fail(function (a, b, c) {
 	alert('Someone is really unhappy');
     });

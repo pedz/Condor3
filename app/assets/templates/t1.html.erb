@@ -6,26 +6,22 @@
       {{:#index + 1}}
     </td>
     <td class='upd_apar_def-defect upd_apar_def_dual_button'>
-      <div class='foo'>
-	{{link_to ~swinfo_path(defect) "upd_apar_def_link" defect/}}<span class='upd_apar_def_span'></span>
-	<ul class='upd_apar_def_commands' style='display: none;'>
+      <span class='foo'
+	    >{{link_to ~swinfo_path(defect) "upd_apar_def_link" defect
+	/}}<span class='upd_apar_def_span'></span><ul class='upd_apar_def_commands' style='display: none;'>
 	  <li>Show CMVC Defect</li>
 	  <li>Show Code Changes</li>
 	  <li>Show APAR Draft</li>
-	</ul>
-      </div>
+      </ul></span>
     </td>
     <td class='upd_apar_def-apar upd_apar_def_dual_button'>
-      <span class='foo'>
-	{{link_to ~swinfo_path(apar) "upd_apar_def_link" apar/}}
-	<span class='upd_apar_def_span'></span>
-      </span>
+      <span class='foo'
+	    >{{link_to ~swinfo_path(apar) "upd_apar_def_link" apar
+	/}}<span class='upd_apar_def_span'></span></span>
     </td>
     <td class='upd_apar_def-ptf upd_apar_def_dual_button'>
-      <span class='foo'>
-	{{link_to ~swinfo_path(ptf) "upd_apar_def_link" ptf/}}
-	<span class='upd_apar_def_span'></span>
-      </span>
+      <span class='foo'>{{link_to ~swinfo_path(ptf) "upd_apar_def_link" ptf
+	/}}<span class='upd_apar_def_span'></span></span>
     </td>
     <td class='upd_apar_def-abstract'>
       {{:abstract}}
@@ -34,10 +30,8 @@
       {{:lpp}}
     </td>
     <td class='upd_apar_def-vrmf upd_apar_def_dual_button'>
-      <span class='foo'>
-	{{link_to ~swinfo_path(lpp + ' ' + vrmf) "upd_apar_def_link" vrmf/}}
-	<span class='upd_apar_def_span'></span>
-      </span>
+      <span class='foo'>{{link_to ~swinfo_path(lpp + ' ' + vrmf) "upd_apar_def_link" vrmf
+	/}}<span class='upd_apar_def_span'></span></span>
     </td>
     <td class='upd_apar_def-version upd_apar_def_dual_button'>
       {{:version}}
