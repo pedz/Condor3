@@ -1,2 +1,10 @@
-<% @title = "swinfo for #{@param}" %>
+<% @title = "swinfo for #{@item}" %>
+<% if @errors %>
+  <ul id='errors'>
+    Errors:
+    <% @errors.each do |msg| %>
+      <li><%= msg %>
+    <% end %>
+  </ul>
+<% end %>
 <%= render "upd_apar_defs/table" %>
