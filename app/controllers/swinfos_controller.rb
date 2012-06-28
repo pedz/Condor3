@@ -54,7 +54,8 @@ class SwinfosController < ApplicationController
     respond_to do |format|
       format.html { render :action => "show" }
       format.json {
-        render :json => @items.to_json(:only => ATTR_LIST, :methods => METH_LIST)
+        # render :json => @items.to_json(:only => ATTR_LIST, :methods => METH_LIST)
+        render :json => @items.to_json
       }
       format.xml  {
         render :xml => @items.to_xml(:only => ATTR_LIST, :methods => METH_LIST)
@@ -93,8 +94,8 @@ class SwinfosController < ApplicationController
       else                        # Just a fileset name
         @items = UpdAparDef.find_all_by_lpp(@item, @params)
       end
+      rc = Condor3::Application.config.my_dalli.write(dalli_params, @items)
     end
-    rc = Condor3::Application.config.my_dalli.write(dalli_params, @items)
   end
 
   def push_error(msg)

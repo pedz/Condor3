@@ -35,7 +35,44 @@ $(document).ready(function () {
 	return false;
     };
 
+    var currentLocation = window.location.href;
+    var bumpPage = function () {
+	var slash = currentLocation.lastIndexOf("/") + 1;
+	currentLocation =
+	    currentLocation.substring(0, slash).concat(parseInt(currentLocation.substring(slash)) + 1);
+    };
+
+    var myScrollFunction = function (event) {
+	var wh = $(window).height();
+	var ds = $(document).scrollTop();
+	var tr = $('table.upd_apar_defs tbody tr');
+	tr = $(tr[tr.length - 1]);
+	var h = tr.height();
+	var o = tr.offset();
+	var top = o.top;
+
+	if ((ds + wh) > (top - (100 * h))) {
+	    console.log('trigger');
+	    $(window).off('scroll', myScrollFunction);
+	    bumpPage();
+	    $.when( $.get(currentLocation + ".json", null, null, 'json') )
+		.done(function (data, status, jqXHR) {
+		    console.log(data.length);
+		    /* reached the end of the data */
+		    if (data.length == 0)
+			return;
+		    
+		    var offset = $('.upd_apar_defs tbody tr').length;
+		    $('.upd_apar_defs tbody').append($.render.template1({items: data, offset: offset}));
+		    /* Hook back up for next page */
+		    $(window).on('scroll', myScrollFunction);
+		})
+		.fail(function (a, b, c) { alert('Someone is really unhpapy 2'); });
+	}
+    };
+
     $('.upd_apar_defs').on('click', '.upd_apar_def_span', upd_apar_defs_click);
+    $(window).on('scroll', myScrollFunction);
 
     $.when( $.get('/assets/t1.html', null, null, 'html') ).done(function (data, status, jqXHR) {
 	// data is a string.  $(data) turns into an array of HTML
@@ -49,7 +86,7 @@ $(document).ready(function () {
 	    $.templates(this.id, $(this).html());
 	    return this;
 	});
-	$('.upd_apar_defs tbody').html($.render.template1(json_elements.items));
+	$('.upd_apar_defs tbody').html($.render.template1({items: json_elements.items, offset: 0}));
 	/*
 	 * Fix all the down arrows to be positioned just right
 	 */

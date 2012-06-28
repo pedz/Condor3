@@ -1,18 +1,51 @@
 /*
  * I wanted the CSS reset before this so application.css is just a digest
  */
+
+/*
+ * List of darker/lighter shades of lightblue from
+ * http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=ADD8E6
+ */
+$darker9:  #000000;
+$darker8:  #111617;
+$darker7:  #232B2E;
+$darker6:  #344145;
+$darker5:  #45565C;
+$darker4:  #566C73;
+$darker3:  #68828A;
+$darker2:  #7997A1;
+$darker1:  #8AADB8;
+$darker0:  #9CC2CF;
+$base:     #ADD8E6;			/* lightblue */
+$lighter0: #B5DCE8;
+$lighter1: #BDE0EB;
+$lighter2: #C6E4EE;
+$lighter3: #CEE8F0;
+$lighter4: #D6ECF2;
+$lighter5: #DEEFF5;
+$lighter6: #E6F3F8;
+$lighter7: #EFF7FA;
+$lighter8: #F7FBFC;
+$lighter9: #FFFFFF;
+
+$background: $base;
+$error: red;
+
 body {
-    font-size: 14px;
-    background-color: lightblue;
-    margin: 0px;
+    font-size: 14px / 1.2;
+    background-color: $background;
 
     h2.title {
 	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
 
 	span {
-	    background-color: #8AADB8;
+	    font-size: 120%;
+	    background-color: $darker2;
+	    border: 2px outset $darker3;
+	    display: inline-block;
 	    font-weight: bold;
-	    border: 2px outset #68828A;
 	    padding: 6px;
 	}
     }

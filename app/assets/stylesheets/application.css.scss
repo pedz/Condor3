@@ -8,7 +8,13 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= html5-doctor-reset/html5-doctor-reset-stylesheet
- *= condor
- *= require_directory .
+ * We need to use @import of SASS to get all of its features.  I'm
+ * still going to include the CSS reset as a separate file because it
+ * is large and ugly.
+ *
+ *=require html5-doctor-reset/html5-doctor-reset-stylesheet
  */
+
+@import "condor";
+@import "swinfos";
+@import "upd_apar_defs";
