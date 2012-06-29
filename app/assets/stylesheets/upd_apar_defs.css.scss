@@ -15,19 +15,17 @@ menu {
     left: 0px;
 }
 
+.xyz:hover {
+    background-color: $darker0;
+    cursor: pointer;
+}
+
 .sort {
     display: inline-block;
     width: 14px;
     height: 16px;
     background-image: url(/assets/jquery-ui-1.8.21.custom/css/smoothness/images/ui-icons_222222_256x240.png);
-
-    &:hover {
-	background-color: $darker0;
-	cursor: pointer;
-	opacity: 1.0;
-    }
 }
-
 
 .sortable {
     background-position: -128px -48px;

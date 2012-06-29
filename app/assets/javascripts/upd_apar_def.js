@@ -1,3 +1,6 @@
+
+
+
 $(document).ready(function () {
     /* Called from an event */
     var upd_apar_defs_click = function (event) {
@@ -14,32 +17,53 @@ $(document).ready(function () {
 	}).on('click', 'li', function () {
 	    console.log(this);
 	});
-	
-
-	// ui.show();
-	// ui.css({
-	//     bottom: -ui.outerHeight(),
-	//     left: link.width() - ui.width()
-	// });
-
-	// var ui = $($(this).find('.upd_apar_def_commands'));
-	// console.log(ui);
-	// ui.menu();
-	// ui.show();
-	// var tbl = ui.parents('.upd_apar_defs');
-	// ui.pedzConextMenu({
-	//     top: event.pageY,
-	//     left: event.pageX,
-	//     container: tbl
-	// });
 	return false;
     };
 
     var currentLocation = window.location.href;
-    var bumpPage = function () {
-	var slash = currentLocation.lastIndexOf("/") + 1;
-	currentLocation =
-	    currentLocation.substring(0, slash).concat(parseInt(currentLocation.substring(slash)) + 1);
+    var currentLocationArray = currentLocation.split('/');
+    var pageIndex = currentLocationArray.length - 1;
+    var sortIndex = pageIndex - 1;
+    var lastPage = parseInt(currentLocationArray[pageIndex]);
+
+    /*
+     * Decorate header with the up and down arrows to indicate how the
+     * table is sorted
+     */
+    var sortOrder = currentLocationArray[sortIndex].replace(/%20/g, ' ').split(/, */)
+	    .map(function (column, index) {
+		var prefix;
+		var dir;
+		var klass;
+	
+		if (column[0] == "-") {
+		    prefix = "-";
+		    dir = "sort-down";
+		    column = column.slice(1);
+		} else {
+		    prefix = "";
+		    dir = "sort-up";
+		}
+		klass = 'upd_apar_def-' + column;
+		$('th.' + klass + ' .sort')
+		    .removeClass('sortable')
+		    .addClass(dir)
+		    .addClass('sort-pos-' + (index + 1));
+		return {
+		    prefix: prefix,
+		    column: column
+		};
+	    });
+
+    /*
+     * Return the URL for next page that we need to fetch
+     */
+    var xjxjxjxj = function () {
+	var tmp;
+	lastPage += 1;
+	tmp =  currentLocationArray.slice(0, pageIndex);
+	tmp.push(lastPage);
+	return tmp.join('/') + '.json';
     };
 
     var myScrollFunction = function (event) {
@@ -54,8 +78,7 @@ $(document).ready(function () {
 	if ((ds + wh) > (top - (100 * h))) {
 	    console.log('trigger');
 	    $(window).off('scroll', myScrollFunction);
-	    bumpPage();
-	    $.when( $.get(currentLocation + ".json", null, null, 'json') )
+	    $.when( $.get(xjxjxjxj(), null, null, 'json') )
 		.done(function (data, status, jqXHR) {
 		    console.log(data.length);
 		    /* reached the end of the data */
@@ -71,7 +94,36 @@ $(document).ready(function () {
 	}
     };
 
-    $('.upd_apar_defs').on('click', '.upd_apar_def_span', upd_apar_defs_click);
+    var alterSort = function(event) {
+	var th = $(this).parent();
+	var klass = th.attr('class');
+	var column = klass.split('-')[1];
+	var urlArray;
+
+	if (column == sortOrder[0].column) {
+	    if (sortOrder[0].prefix == "-")
+		sortOrder[0].prefix = "";
+	    else
+		sortOrder[0].prefix = "-";
+	} else if (column == sortOrder[1].column) {
+	    sortOrder = [ sortOrder[1], sortOrder[0], sortOrder[2] ];
+	} else if (column == sortOrder[2].column) {
+	    sortOrder = [ sortOrder[2], sortOrder[0], sortOrder[1] ];
+	} else {
+	    sortOrder = [ { prefix: "", column: column }, sortOrder[0], sortOrder[1] ];
+	}
+	urlArray = currentLocationArray.slice(0, sortIndex);
+	urlArray.push(
+	    sortOrder.map(function(columnSpec) {
+		return columnSpec.prefix + columnSpec.column;
+	    }).join(', '));
+	urlArray.push(1);
+	window.location = urlArray.join('/');
+    };
+
+    $('.upd_apar_defs')
+	.on('click', '.upd_apar_def_span', upd_apar_defs_click)
+	.on('click', '.xyz', alterSort);
     $(window).on('scroll', myScrollFunction);
 
     $.when( $.get('/assets/t1.html', null, null, 'html') ).done(function (data, status, jqXHR) {

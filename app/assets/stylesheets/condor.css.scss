@@ -32,7 +32,8 @@ $background: $base;
 $error: red;
 
 body {
-    font-size: 14px / 1.2;
+    font-size: 14px;
+    line-height: 1.2;
     background-color: $background;
 
     h2.title {
