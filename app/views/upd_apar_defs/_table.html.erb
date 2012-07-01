@@ -1,32 +1,14 @@
 <table class='upd_apar_defs'>
-  <script type='text/javascript'>
-    /*
-     * Note: We have to figure out the paths here in the view.  They
-     * are not available from the assets.
-     */
-     $.views.helpers({
-	 swinfo_path: function(val) {
-	     return '<%= swinfo_path("TARGET") %>'.replace("TARGET", val);
-	 }
-     });
-
-     $.views.tags({
-	 link_to: function (link, klass, text) {
-	     return $.render.template2({link: link, klass: klass, text: text});
-	 }
-     });
-  </script>
   <thead>
     <tr>
       <th>#</th>
-      <th class='upd_apar_def-defect'><span class='xyz'>Defect<span class='sort sortable'></span></span></th>
-      <th class='upd_apar_def-apar'><span class='xyz'>Apar<span class='sort sortable'></span></span></th>
-      <th class='upd_apar_def-ptf'><span class='xyz'>PTF<span class='sort sortable'></span></span></th>
-      <th class='upd_apar_def-abstract'><span class='xyz'>Abstract<span class='sort sortable'></span></span></th>
-      <th class='upd_apar_def-lpp'><span class='xyz'>LPP<span class='sort sortable'></span></span></th>
-      <th class='upd_apar_def-vrmf'><span class='xyz'>VRMF<span class='sort sortable'></span></span></th>
-      <th class='upd_apar_def-version'><span class='xyz'>Version<span class='sort sortable'></span></span></th>
-      <th class='upd_apar_def-service_pack'><span class='xyz'>Service Pack<span class='sort sortable'></span></span></th>
+      <% [ "Defect", "Apar", "PTF", "Abstract", "LPP", "VRMF", "Version", "Service Pack" ].each do |w| %>
+	<th class='upd_apar_def-<%= w.gsub(' ', '_').downcase %>'>
+	  <span class='upd_apar_defs_header_span'><%= w %>
+	    <span class='sort sortable'></span>
+	  </span>
+	</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>

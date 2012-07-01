@@ -1,5 +1,9 @@
 
-
+$.views.tags({
+    link_to: function (link, klass, text) {
+	return $.render.template2({link: link, klass: klass, text: text});
+    }
+});
 
 $(document).ready(function () {
     /* Called from an event */
@@ -122,8 +126,8 @@ $(document).ready(function () {
     };
 
     $('.upd_apar_defs')
-	.on('click', '.upd_apar_def_span', upd_apar_defs_click)
-	.on('click', '.xyz', alterSort);
+	.on('click', '.upd_apar_def_inner_td_span', upd_apar_defs_click)
+	.on('click', '.upd_apar_defs_header_span', alterSort);
     $(window).on('scroll', myScrollFunction);
 
     $.when( $.get('/assets/t1.html', null, null, 'html') ).done(function (data, status, jqXHR) {
@@ -139,14 +143,6 @@ $(document).ready(function () {
 	    return this;
 	});
 	$('.upd_apar_defs tbody').html($.render.template1({items: json_elements.items, offset: 0}));
-	/*
-	 * Fix all the down arrows to be positioned just right
-	 */
-	// $('.upd_apar_def_span').each(function () {
-	//     var span = $(this);
-	//     var link = span.prev();
-	//     span.css('left', link.width() - 3);
-	// });
     }).fail(function (a, b, c) {
 	alert('Someone is really unhappy');
     });
