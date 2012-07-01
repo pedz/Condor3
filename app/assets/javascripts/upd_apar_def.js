@@ -13,14 +13,20 @@ $(document).ready(function () {
 	var ui = td.find('.upd_apar_def_commands');
 	var link = td.find('.upd_apar_def_link');
 
+	var pickLi = function (event) {
+	    console.log($(this).html());
+	    ui.contextMenu('close');
+	};
+
 	arrow_span.hide();
-	ui.pedzConextMenu({
-	    close_hook: function () { arrow_span.show(); },
+	var frog = ui.contextMenu({
+	    close: function () {
+		arrow_span.show();
+		ui.off('click', 'li', pickLi);
+	    },
 	    bottom: -ui.outerHeight(),
 	    left: link.width() - ui.width()
-	}).on('click', 'li', function () {
-	    console.log(this);
-	});
+	}).on('click', 'li', pickLi);
 	return false;
     };
 
@@ -80,11 +86,9 @@ $(document).ready(function () {
 	var top = o.top;
 
 	if ((ds + wh) > (top - (100 * h))) {
-	    console.log('trigger');
 	    $(window).off('scroll', myScrollFunction);
 	    $.when( $.get(xjxjxjxj(), null, null, 'json') )
 		.done(function (data, status, jqXHR) {
-		    console.log(data.length);
 		    /* reached the end of the data */
 		    if (data.length == 0)
 			return;
