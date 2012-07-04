@@ -33,7 +33,13 @@ class SwinfosController < ApplicationController
   # separated by commands.  :page can be either a number or the string
   # 'all'.
   def show
-    logger.debug("Accepts = #{request.accepts.inspect}")
+    # logger.debug("Accepts = #{request.accepts.inspect}")
+    # ENV.keys.each do |key|
+    #   logger.debug"ENV['#{key}'] = '#{ENV[key]}'"
+    # end
+    # env.keys.each do |key|
+    #   logger.debug"env['#{key}'] = '#{env[key]}'"
+    # end
 
     # check the sort order
     @params = order(params[:sort])
