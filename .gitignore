@@ -4,4 +4,6 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/*.err
+/log/*.out
 /tmp

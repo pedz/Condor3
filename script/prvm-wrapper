@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+function delete-path-elements
+{
+    delete-path "$1[^:]*"
+}
+
+function delete-path
+{
+    PATH="$( echo "${PATH}" | \
+	     sed -e "s%^${1%/}:%%" -e "s%:${1%/}:%:%g" -e "s%:${1%/}\$%%" )"
+}
+
+function append-path
+{
+    delete-path "${1%/}"
+    PATH="${PATH}:${1%/}"
+}
+
+function prepend-path
+{
+    local flag
+    if [[ "${PATH%%:*}" == "." ]] ; then
+	flag=t
+	PATH="${PATH#*:}"
+    fi
+    delete-path "${1%/}"
+    PATH="${1%/}:${PATH}"
+    if [[ "$flag" ]] ; then
+	PATH=".:$PATH"
+    fi
+}
+
+. .prvmrc
+cmd=$1
+shift
+exec $cmd "$@"

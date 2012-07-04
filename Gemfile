@@ -23,6 +23,7 @@ end
 gem 'jquery-rails'
 gem 'activerecord_constraints'
 gem 'rails-footnotes', '>= 3.7.5.rc4', :group => :development
+gem 'thin', :group => :development
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
