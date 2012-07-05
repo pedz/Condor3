@@ -1,3 +1,16 @@
+/*
+ * Since this file is included via SASS' @import, it can not have erb
+ * constructs.  There is probably a solution to that but since I don't
+ * need erb constructs yet, I'm going to tackle that problem today.
+ *
+ * For example, it would be nice to do:
+
+$png_file: <%= asset_path "jquery-ui-1.8.21.custom/css/smoothness/images/ui-icons_222222_256x240.png" %>;
+
+ */
+$png_file: "jquery-ui-1.8.21.custom/css/smoothness/images/ui-icons_222222_256x240.png";
+
+
 menu {
     margin: 1em 0px 0px 0px;
     padding: 0px;
@@ -24,7 +37,7 @@ menu {
     display: inline-block;
     width: 14px;
     height: 16px;
-    background-image: url(/assets/jquery-ui-1.8.21.custom/css/smoothness/images/ui-icons_222222_256x240.png);
+    background-image: url($png_file);
 }
 
 .sortable {
@@ -65,7 +78,7 @@ menu {
     width: 9px;
     height: 9px;
     cursor: context-menu;
-    background-image: url(/assets/jquery-ui-1.8.21.custom/css/smoothness/images/ui-icons_222222_256x240.png);
+    background-image: url($png_file);
     background-position: -68px -20px;
     background-origin: border-box;
     display: inline-block;
