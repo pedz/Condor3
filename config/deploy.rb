@@ -1,3 +1,5 @@
+require "bundler/capistrano"
+
 set :application, "condor3"
 set :repository,  "ssh://condor@condor.austin.ibm.com/~/app-base/condor3.git"
 set :deploy_to, "~/app-base"
