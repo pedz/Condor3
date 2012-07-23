@@ -7,16 +7,18 @@ development:
   encoding: unicode
   database: condor3_development
   pool: 5
+  username: pedzan
 
 test:
   adapter: postgresql
   encoding: unicode
   database: condor3_test
   pool: 5
+  username: pedzan
 
 production:
   adapter: postgresql
   encoding: unicode
   database: condor3_production
   pool: 5
-  username: condor
+  username: pedzan
