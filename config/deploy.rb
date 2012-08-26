@@ -1,4 +1,7 @@
 require "bundler/capistrano"
+load 'deploy/assets'
+
+set :default_shell, "bash -l"
 
 set :application, "condor3"
 set :repository,  "ssh://condor@condor.austin.ibm.com/~/app-base/condor3.git"
