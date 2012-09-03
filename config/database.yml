@@ -21,4 +21,4 @@ production:
   encoding: unicode
   database: condor3_production
   pool: 5
-  username: pedzan
+  username: condor
