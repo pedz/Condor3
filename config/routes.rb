@@ -11,5 +11,5 @@ Condor3::Application.routes.draw do
     }
   end
   
-  # root :to => 'welcome#index'
+  root :to => 'welcome#index'
 end

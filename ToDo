@@ -1,0 +1,12 @@
+Move database to a striped array
+create front page
+Needed Controllers:
+  apar_drafts SW A SW D
+  changes FP 5 SW D
+  defects FP 4 SW D
+  diffs CH 1
+  file_changes FP 6
+  sha1_lookup FP 3
+  src_files CH 2
+  swinfos FP 1
+  which_filesets FP 2
