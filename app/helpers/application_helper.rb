@@ -5,7 +5,7 @@ module ApplicationHelper
           swinfo_path: function(val) {
               return '#{swinfo_full_path('TARGET', SwinfosController::DEFAULT_SORT_ORDER, 1)}'.replace('TARGET', val);
           }
-      });"
+      });".html_safe
     end
   end
 end
