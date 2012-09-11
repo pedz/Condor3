@@ -1,5 +1,10 @@
 class WelcomeController < ApplicationController
   def index
-    logger.debug "Here!!!"
+  end
+
+  def help_text
+    @help_text = <<-EOF
+      Some useful help text.
+    EOF
   end
 end

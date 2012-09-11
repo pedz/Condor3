@@ -32,14 +32,39 @@ $background: $base;
 $error: red;
 
 body {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.2;
     background-color: $background;
 
+    $title-margin: .9em;
+    h3.help {
+	float: right;
+	margin-top: .0em;
+	margin-right: $title-margin;
+
+	span.help-button {
+	    cursor: help;
+	    font-size: 100%;
+	    background-color: $darker2;
+	    border: 2px outset $darker3;
+	    border-radius: 20em;
+	    display: inline-block;
+	    font-weight: bold;
+	    padding: 0.4em 0.8em;
+	}
+
+	div.help-text {
+	    position: absolute;
+	    top: 0px;
+	    right: 0px;
+	    z-index: 1;
+	}
+    }
+
     h2.title {
 	text-align: center;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-top: $title-margin;
+	margin-bottom: $title-margin;
 
 	span {
 	    font-size: 120%;
@@ -47,7 +72,7 @@ body {
 	    border: 2px outset $darker3;
 	    display: inline-block;
 	    font-weight: bold;
-	    padding: 6px;
+	    padding: .5em;
 	}
     }
 }

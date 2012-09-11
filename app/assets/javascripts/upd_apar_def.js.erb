@@ -6,6 +6,16 @@ $.views.tags({
 });
 
 $(document).ready(function () {
+    var tbody = $('.upd_apar_defs tbody');
+
+    /*
+     * The code in here is used only for the class='upd_apar_defs'
+     * table.  If the page does not have that table, then we just want to
+     * exit.  Otherwise, we get various javascript errors.
+     */
+    if (tbody.length === 0 || typeof json_elements === "undefined")
+	return;
+
     /* Called from an event */
     var upd_apar_defs_click = function (event) {
 	var arrow_span = $(this);
@@ -134,7 +144,7 @@ $(document).ready(function () {
 	.on('click', '.upd_apar_defs_header_span', alterSort);
     $(window).on('scroll', myScrollFunction);
 
-    $.when( $.get('<%= asset_path('t1.html') %>', null, null, 'html') ).done(function (data, status, jqXHR) {
+    $.when( $.get("<%= asset_path('t1.html') %>", null, null, 'html') ).done(function (data, status, jqXHR) {
 	// data is a string.  $(data) turns into an array of HTML
 	// elements.  Often it is just one but if we get them ganged
 	// into one file, they will be more than one.
@@ -146,7 +156,7 @@ $(document).ready(function () {
 	    $.templates(this.id, $(this).html());
 	    return this;
 	});
-	$('.upd_apar_defs tbody').html($.render.template1({items: json_elements.items, offset: 0}));
+	tbody.html($.render.template1({items: json_elements.items, offset: 0}));
     }).fail(function (a, b, c) {
 	alert('Someone is really unhappy');
     });

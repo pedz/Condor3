@@ -1,1 +1,14 @@
-hi
+<%# -*- coding: utf-8 -*-
+    Copyright 2012 Ease Software, Inc.
+    All Rights Reserved
+-%>
+<!-- <%= __FILE__[Rails.root.to_s.length+1 .. -1] %> -->
+<% @title = "Welcome to Condor 3" %>
+<p id='swinfo_paragraph'>
+  Some info text...
+  <%= form_tag swinfo_post_path do %>
+    hello...
+    <%= text_field_tag "item" %>
+    <%= submit_tag nil, :class => "banana" %>
+  <% end %>
+</p>

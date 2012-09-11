@@ -33,6 +33,11 @@ class SwinfosController < ApplicationController
   # separated by commands.  :page can be either a number or the string
   # 'all'.
   def show
+    unless params[:sort]
+      redirect_to swinfo_full_path(params[:item], DEFAULT_SORT_ORDER, 1)
+      return
+    end
+
     # logger.debug("Accepts = #{request.accepts.inspect}")
     # ENV.keys.each do |key|
     #   logger.debug"ENV['#{key}'] = '#{ENV[key]}'"
