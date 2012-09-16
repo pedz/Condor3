@@ -37,28 +37,36 @@ body {
     background-color: $background;
 
     $title-margin: .9em;
-    h3.help {
+
+    div.home {
+	float: left;
+	margin-top: .0em;
+	margin-left: $title-margin;
+
+	a.home-button {
+	    cursor: pointer;
+	    font-size: 80%;
+	    border-color: $darker2;
+	}
+    }
+
+    div.help {
 	float: right;
 	margin-top: .0em;
 	margin-right: $title-margin;
 
-	span.help-button {
+	button.help-button {
 	    cursor: help;
-	    font-size: 100%;
-	    background-color: $darker2;
-	    border: 2px outset $darker3;
-	    border-radius: 20em;
-	    display: inline-block;
-	    font-weight: bold;
-	    padding: 0.4em 0.8em;
+	    font-size: 80%;
+	    border-color: $darker2;
+	/*     background-color: $darker2; */
+	/*     border: 2px outset $darker3; */
+	/*     border-radius: 20em; */
+	/*     display: inline-block; */
+	/*     font-weight: bold; */
+	/*     padding: 0.4em 0.8em; */
 	}
 
-	div.help-text {
-	    position: absolute;
-	    top: 0px;
-	    right: 0px;
-	    z-index: 1;
-	}
     }
 
     h2.title {

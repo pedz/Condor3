@@ -1,0 +1,53 @@
+<div class='help-text' style='display: none;' title='Getting Started with Condor 3'>
+  <p>
+    The front page of Condor 3 has a number of input boxes with a submit button beside each one.
+    <dl>
+      <dt>swinfo</dt>
+      <dd>
+	Retrieves a table of hits that contain the item entered.  The
+	item is assumed to be one of the following.  The match is case
+	insensitive and is done in the order listed:
+	<dl>
+	  <dt>apar</dt>
+	  <dd>
+	    Example: IV12345  Pattern: I[VXYZ][0-9]{5}
+	  </dd>
+
+	  <dt>cq defect</dt>
+	  <dd>
+	    Two letters followed by six digits.
+	    Example: AX058805 Pattern: [A-Z]{2}[0-9]{6}
+	  </dd>
+
+	  <dt>defect</dt>
+	  <dd>A sequence of digits.  Example: 123456  Pattern: [0-9]+</dd>
+
+	  <dt>service pack</dt>
+	  <dd>
+	    Example: 6100-07-04 for AIX service packs or VIOS 2.2.1.1 for
+	    VIOS updates.  Patterns: [0-9]{4}-[0-9]{2}-[0-9]{2} or VIOS .*
+	  </dd>
+
+	  <dt>ptf</dt>
+	  <dd>
+	    Example: U123456 Pattern: U[0-9]{6}
+	  </dd>
+
+	  <dt>fileset with vrmf</dt>
+	  <dd>Example: bos.mp64 6.1.6.2 Pattern: A sequence containing
+	  no spaces or colons, followed by a sequence of spaces or
+	  colons (the separator), followed by another sequence
+	  containing no spaces or colons.  The VRMF may be incomplete
+	  such as bos.mp64:6.1.6 will get all the vrmf's matching a
+	  vrmf of 6.1.6.*
+	  </dd>
+
+	  <dt>fileset</dt>
+	  <dd>
+	    if no pattern above matches, the item is assumed to be a fileset name.
+	  </dd>
+	</dl>
+      </dd>
+    </dl>
+  </p>
+</div>

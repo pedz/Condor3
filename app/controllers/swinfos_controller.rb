@@ -92,13 +92,13 @@ class SwinfosController < ApplicationController
       when /^[0-9]+$/         # Defect
         @items = UpdAparDef.find_all_by_defect(@item, @params)
         
-      when /^[0-9]{4}-[0-9]{2}-[0-9]{2}/, /^VIOS .*/
+      when /^[0-9]{4}-[0-9]{2}-[0-9]{2}/, /^VIOS .*/ # service pack
         @items = UpdAparDef.find_all_by_service_pack(item_upcase, @params)
         
       when /^U[0-9][0-9][0-9][0-9][0-9][0-9]$/ # PTF
         @items = UpdAparDef.find_all_by_ptf(item_upcase, @params)
       
-      when /^([^ ]+)[ :]+([^ ]+)$/ # Fileset name with vrmf
+      when /^([^ :]+)[ :]+([^ :]+)$/ # Fileset name with vrmf
         lpp, vrmf = @item.split(/[ :]+/)
         @items = UpdAparDef.find_all_by_lpp(lpp, @params.merge(:conditions => [ 'vrmf LIKE ?', "#{vrmf}%"]))
 

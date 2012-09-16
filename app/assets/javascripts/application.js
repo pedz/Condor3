@@ -12,9 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery.ui.all
 //= require jsviews/jsrender
 //= require jsviews/jquery.observable
 //= require jsviews/jquery.views
 //= require jQuery.ui.pedzContextMenu
 //= require upd_apar_def
+//= require help_button
+//= require welcome
+
+$(document).ready(function () {
+    $('.home-button').button();
+});

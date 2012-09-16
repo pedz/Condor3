@@ -9,18 +9,19 @@
  *    </div>
  *  </h3>
  *
- * 
+ * Note: I thought this would be more complex than it is
+ * currently. But I reverted back to using jquery-ui widets instead of
+ * rolling my own and so this got a ton simpler.
  */
 
 $(document).ready(function () {
-    var helps = $('.help');
-
-    /* No helps on this page */
-    if (help_button.length === 0)
-	return;
-    
-    /*
-     * Hook up the click on all the help-button's within the help's
-     */
-    $('.help-button', help_button).on('click');
+    $('.help-button').button().click(function () {
+	$('.help-text').dialog({
+	    modal: true,
+	    width: ($(window).innerWidth() / 2),
+	    height: ($(window).innerHeight() / 2),
+	    resizable: true,
+	    draggable: true
+	});
+    });
 });

@@ -13,8 +13,11 @@
  * is large and ugly.
  *
  *=require html5-doctor-reset/html5-doctor-reset-stylesheet
+ *=require jquery.ui.base
  */
 
+@import "jquery-ui/themes/cupertino/jquery.ui.theme";
 @import "condor";
 @import "swinfos";
 @import "upd_apar_defs";
+@import "welcome";

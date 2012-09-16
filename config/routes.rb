@@ -6,5 +6,5 @@ Condor3::Application.routes.draw do
       post '/' => 'swinfos#show', :as => "swinfo_post"
     end
   end
-  root :to => 'welcome#index'
+  root :to => 'welcome#index', :as => 'welcome'
 end

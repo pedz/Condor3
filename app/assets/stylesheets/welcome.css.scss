@@ -1,3 +1,49 @@
-// Place all the styles related to the welcome controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body.welcome {
+    /*
+     * The jquery-ui dialog processing pulls out this div so it is not
+     * nested under the div.help when it is being displayed.
+     */
+    .help-text {
+	ol {
+	    list-style: decimal outside none;
+	    padding-left: 1em;
+	}
+	ul {
+	    list-style: disc outside none;
+	    padding-left: 1em;
+	}
+
+	$dd-padding: .4ex;
+
+	dt {
+	    font-size: 110%;
+	    padding-top: $dd-padding;
+	    font-variant: small-caps;
+	    font-weight: bold;
+	    padding-right: .5em;
+	}
+
+	dd {
+	    padding-bottom: $dd-padding;
+	    margin-left: 1em;
+	}
+
+	.help-term {
+	    font-style: oblique;
+	    font-variant: small-caps;
+	}
+    }
+
+    div.forms {
+	text-align: center;
+
+	span.form-description {
+	    font-variant: small-caps;
+	}
+
+	input[type=submit] {
+	    font-size: 80%;
+	}
+    }
+}

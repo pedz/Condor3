@@ -15,12 +15,15 @@
     <%= add_paths %>
   </head>
   <body class='<%= controller.controller_name %>'>
-    <h3 class='help'>
-      <span class='help-button'>Help ...</span>
-      <div class='help-text' style='display: none;'>
-	<%= @help_text %>
-      </div>
-    </h3>
+    <div class='home'>
+      <%= link_to(welcome_path, :class => 'home-button') do %>
+	Home
+      <% end %>
+    </div>
+    <div class='help'>
+      <button class='help-button'>Help ...</button>
+      <%= render 'help_text' %>
+    </div>
     <h2 class='title'>
       <span>
 	<%= @title %>

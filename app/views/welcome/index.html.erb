@@ -4,11 +4,12 @@
 -%>
 <!-- <%= __FILE__[Rails.root.to_s.length+1 .. -1] %> -->
 <% @title = "Welcome to Condor 3" %>
-<p id='swinfo_paragraph'>
-  Some info text...
-  <%= form_tag swinfo_post_path do %>
-    hello...
-    <%= text_field_tag "item" %>
-    <%= submit_tag nil, :class => "banana" %>
-  <% end %>
-</p>
+<div class='forms'>
+  <p id='swinfo_paragraph'>
+    <%= form_tag swinfo_post_path do %>
+      <span class='form-description'>swinfo</span>
+      <%= text_field_tag "item" %>
+      <%= submit_tag "Submit" %>
+    <% end %>
+  </p>
+</div>
