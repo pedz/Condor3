@@ -8,5 +8,11 @@ Condor3::Application.routes.draw do
       post '/' => 'swinfos#show', :as => "swinfo_post"
     end
   end
+
+  scope 'which_filesets' do
+    get '*path' => 'which_filesets#show', :as => 'which_filests'
+    post '/' => 'which_filests#show', :as => 'which_filesets_post'
+  end
+
   root :to => 'welcome#index', :as => 'welcome'
 end

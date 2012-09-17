@@ -35,15 +35,29 @@ body.welcome {
 	}
     }
 
-    div.forms {
-	text-align: center;
+    $cell-margin: .5em;
 
-	span.form-description {
-	    font-variant: small-caps;
-	}
+    .forms {
+	margin-right: auto;
+	margin-left: auto;
+	display: table;
+	border-spacing: $cell-margin .2em;
 
-	input[type=submit] {
-	    font-size: 80%;
+	form {
+	    display: table-row;
+
+	    label.form-description {
+		display: table-cell;
+		font-variant: small-caps;
+	    }
+
+	    input[type=submit] {
+		margin-left: $cell-margin;
+	    }
+
+	    input {
+		display: table-cell;
+	    }
 	}
     }
 }

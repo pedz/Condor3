@@ -31,6 +31,11 @@ $lighter9: #FFFFFF;
 $background: $base;
 $error: red;
 
+.ui-button {
+    font-size: 80%;
+    border-color: $darker2;
+}
+
 body {
     font-size: 16px;
     line-height: 1.2;
@@ -45,8 +50,6 @@ body {
 
 	a.home-button {
 	    cursor: pointer;
-	    font-size: 80%;
-	    border-color: $darker2;
 	}
     }
 
@@ -57,8 +60,6 @@ body {
 
 	button.help-button {
 	    cursor: help;
-	    font-size: 80%;
-	    border-color: $darker2;
 	/*     background-color: $darker2; */
 	/*     border: 2px outset $darker3; */
 	/*     border-radius: 20em; */
