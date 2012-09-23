@@ -10,8 +10,8 @@ Condor3::Application.routes.draw do
   end
 
   scope 'which_filesets' do
-    get '*path' => 'which_filesets#show', :as => 'which_filests'
-    post '/' => 'which_filests#show', :as => 'which_filesets_post'
+    get '*path' => 'which_filesets#show', :as => 'which_filesets'
+    post '/' => 'which_filesets#show', :as => 'which_filesets_post'
   end
 
   root :to => 'welcome#index', :as => 'welcome'
