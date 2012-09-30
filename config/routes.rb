@@ -14,5 +14,10 @@ Condor3::Application.routes.draw do
     post '/' => 'which_filesets#show', :as => 'which_filesets_post'
   end
 
+  scope 'sha1s' do
+    get ':sha1' => 'sha1s#show', :as => 'sha1s'
+    post '/' => 'sha1s#show', :as => 'sha1s_post'
+  end
+
   root :to => 'welcome#index', :as => 'welcome'
 end

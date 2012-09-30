@@ -15,4 +15,9 @@
     <%= text_field_tag "path" %>
     <%= submit_tag "Submit" %>
   <% end %>
+  <%= form_tag sha1s_post_path do %>
+    <%= label_tag('sha1', 'sha1', :class => 'form-description') %>
+    <%= text_field_tag "sha1" %>
+    <%= submit_tag "Submit" %>
+  <% end %>
 </div>

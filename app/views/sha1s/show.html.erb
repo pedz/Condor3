@@ -1,0 +1,35 @@
+<%# -*- coding: utf-8 -*- 
+ Copyright 2012 Ease Software, Inc.
+ All Rights Reserved
+-%>
+<!-- <%= __FILE__[Rails.root.to_s.length+1 .. -1] %> -->
+<%- @title = "SHA1 for #{@sha1}" -%>
+<table class='sha1s'>
+  <thead>
+    <tr>
+      <th>aix file</th>
+      <th>image path</th>
+      <th>lpp</th>
+      <th>package</th>
+      <th>service pack</th>
+      <th>aix file sha1</th>
+      <th>vrmf</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr><td></td></tr>
+  </tfoot>
+  <tbody>
+    <% @shipped_files.each do |shipped_file| %>
+      <tr>
+	<td><%= h shipped_file.aix_file %></td>
+	<td><%= h shipped_file.image_path %></td>
+	<td><%= h shipped_file.lpp %></td>
+	<td><%= h shipped_file.package %></td>
+	<td><%= h shipped_file.service_pack %></td>
+	<td><%= h shipped_file.aix_file_sha1 %></td>
+	<td><%= h shipped_file.vrmf %></td>
+      </tr>
+  <%- end -%>
+  </tbody>
+</table>
