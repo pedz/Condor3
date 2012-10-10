@@ -1,4 +1,6 @@
 Condor3::Application.routes.draw do
+  get "defects/show"
+
   get "which_filesets/show"
 
   scope 'swinfos' do
@@ -17,6 +19,11 @@ Condor3::Application.routes.draw do
   scope 'sha1s' do
     get ':sha1' => 'sha1s#show', :as => 'sha1s'
     post '/' => 'sha1s#show', :as => 'sha1s_post'
+  end
+
+  scope 'defects' do
+    get ':defect' => 'defects#show', :as => 'defects'
+    post '/' => 'defects#show', :as => 'defects_post'
   end
 
   root :to => 'welcome#index', :as => 'welcome'
