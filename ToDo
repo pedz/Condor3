@@ -6,10 +6,7 @@ Needed Controllers:
   defects FP 4 SW D
   diffs CH 1
   file_changes FP 6
-  sha1_lookup FP 3
   src_files CH 2
-  swinfos FP 1
-  which_filesets FP 2
 Set up ActiveLDAP
 Set up Authentication
 Per User Configuration

@@ -28,9 +28,9 @@ $lighter7: #EFF7FA;
 $lighter8: #F7FBFC;
 $lighter9: #FFFFFF;
 
-$background: $base;
-$error: red;
-$title-background: $darker2;
+$background: $primary-lighter;
+$error: $secondary-b-1;
+$title-background: $primary;
 
 .ui-button {
     font-size: 80%;
@@ -144,7 +144,7 @@ body {
 	span {
 	    font-size: 120%;
 	    background-color: $title-background;
-	    border: 2px outset $darker3;
+	    border: 2px outset $primary-dark;
 	    display: inline-block;
 	    font-weight: bold;
 	    padding: .5em;
