@@ -20,4 +20,9 @@
     <%= text_field_tag "sha1" %>
     <%= submit_tag "Submit" %>
   <% end %>
+  <%= form_tag defects_post_path do %>
+    <%= label_tag('defect', 'defect', :class => 'form-description') %>
+    <%= text_field_tag "defect" %>
+    <%= submit_tag "Submit" %>
+  <% end %>
 </div>
