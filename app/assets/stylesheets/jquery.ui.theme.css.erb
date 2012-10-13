@@ -21,9 +21,9 @@ $bgDefaultRepeat: repeat-x;
 $bgDefaultXPos: 50%;
 $bgDefaultYPos: 50%;
 $bgImgUrlDefault: url(<%= image_path("xxjquery-ui/ui-bg_glass_75_ffbb00_1x400.png") %>);
-$borderColorDefault: $secondary-a-darker;
-$borderWidthDefault: 4px;
-$borderStyleDefault: double;
+$borderColorDefault: $secondary-a-dark;
+$borderWidthDefault: 2px;
+$borderStyleDefault: outset;
 $fcDefault: black;
 $ffDefault: Verdana,Arial,sans-serif;
 $fsDefault: 1.0em;
@@ -43,15 +43,15 @@ $fcContent: #222222;
 $iconsContent: url(<%= image_path("jquery-ui/ui-icons_222222_256x240.png") %>);
 
 /* Header */
-$bgColorHeader: $secondary-a-light;
+$bgColorHeader: white;
 $bgHeaderRepeat: repeat-x;
 $bgHeaderXPos: 50%;
 $bgHeaderYPos: 50%;
 $bgImgUrlHeader: url(<%= image_path("xxjquery-ui/ui-bg_highlight-soft_75_cccccc_1x100.png") %>);
-$borderColorHeader: #aaaaaa;
-$borderWidthHeader: 1px;
-$borderStyleHeader: solid;
-$fcHeader: #222222;
+$borderColorHeader: $primary-light;
+$borderWidthHeader: 4px;
+$borderStyleHeader: double;
+$fcHeader: black;
 $iconsHeader: url(<%= image_path("jquery-ui/ui-icons_222222_256x240.png") %>);
 
 /* Hover */
@@ -60,7 +60,7 @@ $bgHoverRepeat: repeat-x;
 $bgHoverXPos: 50%;
 $bgHoverYPos: 50%;
 $bgImgUrlHover: url(<%= image_path("xxjquery-ui/ui-bg_glass_75_dadada_1x400.png") %>);
-$borderColorHover: $secondary-a-dark;
+$borderColorHover: $secondary-a-darker;
 $borderWidthHover: $borderWidthDefault;
 $borderStyleHover: $borderStyleDefault;
 $fcHover: #212121;
@@ -160,6 +160,7 @@ $cornerRadius: 6px;
 
 .ui-widget-header a {
     color: $fcHeader;
+    border: $borderWidthDefault $borderStyleDefault $borderColorDefault;
 }
 
 
