@@ -15,83 +15,115 @@
 
 /* SASS Variables */
 
-$bgActiveRepeat: repeat-x;
-$bgActiveXPos: 50%;
-$bgActiveYPos: 50%;
-$bgColorActive: #ffffff;
-$bgColorContent: #ffffff;
-$bgColorDefault: $secondary-a-1;
-$bgColorError: #fef1ec;
-$bgColorHeader: #cccccc;
-$bgColorHighlight: #fbf9ee;
-$bgColorHover: #dadada;
-$bgColorOverlay: #aaaaaa;
-$bgColorShadow: #aaaaaa;
-$bgContentRepeat: repeat-x;
-$bgContentXPos: 50%;
-$bgContentYPos: 50%;
+/* Default */
+$bgColorDefault: white;
 $bgDefaultRepeat: repeat-x;
 $bgDefaultXPos: 50%;
 $bgDefaultYPos: 50%;
-$bgErrorRepeat: repeat-x;
-$bgErrorXPos: 50%;
-$bgErrorYPos: 50%;
+$bgImgUrlDefault: url(<%= image_path("xxjquery-ui/ui-bg_glass_75_ffbb00_1x400.png") %>);
+$borderColorDefault: $secondary-a-darker;
+$borderWidthDefault: 4px;
+$borderStyleDefault: double;
+$fcDefault: black;
+$ffDefault: Verdana,Arial,sans-serif;
+$fsDefault: 1.0em;
+$fwDefault: normal;
+$iconsDefault: url(<%= image_path("jquery-ui/ui-icons_888888_256x240.png") %>);
+
+/* Content */
+$bgColorContent: #ffffff;
+$bgContentRepeat: repeat-x;
+$bgContentXPos: 50%;
+$bgContentYPos: 50%;
+$bgImgUrlContent: url(<%= image_path("xxjquery-ui/ui-bg_flat_75_ffffff_40x100.png") %>);
+$borderColorContent: #aaaaaa;
+$borderStyleContent: solid;
+$borderWidthContent: 1px;
+$fcContent: #222222;
+$iconsContent: url(<%= image_path("jquery-ui/ui-icons_222222_256x240.png") %>);
+
+/* Header */
+$bgColorHeader: $secondary-a-light;
 $bgHeaderRepeat: repeat-x;
 $bgHeaderXPos: 50%;
 $bgHeaderYPos: 50%;
-$bgHighlightRepeat: repeat-x;
-$bgHighlightXPos: 50%;
-$bgHighlightYPos: 50%;
+$bgImgUrlHeader: url(<%= image_path("xxjquery-ui/ui-bg_highlight-soft_75_cccccc_1x100.png") %>);
+$borderColorHeader: #aaaaaa;
+$borderWidthHeader: 1px;
+$borderStyleHeader: solid;
+$fcHeader: #222222;
+$iconsHeader: url(<%= image_path("jquery-ui/ui-icons_222222_256x240.png") %>);
+
+/* Hover */
+$bgColorHover: $secondary-a-lighter;
 $bgHoverRepeat: repeat-x;
 $bgHoverXPos: 50%;
 $bgHoverYPos: 50%;
-$bgImgUrlActive: url(<%= image_path("jquery-ui/ui-bg_glass_65_ffffff_1x400.png") %>);
-$bgImgUrlContent: url(<%= image_path("jquery-ui/ui-bg_flat_75_ffffff_40x100.png") %>);
-$bgImgUrlDefault: url(<%= image_path("jquery-ui/ui-bg_glass_75_ffbb00_1x400.png") %>);
-$bgImgUrlError: url(<%= image_path("jquery-ui/ui-bg_glass_95_fef1ec_1x400.png") %>);
-$bgImgUrlHeader: url(<%= image_path("jquery-ui/ui-bg_highlight-soft_75_cccccc_1x100.png") %>);
-$bgImgUrlHighlight: url(<%= image_path("jquery-ui/ui-bg_glass_55_fbf9ee_1x400.png") %>);
-$bgImgUrlHover: url(<%= image_path("jquery-ui/ui-bg_glass_75_dadada_1x400.png") %>);
-$bgImgUrlOverlay: url(<%= image_path("jquery-ui/ui-bg_flat_0_aaaaaa_40x100.png") %>);
-$bgImgUrlShadow: url(<%= image_path("jquery-ui/ui-bg_flat_0_aaaaaa_40x100.png") %>);
+$bgImgUrlHover: url(<%= image_path("xxjquery-ui/ui-bg_glass_75_dadada_1x400.png") %>);
+$borderColorHover: $secondary-a-dark;
+$borderWidthHover: $borderWidthDefault;
+$borderStyleHover: $borderStyleDefault;
+$fcHover: #212121;
+$iconsHover: url(<%= image_path("jquery-ui/ui-icons_454545_256x240.png") %>);
+
+/* Active */
+$bgActiveRepeat: repeat-x;
+$bgActiveXPos: 50%;
+$bgActiveYPos: 50%;
+$bgColorActive: $secondary-a-darker;
+$bgImgUrlActive: url(<%= image_path("xxjquery-ui/ui-bg_glass_65_ffffff_1x400.png") %>);
+$borderColorActive: $secondary-a-light;
+$borderWidthActive: $borderWidthDefault;
+$borderStyleActive: $borderStyleDefault;
+$fcActive: #212121;
+$iconsActive: url(<%= image_path("jquery-ui/ui-icons_454545_256x240.png") %>);
+
+/* Highlight */
+$bgColorHighlight: #fbf9ee;
+$bgHighlightRepeat: repeat-x;
+$bgHighlightXPos: 50%;
+$bgHighlightYPos: 50%;
+$bgImgUrlHighlight: url(<%= image_path("xxjquery-ui/ui-bg_glass_55_fbf9ee_1x400.png") %>);
+$borderColorHighlight: #fcefa1;
+$borderWidthHighlight: $borderWidthDefault;
+$borderStyleHighlight: $borderStyleDefault;
+$fcHighlight: #363636;
+$iconsHighlight: url(<%= image_path("jquery-ui/ui-icons_2e83ff_256x240.png") %>);
+
+/* Error */
+$bgColorError: #fef1ec;
+$bgErrorRepeat: repeat-x;
+$bgErrorXPos: 50%;
+$bgErrorYPos: 50%;
+$bgImgUrlError: url(<%= image_path("xxjquery-ui/ui-bg_glass_95_fef1ec_1x400.png") %>);
+$borderColorError: #cd0a0a;
+$borderWidthError: $borderWidthDefault;
+$borderStyleError: $borderStyleDefault;
+$fcError: #cd0a0a;
+$iconsError: url(<%= image_path("jquery-ui/ui-icons_cd0a0a_256x240.png") %>);
+
+/* Overlay */
+$bgColorOverlay: #aaaaaa;
+$bgImgUrlOverlay: url(<%= image_path("xxjquery-ui/ui-bg_flat_0_aaaaaa_40x100.png") %>);
 $bgOverlayRepeat: repeat-x;
 $bgOverlayXPos: 50%;
 $bgOverlayYPos: 50%;
+$opacityOverlay: Alpha(Opacity=30);
+
+/* Shadow */
+$bgColorShadow: #aaaaaa;
+$bgImgUrlShadow: url(<%= image_path("xxjquery-ui/ui-bg_flat_0_aaaaaa_40x100.png") %>);
 $bgShadowRepeat: repeat-x;
 $bgShadowXPos: 50%;
 $bgShadowYPos: 50%;
-$borderColorActive: #aaaaaa;
-$borderColorContent: #aaaaaa;
-$borderColorDefault: #d3d3d3;
-$borderColorError: #cd0a0a;
-$borderColorHeader: #aaaaaa;
-$borderColorHighlight: #fcefa1;
-$borderColorHover: #999999;
-$cornerRadius: 4px;
 $cornerRadiusShadow: 8px;
-$fcActive: #212121;
-$fcContent: #222222;
-$fcDefault: black;
-$fcError: #cd0a0a;
-$fcHeader: #222222;
-$fcHighlight: #363636;
-$fcHover: #212121;
-$ffDefault: Verdana,Arial,sans-serif;
-$fsDefault: 1.1em;
-$fwDefault: normal;
-$iconsActive: url(<%= image_path("jquery-ui/ui-icons_454545_256x240.png") %>);
-$iconsContent: url(<%= image_path("jquery-ui/ui-icons_222222_256x240.png") %>);
-$iconsDefault: url(<%= image_path("jquery-ui/ui-icons_888888_256x240.png") %>);
-$iconsError: url(<%= image_path("jquery-ui/ui-icons_cd0a0a_256x240.png") %>);
-$iconsHeader: url(<%= image_path("jquery-ui/ui-icons_222222_256x240.png") %>);
-$iconsHighlight: url(<%= image_path("jquery-ui/ui-icons_2e83ff_256x240.png") %>);
-$iconsHover: url(<%= image_path("jquery-ui/ui-icons_454545_256x240.png") %>);
 $offsetLeftShadow: -8px;
 $offsetTopShadow: -8px;
-$opacityOverlay: Alpha(Opacity=30);
 $opacityShadow: Alpha(Opacity=30);
 $thicknessShadow: 8px;
 
+/* Corner Radius */
+$cornerRadius: 6px;
 
 /* Component containers
 ----------------------------------*/
@@ -110,7 +142,7 @@ $thicknessShadow: 8px;
 }
 
 .ui-widget-content {
-    border: 1px solid $borderColorContent;
+    border: $borderWidthContent $borderStyleContent $borderColorContent;
     background: $bgColorContent $bgImgUrlContent $bgContentXPos $bgContentYPos $bgContentRepeat;
     color: $fcContent;
 }
@@ -120,7 +152,7 @@ $thicknessShadow: 8px;
 }
 
 .ui-widget-header {
-    border: 1px solid $borderColorHeader;
+    border: $borderWidthHeader $borderStyleHeader $borderColorHeader;
     background: $bgColorHeader $bgImgUrlHeader $bgHeaderXPos $bgHeaderYPos $bgHeaderRepeat;
     color: $fcHeader;
     font-weight: bold;
@@ -134,7 +166,7 @@ $thicknessShadow: 8px;
 /* Interaction states
 ----------------------------------*/
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-    border: 1px solid $borderColorDefault;
+    border: $borderWidthDefault $borderStyleDefault $borderColorDefault;
     background: $bgColorDefault $bgImgUrlDefault $bgDefaultXPos $bgDefaultYPos $bgDefaultRepeat;
     font-weight: $fwDefault;
     color: $fcDefault;
@@ -146,7 +178,7 @@ $thicknessShadow: 8px;
 }
 
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-    border: 1px solid $borderColorHover;
+    border: $borderWidthHover $borderStyleHover $borderColorHover;
     background: $bgColorHover $bgImgUrlHover $bgHoverXPos $bgHoverYPos $bgHoverRepeat;
     font-weight: $fwDefault;
     color: $fcHover;
@@ -158,7 +190,7 @@ $thicknessShadow: 8px;
 }
 
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
-    border: 1px solid $borderColorActive;
+    border: $borderWidthActive $borderStyleActive $borderColorActive;
     background: $bgColorActive $bgImgUrlActive $bgActiveXPos $bgActiveYPos $bgActiveRepeat;
     font-weight: $fwDefault;
     color: $fcActive;
@@ -177,7 +209,7 @@ $thicknessShadow: 8px;
 /* Interaction Cues
 ----------------------------------*/
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {
-    border: 1px solid $borderColorHighlight;
+    border: $borderWidthHighlight $borderStyleHighlight $borderColorHighlight;
     background: $bgColorHighlight $bgImgUrlHighlight $bgHighlightXPos $bgHighlightYPos $bgHighlightRepeat;
     color: $fcHighlight;
 }
@@ -187,7 +219,7 @@ $thicknessShadow: 8px;
 }
 
 .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {
-    border: 1px solid $borderColorError;
+    border: $borderWidthError $borderStyleError $borderColorError;
     background: $bgColorError $bgImgUrlError $bgErrorXPos $bgErrorYPos $bgErrorRepeat;
     color: $fcError;
 }

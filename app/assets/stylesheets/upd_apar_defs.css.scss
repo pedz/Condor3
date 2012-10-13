@@ -109,7 +109,7 @@ table.upd_apar_defs {
 	tr {
 	    .upd_apar_def_commands {
 		border: 1px solid grey;
-		border-radius: 4px;
+		border-radius: $cornerRadius;
 		background-color: rgb(240,240,240);
 		box-shadow: 8px 8px 8px #222;
 		list-style-type: none;
