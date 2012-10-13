@@ -1,0 +1,8 @@
+#
+# One stanza per hostname.
+#
+magicbook:
+	method: ssh
+
+raptor:
+	method: local
