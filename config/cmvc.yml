@@ -3,6 +3,10 @@
 #
 magicbook:
 	method: ssh
+	hostname: raptor.austin.ibm.com
+	username: condor
+	path: /gsa/ausgsa/projects/a/aix_tools/bin/cmvc
 
 raptor:
 	method: local
+	path: /gsa/ausgsa/projects/a/aix_tools/bin/cmvc
