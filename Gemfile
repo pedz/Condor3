@@ -39,5 +39,10 @@ gem 'thin', :group => :development
 # Deploy with Capistrano
 gem 'capistrano'
 
+# ActiveLdap is need to interact with Bluepages... which is needed to
+# dig out a user's CMVC id.
+gem 'activeldap'
+gem 'ruby-ldap'
+
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
