@@ -6,6 +6,10 @@ magicbook:
   hostname: raptor.austin.ibm.com
   username: condor
   path: /gsa/ausgsa/projects/a/aix_tools/bin/cmvc
+  bootstrap_cmvc_user: pedzan
+
+#   method: local
+#   path: /Users/pedzan/Source/Rails3/condor3
 
 raptor:
   method: local

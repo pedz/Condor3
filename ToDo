@@ -11,6 +11,5 @@ Needed Controllers:
 Set up Authentication
 Per User Configuration
 Set up Session Store
-Set up MemCache
 Set up staging server
 Figure out multi server deploy

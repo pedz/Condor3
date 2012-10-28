@@ -32,4 +32,23 @@ class Cmvc < ActiveRecord::Base
   # :attr: user
   # A belongs_to association to the User record.
   belongs_to :user
+
+  def report(options = {})
+    common_command(options, "Report")
+  end
+
+  private
+
+  def common_command(options, cmd)
+    cmd = [ cmd , "-become", login ]
+    options.each_pair do |k, v|
+      # We could add checking of the options to make sure they fit
+      # with the command but lets just let cmvc check on its own.
+      cmd << "-#{k}"
+      cmd << "\"#{v}\""
+    end
+    cmd = cmd.join(' ')
+    logger.debug("CMD= #{cmd}")
+    CmvcHost.exec(cmd)
+  end
 end
