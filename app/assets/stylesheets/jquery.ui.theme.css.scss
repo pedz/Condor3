@@ -18,10 +18,10 @@
 
 /* Default */
 $bgColorDefault: white;
-$bgDefaultRepeat: repeat-x;
-$bgDefaultXPos: 50%;
-$bgDefaultYPos: 50%;
-$bgImgUrlDefault: url(image-path("xxjquery-ui/ui-bg_glass_75_ffbb00_1x400.png"));
+$bgDefaultRepeat: "";
+$bgDefaultXPos: "";
+$bgDefaultYPos: "";
+$bgImgUrlDefault: "";
 $borderColorDefault: $secondary-a-dark;
 $borderWidthDefault: 2px;
 $borderStyleDefault: outset;
@@ -33,10 +33,10 @@ $iconsDefault: url(image-path("jquery-ui/ui-icons_888888_256x240.png"));
 
 /* Content */
 $bgColorContent: #ffffff;
-$bgContentRepeat: repeat-x;
-$bgContentXPos: 50%;
-$bgContentYPos: 50%;
-$bgImgUrlContent: url(image-path("xxjquery-ui/ui-bg_flat_75_ffffff_40x100.png"));
+$bgContentRepeat: "";
+$bgContentXPos: "";
+$bgContentYPos: "";
+$bgImgUrlContent: "";
 $borderColorContent: #aaaaaa;
 $borderStyleContent: solid;
 $borderWidthContent: 1px;
@@ -45,10 +45,10 @@ $iconsContent: url(image-path("jquery-ui/ui-icons_222222_256x240.png"));
 
 /* Header */
 $bgColorHeader: white;
-$bgHeaderRepeat: repeat-x;
-$bgHeaderXPos: 50%;
-$bgHeaderYPos: 50%;
-$bgImgUrlHeader: url(image-path("xxjquery-ui/ui-bg_highlight-soft_75_cccccc_1x100.png"));
+$bgHeaderRepeat: "";
+$bgHeaderXPos: "";
+$bgHeaderYPos: "";
+$bgImgUrlHeader: "";
 $borderColorHeader: $primary-light;
 $borderWidthHeader: 4px;
 $borderStyleHeader: double;
@@ -57,10 +57,10 @@ $iconsHeader: url(image-path("jquery-ui/ui-icons_222222_256x240.png"));
 
 /* Hover */
 $bgColorHover: $secondary-a-lighter;
-$bgHoverRepeat: repeat-x;
-$bgHoverXPos: 50%;
-$bgHoverYPos: 50%;
-$bgImgUrlHover: url(image-path("xxjquery-ui/ui-bg_glass_75_dadada_1x400.png"));
+$bgHoverRepeat: "";
+$bgHoverXPos: "";
+$bgHoverYPos: "";
+$bgImgUrlHover: "";
 $borderColorHover: $secondary-a-darker;
 $borderWidthHover: $borderWidthDefault;
 $borderStyleHover: $borderStyleDefault;
@@ -69,10 +69,10 @@ $iconsHover: url(image-path("jquery-ui/ui-icons_454545_256x240.png"));
 
 /* Active */
 $bgActiveRepeat: repeat-x;
-$bgActiveXPos: 50%;
-$bgActiveYPos: 50%;
-$bgColorActive: $secondary-a-darker;
-$bgImgUrlActive: url(image-path("xxjquery-ui/ui-bg_glass_65_ffffff_1x400.png"));
+$bgActiveXPos: "";
+$bgActiveYPos: "";
+$bgColorActive: "";
+$bgImgUrlActive: "";
 $borderColorActive: $secondary-a-light;
 $borderWidthActive: $borderWidthDefault;
 $borderStyleActive: $borderStyleDefault;
@@ -81,10 +81,10 @@ $iconsActive: url(image-path("jquery-ui/ui-icons_454545_256x240.png"));
 
 /* Highlight */
 $bgColorHighlight: #fbf9ee;
-$bgHighlightRepeat: repeat-x;
-$bgHighlightXPos: 50%;
-$bgHighlightYPos: 50%;
-$bgImgUrlHighlight: url(image-path("xxjquery-ui/ui-bg_glass_55_fbf9ee_1x400.png"));
+$bgHighlightRepeat: "";
+$bgHighlightXPos: "";
+$bgHighlightYPos: "";
+$bgImgUrlHighlight: "";
 $borderColorHighlight: #fcefa1;
 $borderWidthHighlight: $borderWidthDefault;
 $borderStyleHighlight: $borderStyleDefault;
@@ -93,10 +93,10 @@ $iconsHighlight: url(image-path("jquery-ui/ui-icons_2e83ff_256x240.png"));
 
 /* Error */
 $bgColorError: #fef1ec;
-$bgErrorRepeat: repeat-x;
-$bgErrorXPos: 50%;
-$bgErrorYPos: 50%;
-$bgImgUrlError: url(image-path("xxjquery-ui/ui-bg_glass_95_fef1ec_1x400.png"));
+$bgErrorRepeat: "";
+$bgErrorXPos: "";
+$bgErrorYPos: "";
+$bgImgUrlError: "";
 $borderColorError: #cd0a0a;
 $borderWidthError: $borderWidthDefault;
 $borderStyleError: $borderStyleDefault;
@@ -105,18 +105,18 @@ $iconsError: url(image-path("jquery-ui/ui-icons_cd0a0a_256x240.png"));
 
 /* Overlay */
 $bgColorOverlay: #aaaaaa;
-$bgImgUrlOverlay: url(image-path("xxjquery-ui/ui-bg_flat_0_aaaaaa_40x100.png"));
-$bgOverlayRepeat: repeat-x;
-$bgOverlayXPos: 50%;
-$bgOverlayYPos: 50%;
+$bgOverlayRepeat: "";
+$bgOverlayXPos: "";
+$bgOverlayYPos: "";
+$bgImgUrlOverlay: "";
 $opacityOverlay: Alpha(Opacity=30);
 
 /* Shadow */
 $bgColorShadow: #aaaaaa;
-$bgImgUrlShadow: url(image-path("xxjquery-ui/ui-bg_flat_0_aaaaaa_40x100.png"));
-$bgShadowRepeat: repeat-x;
-$bgShadowXPos: 50%;
-$bgShadowYPos: 50%;
+$bgShadowRepeat: "";
+$bgShadowXPos: "";
+$bgShadowYPos: "";
+$bgImgUrlShadow: "";
 $cornerRadiusShadow: 8px;
 $offsetLeftShadow: -8px;
 $offsetTopShadow: -8px;

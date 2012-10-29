@@ -37,6 +37,14 @@ class Cmvc < ActiveRecord::Base
     common_command(options, "Report")
   end
 
+  def defect(options = {})
+    common_command(options, "Defect")
+  end
+
+  def feature(options = {})
+    common_command(options, "Feature")
+  end
+
   private
 
   def common_command(options, cmd)
@@ -45,7 +53,7 @@ class Cmvc < ActiveRecord::Base
       # We could add checking of the options to make sure they fit
       # with the command but lets just let cmvc check on its own.
       cmd << "-#{k}"
-      cmd << "\"#{v}\""
+      cmd << "\"#{v}\"" unless v.blank?
     end
     cmd = cmd.join(' ')
     logger.debug("CMD= #{cmd}")

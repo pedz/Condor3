@@ -1,2 +1,15 @@
-<h1>Defects#show</h1>
-<p>Find me in app/views/defects/show.html.erb</p>
+<%# -*- coding: utf-8 -*-
+    Copyright 2012 Ease Software, Inc.
+    All Rights Reserved
+-%>
+<!-- <%= __FILE__[Rails.root.to_s.length+1 .. -1] %> -->
+<% @title = "Defect #{@defect_name}" %>
+<% if @lines.blank? %>
+  <pre class='err'>
+<%= @err %>
+  </pre>
+<% else %>
+  <pre class='lines'>
+<%= @lines %>
+  </pre>
+<% end %>
