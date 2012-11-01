@@ -1,4 +1,6 @@
 Condor3::Application.routes.draw do
+  get "src_files/show"
+
   get "changes/show"
 
   get "defects/show"
