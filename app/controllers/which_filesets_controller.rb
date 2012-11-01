@@ -5,17 +5,11 @@
 #
 class WhichFilesetsController < ApplicationController
   def show
-    logger.debug("Accepts = #{request.accepts.inspect}")
-
     if (@path = params[:path]).is_a? Array
       @path = tmp.join('/')
     end
 
-    # Sorta silly with this controller but just to be consistent.
-    if request.post?
-      redirect_to which_filesets_path(@path)
-      return
-    end
+    return redirect_to which_filesets_path(@path) if request.post?
 
     files = do_find(@path)
     if files.empty?

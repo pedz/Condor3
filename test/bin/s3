@@ -1,0 +1,6 @@
+#!/bin/ksh
+
+echo "stdout"
+echo "stderr" 1>&2
+sleep 1
+kill -TERM $$

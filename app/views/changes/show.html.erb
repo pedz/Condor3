@@ -1,0 +1,48 @@
+<%# -*- coding: utf-8 -*- -%>
+<%#
+ Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+ All Rights Reserved
+-%>
+<!-- <%= __FILE__[Rails.root.to_s.length+1 .. -1] %> -->
+<% @title = "Changes for #{@defect}" %>
+<% if @changes.nil? %>
+  <pre class='err'>
+<%= @err %>
+  </pre>
+<% else %>
+  <% @changes.each do |change| %>
+    <% defect = change.defect %>
+    <ul class="defect">
+      Defect <%= link_to defect, defects_path(defect) %>: <%= change.abstract %>
+      <% until change.nil? || change.defect != defect %>
+	<% release = change.release %>
+        <ul class="release">
+	  Product <%= h release %> [<%= h change.level %>]
+	  <% until change.nil? || change.release != release %>
+            <ul class="change">
+	      <% if change.prev_sccsid.nil? %>
+		Initial Drop
+              <% else %>
+	      <%= link_to change.prev_sccsid,
+		  src_files_path(change.release,
+                                 change.path.split(/\//),
+				     change.prev_sccsid) %>
+	      <%= link_to "->",
+		diffs_path(change.release,
+                           change.path.split(/\//),
+				 change.sccsid) %>
+			       <% end %>
+			       <%= link_to change.sccsid,
+		                 src_files_path(change.release,
+                                                change.path.split(/\//),
+		                   change.sccsid) %>
+			       <%= change.type %>
+			       <%= change.path %>
+			       <% change = @changes.shift %>
+            </ul>
+	  <% end %>
+        </ul>
+      <% end %>
+    </ul>
+    <% end %>
+<% end %>

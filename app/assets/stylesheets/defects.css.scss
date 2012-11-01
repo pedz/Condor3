@@ -1,3 +1,11 @@
-// Place all the styles related to the defects controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body.defects {
+    pre {
+	line-height: 1.1em;
+	margin-left: $title-margin;
+    }
+
+    pre.err {
+	color: red;
+    }
+}

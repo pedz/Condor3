@@ -1,10 +1,7 @@
 class DefectsController < ApplicationController
   def show
     @defect_name = params[:defect]
-    if request.post?
-      redirect_to defects_path(@defect_name)
-      return
-    end
+    return redirect_to defects_path(@defect_name) if request.post?
     @defect = Defect.find_by_name(@defect_name)
     @lines, @err = defect_text(@defect_name)
 

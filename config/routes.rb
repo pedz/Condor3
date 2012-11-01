@@ -1,4 +1,6 @@
 Condor3::Application.routes.draw do
+  get "changes/show"
+
   get "defects/show"
 
   get "which_filesets/show"
@@ -24,6 +26,11 @@ Condor3::Application.routes.draw do
   scope 'defects' do
     get ':defect' => 'defects#show', :as => 'defects'
     post '/' => 'defects#show', :as => 'defects_post'
+  end
+
+  scope 'changes' do
+    get ':change' => 'changes#show', :as => 'changes'
+    post '/' => 'changes#show', :as => 'changes_post'
   end
 
   root :to => 'welcome#index', :as => 'welcome'
