@@ -3,6 +3,11 @@ class ApplicationController < ActionController::Base
   before_filter :reload_libs if Rails.env.development?
   before_filter :authenticate
 
+  rescue_from User::NoLDAP,        :with => :no_ldap_failure
+  rescue_from User::NoUID,         :with => :no_ldap_uid
+  rescue_from User::NoBootStrap,   :with => :no_boot_strap
+  rescue_from User::LoginNotFound, :with => :login_not_found
+
   protect_from_forgery
 
   private
@@ -91,5 +96,25 @@ class ApplicationController < ActionController::Base
     session[:authenticated] = true
     session[:tod] = Time.current
     return true
+  end
+
+  def no_ldap_failure(exception)
+    @Exception = exception
+    render "users/no_ldap_failure"
+  end
+
+  def no_ldap_uid(exception)
+    @exception = exception
+    render "users/no_ldap_uid"
+  end
+
+  def no_boot_strap(exception)
+    @exception = exception
+    render "users/no_boot_strap"
+  end
+
+  def login_not_found(exception)
+    @exception = exception
+    render "users/login_not_found"
   end
 end

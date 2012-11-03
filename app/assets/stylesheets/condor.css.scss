@@ -171,3 +171,9 @@ body {
 #errors {
     color: $error;
 }
+
+p.exception {
+    margin-left: $title-margin;
+    line-height: 1.1em;
+    color: $error;
+}

@@ -91,17 +91,17 @@ class User < ActiveRecord::Base
       raise NoUID.new unless (uid = ldap.uid) || uid.blank?
       # Need a bootstrap cmvc id.  This can not be saved because there
       # is not user associated with it.
-      raise NoBootStrap.new unless boot_cmvc = Cmvc.find_or_initialize_by_login(CmvcHost::BootstrapCmvcUser)
+      raise NoBootStrap.new unless (boot_cmvc = Cmvc.find_or_initialize_by_login(CmvcHost::BootstrapCmvcUser) &&
+                                    !boot_cmvc.blank?)
       # Find the CMVC User whoes ccum matches the uid
-      stdout, stderr, rc, signal  = boot_cmvc.report(:family => 'aix',
-                                                     :general => 'UserView',
-                                                     :where => "ccnum = '#{uid.downcase}' or ccnum = '#{uid}'",
-                                                     :select => "login")
-      # If Report command errored off
-      raise PopenFailed.new unless rc == 0
+      cmvc_command = boot_cmvc.report!(:family => 'aix',
+                                       :general => 'UserView',
+                                       :where => "ccnum = '#{uid.downcase}' or ccnum = '#{uid}'",
+                                       :select => "login")
+
       # Clean up output -- should be a single line with just the cmvc
       # login.
-      stdout.chomp!
+      stdout = cmvc_command.stdout.chomp
       # CMVC login must not be blank
       raise LoginNotFound.new if stdout.blank?
       # Dance to create a new Cmvc record for this User

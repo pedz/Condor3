@@ -6,6 +6,19 @@
 
 # A model representing the CMVC user id.
 class Cmvc < ActiveRecord::Base
+
+  # This exception is thrown when the bang commands, e.g. report!,
+  # return with an error
+  class CmvcError < Exception
+    # The CmvcCommand that was executed.
+    attr_reader :cmd
+    
+    def initialize(cmd)
+      @cmd = cmd
+      super(@cmd.stderr)
+    end
+  end
+
   ##
   # :attr: id
   # The Integer primary key for the table.
@@ -33,24 +46,19 @@ class Cmvc < ActiveRecord::Base
   # A belongs_to association to the User record.
   belongs_to :user
 
-  # Issues Report command to CMVC
-  def report(options = {})
-    common_command(options, "Report")
-  end
+  %w{ report file defect feature }.each do |cmd|
+    cap = cmd.capitalize
+    binding.eval <<-EOF, __FILE__, __LINE__
+      def #{cmd}(options = {})
+        common_command(options, \"#{cap}\")
+      end
 
-  # Issues File command to CMVC
-  def file(options = {})
-    common_command(options, "File")
-  end
-
-  # Issues Defect command to CMVC
-  def defect(options = {})
-    common_command(options, "Defect")
-  end
-
-  # Issues Feature command to CMVC
-  def feature(options = {})
-    common_command(options, "Feature")
+      def #{cmd}!(options = {})
+        result = #{cmd}(options)
+        raise CmvcError.new(result) unless result.rc == 0
+        result
+      end
+    EOF
   end
 
   private
@@ -63,8 +71,10 @@ class Cmvc < ActiveRecord::Base
       cmd << "-#{k}"
       cmd << "\"#{v}\"" unless v.blank?
     end
-    cmd = cmd.join(' ')
+    # squeeze out extra white space for readability
+    cmd = cmd.join(' ').gsub(/ +/, ' ')
     logger.debug("CMD= #{cmd}")
-    CmvcHost.exec(cmd)
+    stdout, stderr, rc, signal = CmvcHost.exec(cmd)
+    CmvcCommand.new(self, cmd, options, stdout, stderr, rc, signal)
   end
 end
