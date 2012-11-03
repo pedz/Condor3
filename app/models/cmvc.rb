@@ -33,14 +33,22 @@ class Cmvc < ActiveRecord::Base
   # A belongs_to association to the User record.
   belongs_to :user
 
+  # Issues Report command to CMVC
   def report(options = {})
     common_command(options, "Report")
   end
 
+  # Issues File command to CMVC
+  def file(options = {})
+    common_command(options, "File")
+  end
+
+  # Issues Defect command to CMVC
   def defect(options = {})
     common_command(options, "Defect")
   end
 
+  # Issues Feature command to CMVC
   def feature(options = {})
     common_command(options, "Feature")
   end

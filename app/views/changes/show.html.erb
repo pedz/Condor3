@@ -13,23 +13,26 @@
   <% @changes.each do |change| %>
     <% defect = change.defect %>
     <ul class="defect">
-      Defect <%= link_to defect, defects_path(defect) %>: <%= change.abstract %>
+      <li>
+	Defect <%= link_to defect, defects_path(defect) %>: <%= change.abstract %>
       <% until change.nil? || change.defect != defect %>
 	<% release = change.release %>
         <ul class="release">
-	  Product <%= h release %> [<%= h change.level %>]
-	  <% until change.nil? || change.release != release %>
-            <ul class="change">
-	      <% if change.prev_sccsid.nil? %>
-		Initial Drop
-              <% else %>
-	      <%= link_to change.prev_sccsid,
-		  src_files_path(change.release,
-                                 change.path.split(/\//),
+	  <li>
+	    Product <%= h release %> [<%= h change.level %>]
+	    <% until change.nil? || change.release != release %>
+              <ul class="change">
+		<li>
+		  <% if change.prev_sccsid.nil? %>
+		    Initial Drop
+                  <% else %>
+	          <%= link_to change.prev_sccsid,
+		      src_files_path(change.release,
+                                     change.path.split(/\//),
 				     change.prev_sccsid) %>
-	      <%= link_to "->",
-		diffs_path(change.release,
-                           change.path.split(/\//),
+		  <%= link_to "->",
+		    diffs_path(change.release,
+                               change.path.split(/\//),
 				 change.sccsid) %>
 			       <% end %>
 			       <%= link_to change.sccsid,
@@ -39,10 +42,13 @@
 			       <%= change.type %>
 			       <%= change.path %>
 			       <% change = @changes.shift %>
-            </ul>
+		</li>
+              </ul>
 	  <% end %>
+	  </li>
         </ul>
       <% end %>
+      </li>
     </ul>
     <% end %>
 <% end %>

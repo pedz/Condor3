@@ -1,14 +1,4 @@
 Condor3::Application.routes.draw do
-  get "diffs/show"
-
-  get "src_files/show"
-
-  get "changes/show"
-
-  get "defects/show"
-
-  get "which_filesets/show"
-
   scope 'swinfos' do
     constraints(:item => /[^\/]+/) do # item can have dots in it e.g. bos.mp64 6.1.7.3
       get ':item/:sort/:page' => 'swinfos#show', :as => "swinfo_full"
@@ -36,6 +26,15 @@ Condor3::Application.routes.draw do
     get ':change' => 'changes#show', :as => 'changes'
     post '/' => 'changes#show', :as => 'changes_post'
   end
+
+  get('src_files/:release/*path/:version' => 'src_files#show',
+      :version => /[1-9][0-9]*(\.[1-9][0-9]*)+/,
+      :as => 'src_files')
+
+  get('diffs/:release/*path/:version(/:prev_version)' => 'diffs#show',
+      :version => /[1-9][0-9]*(\.[1-9][0-9]*)+/,
+      :prev_version => /[1-9][0-9]*(\.[1-9][0-9]*)+/,
+      :as => 'diffs')
 
   root :to => 'welcome#index', :as => 'welcome'
 end

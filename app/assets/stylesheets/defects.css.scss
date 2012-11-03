@@ -1,11 +1,3 @@
-
 body.defects {
-    pre {
-	line-height: 1.1em;
-	margin-left: $title-margin;
-    }
-
-    pre.err {
-	color: red;
-    }
+    @include base-pre;
 }

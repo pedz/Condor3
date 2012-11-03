@@ -35,6 +35,17 @@ $title-background: $primary-lighter;
 $title-margin: .9em;
 $block-border: 4px double $primary-light;
 
+@mixin base-pre {
+    pre {
+	line-height: 1.1em;
+	margin-left: $title-margin;
+    }
+
+    pre.err {
+	color: red;
+    }
+}
+
 .ui-button {
     font-size: 80%;
 }
@@ -158,5 +169,5 @@ body {
 }
 
 #errors {
-    color: red;
+    color: $error;
 }
