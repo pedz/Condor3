@@ -72,7 +72,7 @@ class Cmvc < ActiveRecord::Base
       cmd << "\"#{v}\"" unless v.blank?
     end
     # squeeze out extra white space for readability
-    cmd = cmd.join(' ').gsub(/ +/, ' ')
+    cmd = cmd.join(' ').gsub(/[ \t\n\r]+/, ' ')
     logger.debug("CMD= #{cmd}")
     stdout, stderr, rc, signal = CmvcHost.exec(cmd)
     CmvcCommand.new(self, cmd, options, stdout, stderr, rc, signal)

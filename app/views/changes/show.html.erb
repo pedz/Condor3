@@ -5,16 +5,11 @@
 -%>
 <!-- <%= __FILE__[Rails.root.to_s.length+1 .. -1] %> -->
 <% @title = "Changes for #{@defect}" %>
-<% if @changes.nil? %>
-  <pre class='err'>
-<%= @err %>
-  </pre>
-<% else %>
-  <% @changes.each do |change| %>
-    <% defect = change.defect %>
-    <ul class="defect">
-      <li>
-	Defect <%= link_to defect, defects_path(defect) %>: <%= change.abstract %>
+<% @changes.each do |change| %>
+  <% defect = change.defect %>
+  <ul class="defect">
+    <li>
+      Defect <%= link_to defect, defects_path(defect) %>: <%= change.abstract %>
       <% until change.nil? || change.defect != defect %>
 	<% release = change.release %>
         <ul class="release">
@@ -44,11 +39,10 @@
 			       <% change = @changes.shift %>
 		</li>
               </ul>
-	  <% end %>
+	    <% end %>
 	  </li>
         </ul>
       <% end %>
-      </li>
-    </ul>
-    <% end %>
+    </li>
+  </ul>
 <% end %>

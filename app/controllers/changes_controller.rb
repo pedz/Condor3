@@ -2,7 +2,7 @@ class ChangesController < ApplicationController
   def show
     @defect = params[:change]
     return redirect_to changes_path(@defect) if request.post?
-    @changes, @err = change_text(@defect)
+    @changes = change_text(@defect)
   end
 
   private
@@ -70,10 +70,6 @@ class ChangesController < ApplicationController
 		  d.abstract, \
 		  prev.SID as prev_sccsid"
     }
-    stdout, stderr, rc, signal = user.cmvc.report(options)
-    return nil, stderr if rc != 0
-    changes = stdout.split("\n").map { |line| Change.new(*line.split('|'))}
-    logger.debug("changes = #{changes.to_yaml}")
-    return changes, nil
+    user.cmvc.report!(options).lines.map { |line| Change.new(*line.split('|'))}
   end
 end
