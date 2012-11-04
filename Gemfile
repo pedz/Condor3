@@ -44,5 +44,8 @@ gem 'capistrano'
 gem 'activeldap'
 gem 'ruby-ldap'
 
+# Use this diff
+gem 'diff-lcs'
+
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

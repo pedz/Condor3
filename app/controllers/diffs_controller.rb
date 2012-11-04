@@ -12,10 +12,7 @@ class DiffsController < ApplicationController
       old_params = find_prev_version(new_params)
     end
     
-    old_file = SrcFile.new(old_params)
-    new_file = SrcFile.new(new_params)
-    mc = MyCallbacks.new
-    @bal = Diff::LCS.traverse_balanced(old_file, new_file, mc)
+    @diff = SrcFileDiff.new(SrcFile.new(old_params), SrcFile.new(new_params))
   end
 
   private
@@ -53,9 +50,10 @@ class DiffsController < ApplicationController
                   prev_p.name as path, \
                   prev_v.SID as sccsid"
     }
-    stdout, stderr, rc, signal = user.cmvc.report(options)
-    
-    params[:release], params[:path], params[:version] = stdout.chomp.split(/\|/)
-    params
+    stdout = user.cmvc.report!(options).stdout
+    prev_params = {}
+    prev_params[:cmvc] = params[:cmvc]
+    prev_params[:release], prev_params[:path], prev_params[:version] = stdout.chomp.split(/\|/)
+    prev_params
   end
 end
