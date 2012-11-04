@@ -18,28 +18,32 @@ class SrcFile
   # The Cmvc instance used to retrieve the file.
   attr_reader :cmvc
 
-  # The lines of the file
-  attr_reader :lines
-
-  # Any errors returned while retriving the file.
-  attr_reader :err
-
   def initialize(options)
     @release = options[:release]
     @version = options[:version]
     @path    = options[:path]
     @cmvc    = options[:cmvc]
-    @lines, @err = get_lines
+    fetch_text
   end
 
   def basename
     @path.sub(/.*\//, '')
   end
 
+  # Returns text as an array of lines
+  def lines
+    @cmd.lines
+  end
+
+  # Returns the text of the Defect or Feature
+  def text
+    @cmd.stdout
+  end
+
   private
 
-  # The text lines of the file
-  def get_lines
+  # fetch the text of the source file.
+  def fetch_text
     options = {
       :extract => @path,
       :release => @release,
@@ -47,8 +51,6 @@ class SrcFile
       :family => 'aix',
       :stdout => ""
     }
-    stdout, stderr, rc, signal = cmvc.file(options)
-    return "", stderr if rc != 0
-    return stdout, ""
+    @cmd = @cmvc.file!(options)
   end
 end

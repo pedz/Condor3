@@ -21,7 +21,7 @@ menu {
 }
 
 .upd_apar_def_outer_td_span {
-    line-height: 1.1em;
+    line-height: $text-line-height;
     vertical-align: baseline;
     position: relative;
     top: 0px;
@@ -81,7 +81,7 @@ menu {
     bottom: -7px;
     right: -8px;
     vertical-align: baseline;
-    line-height: 15px;
+    line-height: $text-line-height;
 
     &:hover {
 	background-color: white;

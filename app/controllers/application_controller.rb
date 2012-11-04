@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   rescue_from User::NoUID,         :with => :no_ldap_uid
   rescue_from User::NoBootStrap,   :with => :no_boot_strap
   rescue_from User::LoginNotFound, :with => :login_not_found
+  rescue_from Cmvc::CmvcError,     :with => :cmvc_error
 
   protect_from_forgery
 
@@ -116,5 +117,10 @@ class ApplicationController < ActionController::Base
   def login_not_found(exception)
     @exception = exception
     render "users/login_not_found"
+  end
+
+  def cmvc_error(exception)
+    @exception = exception
+    render "cmvcs/cmvc_error"
   end
 end

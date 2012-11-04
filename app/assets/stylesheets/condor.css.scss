@@ -34,15 +34,12 @@ $error: red;
 $title-background: $primary-lighter;
 $title-margin: .9em;
 $block-border: 4px double $primary-light;
+$text-line-height: 1.25em;
 
 @mixin base-pre {
     pre {
-	line-height: 1.1em;
+	line-height: $text-line-height;
 	margin-left: $title-margin;
-    }
-
-    pre.err {
-	color: red;
     }
 }
 
@@ -110,7 +107,7 @@ table.centered-table {
 
 body {
     font-size: 100%;
-    line-height: 1.5em;
+    line-height: $text-line-height;
     background-color: $background;
     color: $foreground;
 
@@ -174,6 +171,5 @@ body {
 
 p.exception {
     margin-left: $title-margin;
-    line-height: 1.1em;
-    color: $error;
+    line-height: $text-line-height;
 }

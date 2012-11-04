@@ -1,0 +1,11 @@
+div.cmvc-error {
+    p.cmvc-error {
+	margin-left: $title-margin;
+	line-height: $text-line-height;
+    }
+
+    pre.cmvc-error {
+	margin-left: $title-margin * 2;
+	line-height: $text-line-height;
+    }
+}

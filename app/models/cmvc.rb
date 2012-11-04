@@ -50,7 +50,7 @@ class Cmvc < ActiveRecord::Base
     cap = cmd.capitalize
     binding.eval <<-EOF, __FILE__, __LINE__
       def #{cmd}(options = {})
-        common_command(options, \"#{cap}\")
+        common_command(options, "#{cap}")
       end
 
       def #{cmd}!(options = {})
