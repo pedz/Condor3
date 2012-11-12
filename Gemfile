@@ -18,7 +18,8 @@ group :assets do
   # gem 'therubyracer', :platform => :ruby
 
   gem 'uglifier', '>= 1.0.3'
-  gem 'jquery-ui-rails'
+  # I don't like this... rolled my own.
+  # gem 'jquery-ui-rails'
   gem 'compass-rails'
 end
 
