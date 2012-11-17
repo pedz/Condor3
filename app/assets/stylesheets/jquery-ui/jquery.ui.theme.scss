@@ -26,7 +26,7 @@ $borderColorDefault: $secondary-a-dark;
 $borderWidthDefault: 2px;
 $borderStyleDefault: outset;
 $fcDefault: black;
-$ffDefault: Verdana,Arial,sans-serif;
+$ffDefault: Lucida Grande,Lucida Sans,Arial,sans-serif;
 $fsDefault: 1.0em;
 $fwDefault: normal;
 $iconsDefault: url(image-path("jquery-ui/ui-icons_888888_256x240.png"));
@@ -186,7 +186,7 @@ $cornerRadius: 6px;
     color: $fcHover;
 }
 
-.ui-state-hover a, .ui-state-hover a:hover {
+.ui-state-hover a, .ui-state-hover a:hover, .ui-state-hover a:link, .ui-state-hover a:visited {
     color: $fcHover;
     text-decoration: none;
 }
@@ -202,11 +202,6 @@ $cornerRadius: 6px;
     color: $fcActive;
     text-decoration: none;
 }
-
-.ui-widget :active {
-    outline: none;
-}
-
 
 /* Interaction Cues
 ----------------------------------*/
@@ -250,6 +245,9 @@ $cornerRadius: 6px;
     background-image: none;
 }
 
+.ui-state-disabled .ui-icon {	/* For IE8 - See #6059 */
+    filter:Alpha(Opacity=35);
+}
 
 /* Icons
 ----------------------------------*/
@@ -795,11 +793,11 @@ $cornerRadius: 6px;
     background-position: -80px -144px;
 }
 
-.ui-icon-radio-off {
+.ui-icon-radio-on {
     background-position: -96px -144px;
 }
 
-.ui-icon-radio-on {
+.ui-icon-radio-off {
     background-position: -112px -144px;
 }
 

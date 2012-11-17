@@ -1,3 +1,112 @@
-// Place all the styles related to the diffs controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+$box-width: 98%;
+$file-box-height: 35%;
+$title-box-height: 4%;
+
+@mixin view-box {
+    margin-left: auto;
+    margin-right: auto;
+    width: $box-width;
+    border: $block-border;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: $block-border-width;
+    border-right-width: $block-border-width;
+}
+
+html.diffs {
+    height: 99%;
+
+    body.diffs {
+	height: 100%;
+
+	pre {
+	    padding: 0px;
+	    padding-left: 5px;
+	}
+	
+	pre.change {
+	    background-color: #ffff80;
+	}
+	
+	pre.discard-a {
+	    background-color: pink;
+	}
+	
+	pre.discard-b {
+	    background-color: lightGreen;
+	}
+	
+	#control-table {
+	    display: table;
+	    height: $title-box-height;
+	    @include view-box;
+	    border-top-width: $block-border-width;
+	    border-top-left-radius: $cornerRadius;
+	    border-top-right-radius: $cornerRadius;
+	}
+	
+	#control {
+	    display: table-cell;
+	    text-align: center;
+	    vertical-align: middle;
+
+	    button {
+		span {
+		    padding: 1px 6px;
+		}
+	    }
+	}
+	
+	#top-title-table {
+	    display: table;
+	    height: $title-box-height;
+	    overflow: auto;
+	    padding: 0px;
+	    @include view-box;
+	    border-top: 1px solid $primary-light;
+	    border-bottom: 1px solid $primary-light;
+	}
+	
+	#top-title {
+	    display: table-cell;
+	    vertical-align: middle;
+	    text-align: center;
+	}
+	
+	#top {
+	    height: $file-box-height;
+	    margin-left: auto;
+	    margin-right: auto;
+	    overflow: auto;
+	    padding: 0px;
+	    width: $box-width;
+	    @include view-box;
+	}
+	
+	#bot-title-table {
+	    display: table;
+	    height: $title-box-height;
+	    overflow: auto;
+	    padding: 0px;
+	    @include view-box;
+	    border-top: 1px solid $primary-light;
+	    border-bottom: 1px solid $primary-light;
+	}
+	
+	#bot-title {
+	    display: table-cell;
+	    text-align: center;
+	    vertical-align: middle;
+	}
+	
+	#bot {
+	    height: $file-box-height;
+	    overflow: auto;
+	    padding: 0px;
+	    @include view-box;
+	    border-bottom-width: $block-border-width;
+	    border-bottom-left-radius: $cornerRadius;
+	    border-bottom-right-radius: $cornerRadius;
+	}
+    }
+}

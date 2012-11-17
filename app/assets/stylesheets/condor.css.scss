@@ -33,8 +33,14 @@ $foreground: black;
 $error: red;
 $title-background: $primary-lighter;
 $title-margin: .9em;
-$block-border: 4px double $primary-light;
+$block-border-width: 4px;
+$block-border: $block-border-width double $primary-light;
 $text-line-height: 1.25em;
+
+@mixin box-border {
+    border: $block-border;
+    border-radius: $cornerRadius;
+}
 
 @mixin base-pre {
     pre {
@@ -49,8 +55,7 @@ $text-line-height: 1.25em;
 }
 
 table.centered-table {
-    border: $block-border;
-    border-radius: $cornerRadius;
+    @include box-border;
     border-collapse: separate;
     margin-right: auto;
     margin-left: auto;
@@ -145,12 +150,9 @@ body {
 	text-align: center;
 	padding-top: $title-margin;
 	padding-bottom: $title-margin;
-	margin-bottom: 1.25em;
 
 	span {
-	    border: $block-border;
-	    border-radius: $cornerRadius;
-
+	    @include box-border;
 	    font-size: 120%;
 	    background-color: white;
 	    display: inline-block;

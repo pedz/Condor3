@@ -20,6 +20,7 @@
 //= require upd_apar_def
 //= require help_button
 //= require welcome
+//= require diffs
 
 $(document).ready(function () {
     $('.home-button').button();
