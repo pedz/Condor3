@@ -5,7 +5,7 @@
 #
 class WhichFilesetsController < ApplicationController
   def show
-    @path = params[:path])
+    @path = params[:path]
     return redirect_to which_filesets_path(@path) if request.post?
 
     files = do_find(@path)
