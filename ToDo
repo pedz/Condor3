@@ -1,15 +1,9 @@
-Get CMVC working locally and remotely
-Move database to a striped array
-Create Front Page
+Need favicon
+Need db restore
 Needed Controllers:
   apar_drafts SW A SW D
-  changes FP 5 SW D
-  defects FP 4 SW D
-  diffs CH 1
   file_changes FP 6
-  src_files CH 2
-Set up Authentication
+Fix the arrow things on swinfos page
 Per User Configuration
-Set up Session Store
 Set up staging server
 Figure out multi server deploy

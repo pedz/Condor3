@@ -32,15 +32,15 @@ $fwDefault: normal;
 $iconsDefault: url(image-path("jquery-ui/ui-icons_888888_256x240.png"));
 
 /* Content */
-$bgColorContent: #ffffff;
-$bgContentRepeat: "";
-$bgContentXPos: "";
-$bgContentYPos: "";
-$bgImgUrlContent: "";
-$borderColorContent: #aaaaaa;
+$bgColorContent: #f2f5f7;
+$bgContentRepeat: repeat-x;
+$bgContentXPos: 50%;
+$bgContentYPos: top;
+$bgImgUrlContent: url(image-path("jquery-ui/ui-bg_highlight-hard_100_f2f5f7_1x100.png"));
+$borderColorContent: #dddddd;
 $borderStyleContent: solid;
 $borderWidthContent: 1px;
-$fcContent: #222222;
+$fcContent: #362b36;
 $iconsContent: url(image-path("jquery-ui/ui-icons_222222_256x240.png"));
 
 /* Header */
