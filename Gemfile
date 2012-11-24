@@ -17,7 +17,6 @@ group :development, :test do
   gem 'rails-footnotes', '>= 3.7.5.rc4'
   gem 'thin'
   gem 'rspec-rails'
-  gem 'webrat'
   gem 'xpath'
   gem 'database_cleaner'
 end
