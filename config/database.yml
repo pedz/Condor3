@@ -8,8 +8,14 @@ development:
   database: condor3_development
   pool: 5
 
+template:
+  adapter: postgresql
+  encoding: unicode
+  database: condor3_template
+
 test: &test
   adapter: postgresql
+  template: condor3_template
   encoding: unicode
   database: condor3_test
   pool: 5
