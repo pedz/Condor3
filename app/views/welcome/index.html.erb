@@ -30,9 +30,9 @@
     <%= text_field_tag "change" %>
     <%= submit_tag "Submit" %>
   <% end %>
-  <%= form_tag changes_post_path do %>
-    <%= label_tag('change', 'file change history', :class => 'form-description') %>
-    <%= text_field_tag "change" %>
+  <%= form_tag file_changes_post_path do %>
+    <%= label_tag('file', 'file change history', :class => 'form-description') %>
+    <%= text_field_tag "file" %>
     <%= submit_tag "Submit" %>
   <% end %>
 </div>

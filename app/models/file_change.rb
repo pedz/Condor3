@@ -11,45 +11,51 @@ class FileChange
   ##
   # :attr: release
   # The CMVC release the Change is made in
+  attr_reader :release
 
   ##
   # :attr: defect
   # The CMVC defect that made the Change
+  attr_reader :defect
 
   ##
   # :attr: level
   # The CVMC Level of the change.  A level might be thought of as a
   # build level.
+  attr_reader :level
 
   ##
   # :attr: sccsid
   # The SCCS id for the file created by the Change.
+  attr_reader :sccsid
 
   ##
   # :attr: path
   # The Path of the AIX source file.
+  attr_reader :path
 
   ##
   # :attr: type
   # The Type of change which can be such things as the initial drop,
   # link, or an actual code change.
+  attr_reader :type
 
   ##
   # :attr: reference
   # The "reference" mentioned in the defect -- sometimes used to point
   # to the defect that introduced a bug that the current defect
   # attempts to fix.
+  attr_reader :reference
 
   ##
   # :attr: abstract
   # The abstract of the defect
+  attr_reader :abstract
 
   ##
   # :attr: prev_sccsid
   # The previous SCCS id of the file before the Change.
-
-  attr_reader :release, :defect, :level, :sccsid, :path, :type, :reference
-  attr_reader :abstract, :prev_sccsid
+  attr_reader :prev_sccsid
 
   def initialize(release, defect, level, sccsid, path, type, reference,
                  prev_sccsid, abstract)
@@ -62,8 +68,11 @@ class FileChange
     @reference = reference
     @abstract = abstract
     @prev_sccsid = prev_sccsid unless prev_sccsid.empty?
+    fetch_changes
   end
 
+  private
+  
   # When passed a file, returns the list of changes made to that file.
   # Currently file is assumed to be the basename of the file.
   def self.find(file)

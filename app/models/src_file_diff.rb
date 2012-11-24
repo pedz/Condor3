@@ -7,7 +7,15 @@
 # A model that represents a diff between two source files.
 class SrcFileDiff
   class Callbacks
-    attr_reader :old_seq, :new_seq
+    ##
+    # :attr: old_seq
+    # Change sequence of the old file
+    attr_reader :old_seq
+
+    ##
+    # :attr: new_seq
+    # Change sequence of the new file
+    attr_reader :new_seq
     
     def initialize
       @old_seq = []
@@ -61,12 +69,18 @@ class SrcFileDiff
   end
 
 
+  ##
+  # :attr: old_file
   # The old version of the file (a SrcFile)
   attr_reader :old_file
 
+  ##
+  # :attr: new_file
   # The new version of the file (a SrcFile)
   attr_reader :new_file
   
+  ##
+  # :attr: callbacks
   # The set of call backs used
   attr_reader :callbacks
 

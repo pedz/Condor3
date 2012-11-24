@@ -1,4 +1,12 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2012 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
+
+# Controller used for Defect Changes
 class ChangesController < ApplicationController
+  # Show the changes for the given defect
   def show
     @defect = params[:change]
     return redirect_to changes_path(@defect) if request.post?

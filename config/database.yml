@@ -8,7 +8,7 @@ development:
   database: condor3_development
   pool: 5
 
-test:
+test: &test
   adapter: postgresql
   encoding: unicode
   database: condor3_test
@@ -19,3 +19,6 @@ production:
   encoding: unicode
   database: condor3_production
   pool: 5
+
+cucumber:
+  <<: *test

@@ -27,6 +27,11 @@ Condor3::Application.routes.draw do
     post '/' => 'changes#show', :as => 'changes_post'
   end
 
+  scope 'file_changes' do
+    get '*file' => 'file_changes#show', :as => 'file_changes'
+    post '/' => 'file_changes#show', :as => 'file_changes_post'
+  end
+
   get('src_files/:release/*path/:version' => 'src_files#show',
       :version => /[1-9][0-9]*(\.[1-9][0-9]*)+/,
       :as => 'src_files')
