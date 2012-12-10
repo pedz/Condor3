@@ -74,9 +74,10 @@ class ApplicationController < ActionController::Base
     return common_authenticate(user_name, password)
   end
 
+  # The test environment accepts any user and password (for now)
   def testing_authenticate(user_name, password)
     logger.info("testing_authenticate")
-    common_authenticate('pedzan@us.ibm.com')
+    common_authenticate(user_name, password)
     return true
   end
 
