@@ -28,6 +28,7 @@ gem 'capistrano'
 gem 'activeldap'
 gem 'ruby-ldap'
 gem 'diff-lcs'
+gem 'keynote'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
