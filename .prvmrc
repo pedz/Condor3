@@ -1,5 +1,22 @@
 # (delete-path-elements "^/usr/local/prvm/")
+# (delete-path-elements "/\.bundle/bin$")
 # (prepend-path "/usr/local/prvm/ruby-1.9.3-p194/bin")
+# (prepend-path "/Users/pedzan/Source/Rails3/condor3/.bundle/bin")
+
 delete-path-elements '^/usr/local/prvm/'
-prepend-path /usr/local/prvm/ruby-1.9.3-p194/bin
+delete-path-elements '/\.bundle/bin$'
+typeset bundle_base=$( absolute_path "${BASH_SOURCE%/*}/.bundle" $PWD )
+typeset bundle_gems="$bundle_base/gems/ruby/1.9.1"
+typeset bundle_bin="$bundle_base/bin"
+typeset ruby_base=/usr/local/prvm/ruby-1.9.3-p194
+
+prepend-path "$ruby_base/bin"
+prepend-path "$bundle_bin"
 export PGDATABASE=condor3_development
+export GEM_HOME="$bundle_gems"
+export GEM_PATH="$ruby_base/lib/ruby/gems/1.9.1"
+
+unset bundle_base
+unset bundle_gems
+unset bundle_bin
+unset ruby_base

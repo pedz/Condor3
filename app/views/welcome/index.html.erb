@@ -5,34 +5,10 @@
 <!-- <%= __FILE__[Rails.root.to_s.length+1 .. -1] %> -->
 <% @title = "Welcome to Condor 3" %>
 <div class='forms'>
-  <%= form_tag swinfo_post_path do %>
-    <%= label_tag('item', 'swinfo', :class => 'form-description') %>
-    <%= text_field_tag "item" %>
-    <%= submit_tag "Submit" %>
-  <% end %>
-  <%= form_tag which_filesets_post_path do %>
-    <%= label_tag('path', 'which filesets', :class => 'form-description') %>
-    <%= text_field_tag "path" %>
-    <%= submit_tag "Submit" %>
-  <% end %>
-  <%= form_tag sha1s_post_path do %>
-    <%= label_tag('sha1', 'sha1', :class => 'form-description') %>
-    <%= text_field_tag "sha1" %>
-    <%= submit_tag "Submit" %>
-  <% end %>
-  <%= form_tag defects_post_path do %>
-    <%= label_tag('defect', 'cmvc defect', :class => 'form-description') %>
-    <%= text_field_tag "defect" %>
-    <%= submit_tag "Submit" %>
-  <% end %>
-  <%= form_tag changes_post_path do %>
-    <%= label_tag('change', 'cmvc defect changes', :class => 'form-description') %>
-    <%= text_field_tag "change" %>
-    <%= submit_tag "Submit" %>
-  <% end %>
-  <%= form_tag file_changes_post_path do %>
-    <%= label_tag('file', 'file change history', :class => 'form-description') %>
-    <%= text_field_tag "file" %>
-    <%= submit_tag "Submit" %>
-  <% end %>
+  <%= render partial: 'form', locals: { name: 'swinfo',         param: 'item',   text_label: 'swinfo'              } %>
+  <%= render partial: 'form', locals: { name: 'which_filesets', param: 'path',   text_label: 'which fileset'       } %>
+  <%= render partial: 'form', locals: { name: 'sha1s',          param: 'sha1',   text_label: 'sha1'                } %>
+  <%= render partial: 'form', locals: { name: 'defects',        param: 'defect', text_label: 'cmvc defect'         } %>
+  <%= render partial: 'form', locals: { name: 'changes',        param: 'change', text_label: 'cmvc defect changes' } %>
+  <%= render partial: 'form', locals: { name: 'file_changes',   param: 'file',   text_label: 'file change history' } %>
 </div>

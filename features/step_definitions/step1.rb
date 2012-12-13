@@ -10,5 +10,5 @@ Then /^I should see a text box to enter a swinfo request$/ do
 end
 
 Then /^a submit button$/ do
-  puts find(:xpath, '//form/label[text()="swinfo"]/../input[@type="submit"]').tag_name
+  find(:xpath, '//form/label[text()="swinfo"]/../input[@type="submit"]')
 end

@@ -1,0 +1,5 @@
+<%= form_tag send("#{name}_post_path".to_sym), :id => "#{name}_form" do %>
+  <%= label_tag(param, text_label, :class => "form-description") %>
+  <%= text_field_tag param %>
+  <%= submit_tag "Submit", :id => "#{name}_submit" %>
+<% end %>
