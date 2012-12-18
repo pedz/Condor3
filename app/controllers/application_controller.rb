@@ -124,4 +124,13 @@ class ApplicationController < ActionController::Base
     @exception = exception
     render "cmvcs/cmvc_error"
   end
+
+  def create_presenter(*args)
+    @presenter = present(*args)
+  end
+
+  def presenter
+    @presenter
+  end
+  helper_method :presenter
 end

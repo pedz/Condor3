@@ -5,7 +5,7 @@
 <!-- <%= __FILE__[Rails.root.to_s.length+1 .. -1] %> -->
 <% @title = "Welcome to Condor 3" %>
 <div class='forms'>
-  <%= render partial: 'form', locals: { name: 'swinfo',         param: 'item',   text_label: 'swinfo'              } %>
+  <%= presenter.welcome_form(Swinfo.new, :item, 'swinfo') %>
   <%= render partial: 'form', locals: { name: 'which_filesets', param: 'path',   text_label: 'which fileset'       } %>
   <%= render partial: 'form', locals: { name: 'sha1s',          param: 'sha1',   text_label: 'sha1'                } %>
   <%= render partial: 'form', locals: { name: 'defects',        param: 'defect', text_label: 'cmvc defect'         } %>

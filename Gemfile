@@ -20,7 +20,7 @@ group :development, :test do
   gem 'xpath'
   gem 'database_cleaner'
 end
-gem 'cucumber-rails', :group => :test
+gem 'cucumber-rails', :group => :test, :require => false
 
 gem 'jquery-rails'
 gem 'activerecord_constraints'

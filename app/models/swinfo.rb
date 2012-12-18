@@ -21,7 +21,6 @@ class Swinfo < ViewModel
   # The upd_apar_defs returned from the search
   attr_reader :upd_apar_defs
 
-  def initialize(options)
-    
+  def initialize(options = {})
   end
 end
