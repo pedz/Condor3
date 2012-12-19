@@ -40,46 +40,46 @@ class UpdAparDef < ActiveRecord::Base
   # id from Fileset
 
   ##
-  # :apar: lpp
+  # :attr: lpp
   # name from Lpp
 
   ##
-  # :apar: lpp_id
+  # :attr: lpp_id
   # id from Lpp
 
   ##
-  # :apar: lpp_base
+  # :attr: lpp_base
   # name from LppBase
 
   ##
-  # :apar: lpp_base_id
+  # :attr: lpp_base_id
   # id from LppBase
 
   ##
-  # :apar: ptf
+  # :attr: ptf
   # name from Ptf
 
   ##
-  # :apar: ptf_id
+  # :attr: ptf_id
   # id from Ptf
 
   ##
-  # :apar: service_pack
+  # :attr: service_pack
   # name from ServicePack
 
   ##
-  # :apar: service_pack_id
+  # :attr: service_pack_id
   # id from ServicePack
 
   ##
-  # :apar: version
+  # :attr: version
   # name from Version
 
   ##
-  # :apar: version_id
+  # :attr: version_id
   # id from Version
 
   ##
-  # :apar: vrmf
+  # :attr: vrmf
   # vrmf from Fileset
 end

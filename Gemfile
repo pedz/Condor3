@@ -19,6 +19,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'xpath'
   gem 'database_cleaner'
+  gem 'factory_girl_rails'
 end
 gem 'cucumber-rails', :group => :test, :require => false
 

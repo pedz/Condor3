@@ -74,6 +74,11 @@ GEM
     eventmachine (0.12.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (4.1.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.1.0)
+      factory_girl (~> 4.1.0)
+      railties (>= 3.0.0)
     fast_gettext (0.6.10)
     fssm (0.2.9)
     gettext (2.3.2)
@@ -186,6 +191,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   diff-lcs
+  factory_girl_rails
   jquery-rails
   keynote
   pg
