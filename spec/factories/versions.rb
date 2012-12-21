@@ -2,5 +2,6 @@
 
 FactoryGirl.define do
   factory :version do
+    name "53D"
   end
 end
