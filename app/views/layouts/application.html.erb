@@ -8,37 +8,13 @@
 -->
   <head>
     <meta charset='UTF-8'>
-    <title>Condor 3: <%= @title %></title>
-      <%= favicon_link_tag('condor_64.jpg', :rel => :icon, :type => 'image/jpeg', :sizes => '64x64') %>
-      <%= favicon_link_tag('condor_48.jpg', :rel => :icon, :type => 'image/jpeg', :sizes => '48x48') %>
-      <%= favicon_link_tag('condor_32.jpg', :rel => :icon, :type => 'image/jpeg', :sizes => '32x32') %>
-      <%= favicon_link_tag('condor_16.jpg', :rel => :icon, :type => 'image/jpeg', :sizes => '16x16') %>
-      <%= favicon_link_tag %>
-      <%= stylesheet_link_tag    'application', :media => 'all' %>
-      <%= javascript_include_tag 'application' %>
-      <%= csrf_meta_tags %>
-      <%= add_paths %>
-    </head>
+    <title><%= presenter.page_title %></title>
+    <%= presenter.header_tags %>
+  </head>
   <body class='<%= controller.controller_name %>'>
-    <div class='home'>
-      <%= link_to(welcome_path, :class => 'home-button') do %>
-	Home
-      <% end %>
-    </div>
-    <div class='help'>
-      <button class='help-button'>Help ...</button>
-      <%= render 'help_text' %>
-    </div>
-    <h2 class='title'>
-      <span>
-	<%= @title %>
-      </span>
-    </h2>
+    <%= presenter.home_button %>
+    <%= presenter.help_button %>
+    <%= presenter.title_heading %>
     <%= yield %>
-    <% if @json_elements %>
-      <script type='text/javascript'>
-	json_elements = <%= @json_elements.to_json.html_safe %>;
-      </script>
-    <% end %>
   </body>
 </html>

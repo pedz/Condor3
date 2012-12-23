@@ -14,5 +14,11 @@ Feature: User views Welcome page
     And The form has a submit button
 
     Examples:
-    | VisualText          | FormName       | TextBoxName |
-    | swinfo              | new_swinfo     | swinfo_item |
+    | VisualText          | FormName            | TextBoxName |
+    | swinfo              | swinfo_form         | item        |
+    | which fileset       | which_filesets_form | path        |
+    | sha1                | sha1s_form          | sha1        |
+    | cmvc defect         | defects_form        | defect      |
+    | cmvc defect changes | changes_form        | change      |
+    | file change history | file_changes_form   | file        |
+

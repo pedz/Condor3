@@ -3,12 +3,11 @@
     All Rights Reserved
 -%>
 <!-- <%= __FILE__[Rails.root.to_s.length+1 .. -1] %> -->
-<% @title = "Welcome to Condor 3" %>
 <div class='forms'>
-  <%= presenter.welcome_form(Swinfo.new, :item, 'swinfo') %>
-  <%= render partial: 'form', locals: { name: 'which_filesets', param: 'path',   text_label: 'which fileset'       } %>
-  <%= render partial: 'form', locals: { name: 'sha1s',          param: 'sha1',   text_label: 'sha1'                } %>
-  <%= render partial: 'form', locals: { name: 'defects',        param: 'defect', text_label: 'cmvc defect'         } %>
-  <%= render partial: 'form', locals: { name: 'changes',        param: 'change', text_label: 'cmvc defect changes' } %>
-  <%= render partial: 'form', locals: { name: 'file_changes',   param: 'file',   text_label: 'file change history' } %>
+  <%= presenter.welcome_form('swinfo', 'item', 'swinfo') %>
+  <%= presenter.welcome_form('which_filesets', 'path', 'which fileset') %>
+  <%= presenter.welcome_form('sha1s', 'sha1', 'sha1') %>
+  <%= presenter.welcome_form('defects', 'defect', 'cmvc defect') %>
+  <%= presenter.welcome_form('changes', 'change', 'cmvc defect changes') %>
+  <%= presenter.welcome_form('file_changes', 'file', 'file change history') %>
 </div>

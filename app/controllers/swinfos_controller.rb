@@ -10,8 +10,8 @@ class SwinfosController < ApplicationController
   # separated by commands.  :page can be either a number or the string
   # 'all'.
   def show
-    unless params[:sort]
-      redirect_to swinfo_full_path(params[:item], DEFAULT_SORT_ORDER, 1)
+    unless params[:sort] && params[:page]
+      redirect_to_full_path
       return
     end
 
@@ -29,22 +29,25 @@ class SwinfosController < ApplicationController
 
     item = params[:item]
     upd_apar_defs = find_items(finder_options, item)
-    @view_model = Swinfo.new(:params => params,
-                             :title => "swinfo for #{item}",
-                             :errors => @errors,
-                             :item => item,
-                             :upd_apar_defs => upd_apar_defs)
-    respond_with(view_model)
+    swinfo = Swinfo.new(:params => params,
+                            :title => "swinfo for #{item}",
+                            :errors => @errors,
+                            :item => item,
+                            :upd_apar_defs => upd_apar_defs)
+    respond_with(create_presenter(swinfo))
   end
 
   def create
-    swinfo = params[:swinfo]
-    redirect_to swinfo_full_path(swinfo[:item],
-                                 (swinfo[:sort] || DEFAULT_SORT_ORDER),
-                                 (swinfo[:page] || 1))
+    redirect_to_full_path
   end
 
   private
+
+  def redirect_to_full_path
+    redirect_to swinfo_full_path(params[:item],
+                                 (params[:sort] || DEFAULT_SORT_ORDER),
+                                 (params[:page] || 1))
+  end
 
   def find_items(finder_options, item)
     dalli_params = finder_options.merge(:item => item)
