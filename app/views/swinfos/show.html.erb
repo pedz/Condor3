@@ -3,15 +3,6 @@
     All Rights Reserved
 -%>
 <!-- <%= __FILE__[Rails.root.to_s.length+1 .. -1] %> -->
-<% if @errors %>
-  <ul id='errors'>
-    Errors:
-    <% @errors.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
-<% end %>
-<%= render "upd_apar_defs/table" %>
-<script type='text/javascript'>
-json_elements = <%= @json_elements.to_json.html_safe %>;
-</script>
+<%= presenter.show_errors %>
+<%= presenter.show_table %>
+<%= presenter.append_results %>

@@ -7,8 +7,6 @@
 # A base for the models passed from the controllers to the views.
 # Common attributes are held here.
 class ViewModel
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
   ##
   # :attr: title
   # The title the page should have
@@ -20,7 +18,7 @@ class ViewModel
   attr_reader :params
 
   def initialize(options)
-    @title = options[:title] || "No Title for Page"
+    @title = options[:title] || "No Title"
     @params = options[:params] || {}
   end
 

@@ -22,5 +22,9 @@ class Swinfo < ViewModel
   attr_reader :upd_apar_defs
 
   def initialize(options = {})
+    super
+    @errors = options[:errors] || []
+    @item = options[:item]
+    @upd_apar_defs = options[:upd_apar_defs] || []
   end
 end

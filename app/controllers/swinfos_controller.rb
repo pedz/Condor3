@@ -29,11 +29,11 @@ class SwinfosController < ApplicationController
 
     item = params[:item]
     upd_apar_defs = find_items(finder_options, item)
-    swinfo = Swinfo.new(:params => params,
-                            :title => "swinfo for #{item}",
-                            :errors => @errors,
-                            :item => item,
-                            :upd_apar_defs => upd_apar_defs)
+    swinfo = Swinfo.new(params: params,
+                        title: "swinfo for #{item}",
+                        errors: @errors,
+                        item: item,
+                        upd_apar_defs: upd_apar_defs)
     respond_with(create_presenter(swinfo))
   end
 
