@@ -1,8 +1,20 @@
 
 Given /^I am on the welcome page$/ do
-  encoded_login = ["pedzan@us.ibm.com:lostgr8t"].pack("m*")
-  page.driver.header 'Authorization', "Basic #{encoded_login}"
-  visit(welcome_path)
+  case page.mode.to_s
+  when 'selenium'
+    r = page.driver.rack_server
+    visit("http://username:password@#{r.host}:#{r.port}#{welcome_path}")
+
+  when 'rack_test'
+    encoded_login = ["pedzan@us.ibm.com:lostgr8t"].pack("m*")
+    page.driver.header 'Authorization', "Basic #{encoded_login}"
+    visit(welcome_path)
+
+  when 'webkit'
+    encoded_login = ["pedzan@us.ibm.com:lostgr8t"].pack("m*")
+    page.driver.header 'Authorization', "Basic #{encoded_login}"
+    visit(welcome_path)
+  end
 end
 
 Then /^I should see multiple forms$/ do

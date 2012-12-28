@@ -1,36 +1,40 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
-gem 'pg'
+
+gem 'activeldap'
+gem 'activerecord_constraints'
+gem 'capistrano'
 gem 'dalli'
+gem 'diff-lcs'
+gem 'jquery-rails'
+gem 'keynote'
+gem 'pg'
+gem 'ruby-ldap'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
   gem 'compass-rails'
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'uglifier', '>= 1.0.3'
 end
 
 group :development, :test do
-  gem 'rails-footnotes', '>= 3.7.5.rc4'
-  gem 'thin'
-  gem 'rspec-rails'
-  gem 'xpath'
+  gem "capybara", '1.1.4'
+  gem "capybara-webkit"
+  gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'jasmine'
   gem 'launchy'
+  gem 'rails-footnotes', '>= 3.7.5.rc4'
+  gem 'rspec-rails'
+  gem 'thin'
+  gem 'xpath'
 end
-gem 'cucumber-rails', :group => :test, :require => false
 
-gem 'jquery-rails'
-gem 'activerecord_constraints'
-gem 'capistrano'
-gem 'activeldap'
-gem 'ruby-ldap'
-gem 'diff-lcs'
-gem 'keynote'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

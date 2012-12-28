@@ -9,13 +9,6 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET escape_string_warning = off;
 
---
--- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: -
---
-
-CREATE OR REPLACE PROCEDURAL LANGUAGE plpgsql;
-
-
 SET search_path = public, pg_catalog;
 
 --
@@ -42,8 +35,8 @@ CREATE TABLE adv_ptf_release_maps (
     apar_defect_version_map_id integer NOT NULL,
     ptf_id integer NOT NULL,
     release_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -74,8 +67,8 @@ CREATE TABLE aix_files (
     id integer NOT NULL,
     path character varying(255) NOT NULL,
     sha1 character varying(255) NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -107,8 +100,8 @@ CREATE TABLE apar_defect_version_maps (
     apar_id integer NOT NULL,
     defect_id integer NOT NULL,
     version_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     pc_id integer DEFAULT (-1) NOT NULL
 );
 
@@ -140,8 +133,8 @@ CREATE TABLE apars (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
     abstract character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -172,8 +165,8 @@ CREATE TABLE cmvcs (
     id integer NOT NULL,
     user_id integer NOT NULL,
     login character varying(255) NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -203,8 +196,8 @@ ALTER SEQUENCE cmvcs_id_seq OWNED BY cmvcs.id;
 CREATE TABLE defects (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     cq_defect character varying(255) DEFAULT 'NONE'::character varying NOT NULL
 );
 
@@ -235,8 +228,8 @@ ALTER SEQUENCE defects_id_seq OWNED BY defects.id;
 CREATE TABLE families (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -267,8 +260,8 @@ CREATE TABLE fileset_aix_file_maps (
     id integer NOT NULL,
     fileset_id integer NOT NULL,
     aix_file_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -299,8 +292,8 @@ CREATE TABLE fileset_ptf_maps (
     id integer NOT NULL,
     fileset_id integer NOT NULL,
     ptf_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -331,8 +324,8 @@ CREATE TABLE filesets (
     id integer NOT NULL,
     lpp_id integer NOT NULL,
     vrmf character varying(255) NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -363,8 +356,8 @@ CREATE TABLE image_paths (
     id integer NOT NULL,
     path character varying(255) NOT NULL,
     package_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -394,8 +387,8 @@ ALTER SEQUENCE image_paths_id_seq OWNED BY image_paths.id;
 CREATE TABLE lpp_bases (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -426,8 +419,8 @@ CREATE TABLE lpps (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
     lpp_base_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -458,8 +451,8 @@ CREATE TABLE package_fileset_maps (
     id integer NOT NULL,
     package_id integer NOT NULL,
     fileset_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -490,8 +483,8 @@ CREATE TABLE packages (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
     sha1 character varying(255) NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -521,8 +514,8 @@ ALTER SEQUENCE packages_id_seq OWNED BY packages.id;
 CREATE TABLE ptfs (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -535,8 +528,8 @@ CREATE TABLE releases (
     name character varying(255) NOT NULL,
     family_id integer NOT NULL,
     version_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -548,8 +541,8 @@ CREATE TABLE service_pack_fileset_maps (
     id integer NOT NULL,
     service_pack_id integer NOT NULL,
     fileset_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -560,8 +553,8 @@ CREATE TABLE service_pack_fileset_maps (
 CREATE TABLE service_packs (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -572,8 +565,8 @@ CREATE TABLE service_packs (
 CREATE TABLE versions (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -691,8 +684,8 @@ CREATE TABLE upd_pc_views (
     fileset_id integer NOT NULL,
     defect_id integer NOT NULL,
     version_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -731,8 +724,8 @@ CREATE TABLE users (
     id integer NOT NULL,
     ldap_id character varying(255) NOT NULL,
     admin boolean DEFAULT false,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -929,11 +922,11 @@ ALTER TABLE versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regc
 
 
 --
--- Name: adv_ptf_release_maps_apar_defect_version_map_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: adv_ptf_release_maps_apar_defect_version_map_id_ptf_id_rele_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY adv_ptf_release_maps
-    ADD CONSTRAINT adv_ptf_release_maps_apar_defect_version_map_id_key UNIQUE (apar_defect_version_map_id, ptf_id, release_id);
+    ADD CONSTRAINT adv_ptf_release_maps_apar_defect_version_map_id_ptf_id_rele_key UNIQUE (apar_defect_version_map_id, ptf_id, release_id);
 
 
 --
@@ -945,11 +938,11 @@ ALTER TABLE ONLY adv_ptf_release_maps
 
 
 --
--- Name: aix_files_path_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: aix_files_path_sha1_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY aix_files
-    ADD CONSTRAINT aix_files_path_key UNIQUE (path, sha1);
+    ADD CONSTRAINT aix_files_path_sha1_key UNIQUE (path, sha1);
 
 
 --
@@ -961,11 +954,11 @@ ALTER TABLE ONLY aix_files
 
 
 --
--- Name: apar_defect_version_maps_apar_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: apar_defect_version_maps_apar_id_defect_id_version_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY apar_defect_version_maps
-    ADD CONSTRAINT apar_defect_version_maps_apar_id_key UNIQUE (apar_id, defect_id, version_id);
+    ADD CONSTRAINT apar_defect_version_maps_apar_id_defect_id_version_id_key UNIQUE (apar_id, defect_id, version_id);
 
 
 --
@@ -1049,11 +1042,11 @@ ALTER TABLE ONLY families
 
 
 --
--- Name: fileset_aix_file_maps_fileset_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: fileset_aix_file_maps_fileset_id_aix_file_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY fileset_aix_file_maps
-    ADD CONSTRAINT fileset_aix_file_maps_fileset_id_key UNIQUE (fileset_id, aix_file_id);
+    ADD CONSTRAINT fileset_aix_file_maps_fileset_id_aix_file_id_key UNIQUE (fileset_id, aix_file_id);
 
 
 --
@@ -1065,11 +1058,11 @@ ALTER TABLE ONLY fileset_aix_file_maps
 
 
 --
--- Name: fileset_ptf_maps_fileset_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: fileset_ptf_maps_fileset_id_ptf_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY fileset_ptf_maps
-    ADD CONSTRAINT fileset_ptf_maps_fileset_id_key UNIQUE (fileset_id, ptf_id);
+    ADD CONSTRAINT fileset_ptf_maps_fileset_id_ptf_id_key UNIQUE (fileset_id, ptf_id);
 
 
 --
@@ -1081,11 +1074,11 @@ ALTER TABLE ONLY fileset_ptf_maps
 
 
 --
--- Name: filesets_lpp_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: filesets_lpp_id_vrmf_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY filesets
-    ADD CONSTRAINT filesets_lpp_id_key UNIQUE (lpp_id, vrmf);
+    ADD CONSTRAINT filesets_lpp_id_vrmf_key UNIQUE (lpp_id, vrmf);
 
 
 --
@@ -1129,11 +1122,11 @@ ALTER TABLE ONLY lpp_bases
 
 
 --
--- Name: lpps_name_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: lpps_name_lpp_base_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY lpps
-    ADD CONSTRAINT lpps_name_key UNIQUE (name, lpp_base_id);
+    ADD CONSTRAINT lpps_name_lpp_base_id_key UNIQUE (name, lpp_base_id);
 
 
 --
@@ -1145,11 +1138,11 @@ ALTER TABLE ONLY lpps
 
 
 --
--- Name: package_fileset_maps_package_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: package_fileset_maps_package_id_fileset_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY package_fileset_maps
-    ADD CONSTRAINT package_fileset_maps_package_id_key UNIQUE (package_id, fileset_id);
+    ADD CONSTRAINT package_fileset_maps_package_id_fileset_id_key UNIQUE (package_id, fileset_id);
 
 
 --
@@ -1161,11 +1154,11 @@ ALTER TABLE ONLY package_fileset_maps
 
 
 --
--- Name: packages_name_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: packages_name_sha1_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY packages
-    ADD CONSTRAINT packages_name_key UNIQUE (name, sha1);
+    ADD CONSTRAINT packages_name_sha1_key UNIQUE (name, sha1);
 
 
 --
@@ -1193,11 +1186,11 @@ ALTER TABLE ONLY ptfs
 
 
 --
--- Name: releases_name_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: releases_name_family_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY releases
-    ADD CONSTRAINT releases_name_key UNIQUE (name, family_id);
+    ADD CONSTRAINT releases_name_family_id_key UNIQUE (name, family_id);
 
 
 --
@@ -1217,11 +1210,11 @@ ALTER TABLE ONLY service_pack_fileset_maps
 
 
 --
--- Name: service_pack_fileset_maps_service_pack_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: service_pack_fileset_maps_service_pack_id_fileset_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY service_pack_fileset_maps
-    ADD CONSTRAINT service_pack_fileset_maps_service_pack_id_key UNIQUE (service_pack_id, fileset_id);
+    ADD CONSTRAINT service_pack_fileset_maps_service_pack_id_fileset_id_key UNIQUE (service_pack_id, fileset_id);
 
 
 --
@@ -1249,11 +1242,11 @@ ALTER TABLE ONLY upd_pc_views
 
 
 --
--- Name: upd_pc_views_update_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: upd_pc_views_update_id_pc_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY upd_pc_views
-    ADD CONSTRAINT upd_pc_views_update_id_key UNIQUE (update_id, pc_id);
+    ADD CONSTRAINT upd_pc_views_update_id_pc_id_key UNIQUE (update_id, pc_id);
 
 
 --
@@ -1293,34 +1286,6 @@ ALTER TABLE ONLY versions
 --
 
 CREATE INDEX base_file_name_idx ON aix_files USING btree (basename((path)::text));
-
-
---
--- Name: i1; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX i1 ON apar_defect_version_maps USING btree (defect_id);
-
-
---
--- Name: i2; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX i2 ON apar_defect_version_maps USING btree (apar_id);
-
-
---
--- Name: i3; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX i3 ON adv_ptf_release_maps USING btree (apar_defect_version_map_id);
-
-
---
--- Name: i4; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX i4 ON fileset_ptf_maps USING btree (ptf_id);
 
 
 --

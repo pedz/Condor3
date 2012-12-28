@@ -3,3 +3,12 @@ Port / Bugs in Passenger
 Bugs in gcc
 Fight with button
 explore jsrender / jsviews
+
+read Objects On Rails
+Almost to deploy around Thanksgiving but started a small change which
+mushroomed into a big change.  Decided to start doing BDD for real.
+
+Got rspec book
+Got cucumber book
+
+Added https://github.com/rails/rails/issues/8548 by hand.
