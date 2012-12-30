@@ -1,4 +1,4 @@
-And /^The database is set up$/ do
+And /^The database has a single entry$/ do
   @current_adv = FactoryGirl.create(:adv)
 end
 
@@ -15,5 +15,11 @@ When /^I hit the submit button$/ do
 end
 
 Then /^I should see the results$/ do
-  pending
+  within('table.upd_apar_defs tbody') do
+    tr1 = find('tr:first-child')
+    tds = tr1.all('td')
+    tds[0].text.should == '1'
+    tds[1].text.should == @current_adv.defect.name
+    tds[2].text.should == "banana"
+  end
 end

@@ -19,11 +19,12 @@ group :assets do
   gem 'compass-rails'
   gem 'sass-rails',   '~> 3.2.3'
   gem 'uglifier', '>= 1.0.3'
+  gem 'js-routes'
 end
 
 group :development, :test do
-  gem "capybara", '1.1.4'
-  gem "capybara-webkit"
+  gem 'capybara', '1.1.4'
+  gem 'capybara-webkit'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl_rails'

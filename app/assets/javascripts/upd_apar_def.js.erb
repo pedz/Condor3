@@ -1,11 +1,30 @@
 
 $.views.tags({
+    /*
+     * This is used by template2.  It is roughly the same idea as Rails' link_to
+     */
     link_to: function (link, klass, text) {
 	return $.render.template2({link: link, klass: klass, text: text});
     }
 });
 
+$.views.helpers({
+    /*
+     * A helper function called ~log('whatever') that returns an empty
+     * string and prints the argument to Firebug's console
+     */
+    log: function(a) {
+	console.log(a);
+	return "";
+    }
+});
+
 $(document).ready(function () {
+    /*
+     * The idea is that a upd_apar_defs table might be on any page.
+     * The falicy is that the code assumes there is only one on a
+     * particular page.
+     */
     var tbody = $('.upd_apar_defs tbody');
 
     /*

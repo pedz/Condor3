@@ -21,6 +21,7 @@
 //= require help_button
 //= require welcome
 //= require diffs
+//= require js-routes
 
 $(document).ready(function () {
     $('.home-button').button();
