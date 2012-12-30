@@ -15,6 +15,10 @@
  */
 
 $(document).ready(function () {
+    $('.home-button').button();
+});
+
+$(document).ready(function () {
     $('.help-button').button().click(function () {
 	$('.help-text').dialog({
 	    modal: true,
