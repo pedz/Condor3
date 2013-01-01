@@ -1,4 +1,9 @@
-
+/*
+ * I'd like to get rid of both the $.views.tags and $views.helpers
+ * from this file.  The helpers is just a debugging helper.  The
+ * link_to is needed but I think it can be part of the template.  I
+ * just need to figure out how to do that.
+ */
 $.views.tags({
     /*
      * This is used by template2.  It is roughly the same idea as Rails' link_to
@@ -19,21 +24,31 @@ $.views.helpers({
     }
 });
 
-$(document).ready(function () {
+/* Assume condor3.js has already defined condor3 object. */
+condor3.upd_apar_def_ready_func = function () {
+    return condor3.upd_apar_def_ready_func_real(window.location.href);
+};
+
+condor3.upd_apar_def_ready_func_real = function (currentLocation) {
     /*
-     * The idea is that a upd_apar_defs table might be on any page.
-     * The falicy is that the code assumes there is only one on a
-     * particular page.
+     * Some container element (like a div) bundles the table with the
+     * script.  Its class is upd-apar-defs-container.  In theory, the
+     * code should be able to cope with a sequence of these
+     * containers.  That part has not been implemented yet (its not
+     * currently needed).
      */
-    var tbody = $('.upd_apar_defs tbody');
+    var containers = $('.upd-apar-defs-container');
+    var tbody = containers.first().children('table').children('tbody');
+    var script_element = containers.first().children('script');
 
     /*
      * The code in here is used only for the class='upd_apar_defs'
      * table.  If the page does not have that table, then we just want to
      * exit.  Otherwise, we get various javascript errors.
      */
-    if (tbody.length === 0 || typeof json_elements === "undefined")
+    if (tbody.length === 0 || script_element.length === 0) {
 	return;
+    }
 
     /* Called from an event */
     var upd_apar_defs_click = function (event) {
@@ -58,7 +73,6 @@ $(document).ready(function () {
 	return false;
     };
 
-    var currentLocation = window.location.href;
     var currentLocationArray = currentLocation.split('/');
     var pageIndex = currentLocationArray.length - 1;
     var sortIndex = pageIndex - 1;
@@ -162,20 +176,23 @@ $(document).ready(function () {
 	.on('click', '.upd_apar_defs_header_span', alterSort);
     $(window).on('scroll', myScrollFunction);
 
-    $.when( $.get("<%= asset_path('t1.html') %>", null, null, 'html') ).done(function (foodata, status, jqXHR) {
-	// foodata is a string.  $(foodata) turns into an array of HTML
+    $.when( $.get("<%= asset_path('t1.html') %>", null, null, 'html') ).done(function (data, status, jqXHR) {
+	// data is a string.  $(data) turns into an array of HTML
 	// elements.  Often it is just one but if we get them ganged
 	// into one file, they will be more than one.
-	$(foodata).each(function () {
+	$(data).each(function () {
 	    // We assume the outside element is just a container.  I
-	    // use a <script> tag but it can be anything I suppose.
-	    // The id of the container becomes the template's name
-	    // while the contents becomes the template.
+	    // use <script id='template1' type='text/x-jsrender'> but
+	    // it can be anything I suppose.  The id of the container
+	    // becomes the template's name while the contents becomes
+	    // the template.
 	    $.templates(this.id, $(this).html());
 	    return this;
 	});
-	tbody.html($.render.template1({items: json_elements.items, offset: 0}));
+	tbody.html($.render.template1({items: JSON.parse(script_element[0].text), offset: 0}));
     }).fail(function (a, b, c) {
 	alert('Someone is really unhappy');
     });
-});
+};
+
+$(document).ready(condor3.upd_apar_def_ready_func);

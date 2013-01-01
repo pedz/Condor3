@@ -29,10 +29,12 @@ class SwinfoPresenter < ApplicationPresenter
     hash = { id: "errors" }
     hash[:style] = "display: none;" if errors.empty?
     build_html do
-      ul hash do
-        text "Errors:"
-        errors.each do |msg|
-          li msg
+      section hash do
+        h3 "Errors:"
+        ul hash do
+          errors.each do |msg|
+            li msg
+          end
         end
       end
     end
@@ -89,7 +91,8 @@ class SwinfoPresenter < ApplicationPresenter
         thead do
           tr do
             th '#'
-            [ "Defect", "Apar", "PTF", "Abstract", "LPP", "VRMF", "Version", "Service Pack" ].each do |header_label|
+            [ "Defect", "Apar", "PTF", "Abstract",
+              "LPP", "VRMF", "Version", "Service Pack" ].each do |header_label|
               th class: "upd_apar_def-#{header_label.gsub(" ", "_").downcase}" do
                 span class: "upd_apar_defs_header_span" do
                   text header_label
@@ -110,8 +113,7 @@ class SwinfoPresenter < ApplicationPresenter
   def append_results
     build_html do
       script type: 'text/javascript' do
-        text "json_elements = {};"
-        text "json_elements['items'] = #{upd_apar_defs.to_json};".html_safe
+        text upd_apar_defs.to_json.html_safe
       end
     end
   end

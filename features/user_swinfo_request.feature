@@ -9,5 +9,3 @@ Feature: User submits a swinfo query
     And I enter a defect into the swinfo form
     When I hit the submit button
     Then I should see the results
-    And The first column should be an index
-    And The second solumn should be the defect
