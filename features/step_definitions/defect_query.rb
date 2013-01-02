@@ -20,6 +20,6 @@ Then /^I should see the results$/ do
     tds = tr1.all('td')
     tds[0].text.should == '1'
     tds[1].text.should == @current_adv.defect.name
-    tds[2].text.should == "banana"
+    tds[2].text.should == "IV22222"
   end
 end
