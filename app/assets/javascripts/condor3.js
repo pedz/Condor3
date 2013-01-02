@@ -10,5 +10,4 @@
  * others to put stuff in to.
  */
 
-if (typeof condor3 === 'undefined')
-    condor3 = {};
+window['condor3'] = window['condor3'] || {};

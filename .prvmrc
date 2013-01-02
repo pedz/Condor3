@@ -1,2 +1,7 @@
 prvm_use ruby-1.9.3-p194
 export PGDATABASE=condor3_development
+
+function run-jasmine
+{
+    rake jasmine RAILS_ENV=test
+}

@@ -21,12 +21,37 @@ $.views.helpers({
     log: function(a) {
 	console.log(a);
 	return "";
+    },
+
+    swinfo_path: function (a) {
+	condor3.routes.swinfo_full_path(a , 'defect, apar, ptf', 1);
     }
 });
 
 /* Assume condor3.js has already defined condor3 object. */
 condor3.upd_apar_def_ready_func = function () {
+    condor3.setup_helpers();
     return condor3.upd_apar_def_ready_func_real(window.location.href);
+};
+
+/*
+ * Copy the routes created by js-routes to be helpers.  Somehow,
+ * putting them directly into helpers at build time causes problems --
+ * at least during testing.
+ */
+condor3.setup_helpers = function () {
+    /*
+     * If this is done during load time, something screws up so do it
+     * on the ready event.
+     */
+    var routes = condor3.routes;
+    Object.getOwnPropertyNames(routes).forEach(function (propName) {
+	var prop = routes[propName];
+
+	if (typeof prop === 'function') {
+	    $.views.helpers({ propName: prop });
+	}
+    });
 };
 
 condor3.upd_apar_def_ready_func_real = function (currentLocation) {
@@ -135,12 +160,12 @@ condor3.upd_apar_def_ready_func_real = function (currentLocation) {
 		    if (atad.length == 0)
 			return;
 		    
-		    var offset = $('.upd_apar_defs tbody tr').length;
+		    var offset = $('.upd_apar_defs tbody tr').length + 1;
 		    $('.upd_apar_defs tbody').append($.render.template1({items: atad, offset: offset}));
 		    /* Hook back up for next page */
 		    $(window).on('scroll', myScrollFunction);
 		})
-		.fail(function (a, b, c) { alert('Someone is really unhpapy 2'); });
+		.fail(function (a, b, c) { alert('Fetch of additional results failed'); });
 	}
     };
 
@@ -189,9 +214,9 @@ condor3.upd_apar_def_ready_func_real = function (currentLocation) {
 	    $.templates(this.id, $(this).html());
 	    return this;
 	});
-	tbody.html($.render.template1({items: JSON.parse(script_element[0].text), offset: 0}));
+	tbody.html($.render.template1({items: JSON.parse(script_element[0].text), offset: 1}));
     }).fail(function (a, b, c) {
-	alert('Someone is really unhappy');
+	alert('Fetch of template failed');
     });
 };
 
