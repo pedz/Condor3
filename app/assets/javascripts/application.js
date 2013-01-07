@@ -5,6 +5,9 @@
 //= require jsviews/jquery.observable
 //= require jsviews/jquery.views
 //= require jQuery.ui.pedzContextMenu
+//= require_directory ./helpers
+//= require_directory ./tags
+//= require_directory ./templates
 //= require condor3
 //= require upd_apar_def
 //= require help_button

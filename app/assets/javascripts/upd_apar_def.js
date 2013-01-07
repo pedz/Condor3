@@ -1,32 +1,3 @@
-/*
- * I'd like to get rid of both the $.views.tags and $views.helpers
- * from this file.  The helpers is just a debugging helper.  The
- * link_to is needed but I think it can be part of the template.  I
- * just need to figure out how to do that.
- */
-$.views.tags({
-    /*
-     * This is used by template2.  It is roughly the same idea as Rails' link_to
-     */
-    link_to: function (link, klass, text) {
-	return $.render.template2({link: link, klass: klass, text: text});
-    }
-});
-
-$.views.helpers({
-    /*
-     * A helper function called ~log('whatever') that returns an empty
-     * string and prints the argument to Firebug's console
-     */
-    log: function(a) {
-	console.log(a);
-	return "";
-    },
-
-    swinfo_path: function (a) {
-	condor3.routes.swinfo_full_path(a , 'defect, apar, ptf', 1);
-    }
-});
 
 /* Assume condor3.js has already defined condor3 object. */
 condor3.upd_apar_def_ready_func = function () {
@@ -161,7 +132,7 @@ condor3.upd_apar_def_ready_func_real = function (currentLocation) {
 			return;
 		    
 		    var offset = $('.upd_apar_defs tbody tr').length + 1;
-		    $('.upd_apar_defs tbody').append($.render.template1({items: atad, offset: offset}));
+		    $('.upd_apar_defs tbody').append($.render.upd_apar_def_row({items: atad, offset: offset}));
 		    /* Hook back up for next page */
 		    $(window).on('scroll', myScrollFunction);
 		})
@@ -200,24 +171,7 @@ condor3.upd_apar_def_ready_func_real = function (currentLocation) {
 	.on('click', '.upd_apar_def_inner_td_span', upd_apar_defs_click)
 	.on('click', '.upd_apar_defs_header_span', alterSort);
     $(window).on('scroll', myScrollFunction);
-
-    $.when( $.get("<%= asset_path('t1.html') %>", null, null, 'html') ).done(function (data, status, jqXHR) {
-	// data is a string.  $(data) turns into an array of HTML
-	// elements.  Often it is just one but if we get them ganged
-	// into one file, they will be more than one.
-	$(data).each(function () {
-	    // We assume the outside element is just a container.  I
-	    // use <script id='template1' type='text/x-jsrender'> but
-	    // it can be anything I suppose.  The id of the container
-	    // becomes the template's name while the contents becomes
-	    // the template.
-	    $.templates(this.id, $(this).html());
-	    return this;
-	});
-	tbody.html($.render.template1({items: JSON.parse(script_element[0].text), offset: 1}));
-    }).fail(function (a, b, c) {
-	alert('Fetch of template failed');
-    });
+    tbody.html($.render.upd_apar_def_row({items: JSON.parse(script_element[0].text), offset: 1}));
 };
 
 $(document).ready(condor3.upd_apar_def_ready_func);

@@ -14,17 +14,6 @@ class SwinfoPresenter < ApplicationPresenter
     end
   end
 
-  def header_tags
-    out = super
-    out << javascript_tag do
-      %Q{$.views.helpers({
-          swinfo_path: function(val) {
-              return "#{swinfo_full_path('TARGET', SwinfosController::DEFAULT_SORT_ORDER, 1)}".replace('TARGET', val);
-          }
-      });}.html_safe
-    end
-  end
-
   def show_errors
     hash = { id: "errors" }
     hash[:style] = "display: none;" if errors.empty?

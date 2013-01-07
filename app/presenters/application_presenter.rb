@@ -1,14 +1,15 @@
 class ApplicationPresenter < Keynote::Presenter
   def header_tags
-    out =  icon_favicon('condor_64.jpg', '64x64')
-    out << icon_favicon('condor_48.jpg', '48x48')
-    out << icon_favicon('condor_32.jpg', '32x32')
-    out << icon_favicon('condor_16.jpg', '16x16')
-    out << favicon_link_tag
-    out << stylesheet_link_tag('application', media: 'all')
-    out << javascript_include_tag('application')
-    out << csrf_meta_tags
-    out.html_safe
+    [
+     icon_favicon('condor_64.jpg', '64x64'),
+     icon_favicon('condor_48.jpg', '48x48'),
+     icon_favicon('condor_32.jpg', '32x32'),
+     icon_favicon('condor_16.jpg', '16x16'),
+     favicon_link_tag,
+     stylesheet_link_tag('application', media: 'all'),
+     javascript_include_tag('application'),
+     csrf_meta_tags
+     ].join("\n").html_safe
   end
 
   def home_button

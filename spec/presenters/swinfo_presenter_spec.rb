@@ -13,12 +13,6 @@ describe SwinfoPresenter do
 
   it_behaves_like "a presenter"
 
-  it "needs to append a javascript tag to head_tags" do
-    markup = Capybara.string(subject.header_tags)
-    markup.should have_selector("script[type='text/javascript']", :text => '$.views.helpers')
-    markup.should have_selector("link[type='image/jpeg']")
-  end
-
   it "should hide the errors list if there are no errors" do
     markup = Capybara.string(subject.show_errors)
     markup.should have_selector("ul[style='display: none;']")

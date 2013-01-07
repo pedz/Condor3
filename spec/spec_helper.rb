@@ -37,4 +37,7 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.include RSpec::CapybaraExtensions, type: :view
+  config.include RSpec::Rails::AssetExampleGroup, :type => :asset, :example_group => {
+    :file_path => config.escaped_path(%w[spec assets])
+  }
 end

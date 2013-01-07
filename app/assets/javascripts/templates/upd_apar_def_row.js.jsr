@@ -1,0 +1,55 @@
+{{for items ~offset=offset}}
+  <tr class='upd_apar_def'>
+    <td class='upd_apar_def-index'>
+      {{: #index + ~offset }}
+    </td>
+
+    <td class='upd_apar_def-defect upd_apar_def_dual_button'>
+      <span class='upd_apar_def_outer_td_span'
+            >{{link_to ~swinfo_path(defect) "upd_apar_def_link" defect
+        /}}<span class='upd_apar_def_inner_td_span'></span><ul class='upd_apar_def_commands' style='display: none;'>
+          <li>Show CMVC Defect</li>
+          <li>Show Code Changes</li>
+          <li>Show APAR Draft</li>
+      </ul></span>
+    </td>
+
+    <td class='upd_apar_def-apar upd_apar_def_dual_button'>
+      <span class='upd_apar_def_outer_td_span'
+            >{{link_to ~swinfo_path(apar) "upd_apar_def_link" apar
+        /}}<span class='upd_apar_def_inner_td_span'></span><ul class='upd_apar_def_commands' style='display: none;'>
+          <li>Show CMVC Defect</li>
+          <li>Show Code Changes</li>
+          <li>Show APAR Draft</li>
+      </ul></span>
+    </td>
+
+    <td class='upd_apar_def-ptf upd_apar_def_dual_button'>
+      <span class='upd_apar_def_outer_td_span'>{{link_to ~swinfo_path(ptf) "upd_apar_def_link" ptf
+        /}}<span class='upd_apar_def_inner_td_span'></span></span>
+    </td>
+
+    <td class='upd_apar_def-abstract'>
+      <span class='upd_apar_def_outer_td_span'>{{:abstract}}<span class='upd_apar_def_inner_td_span'></span><ul class='upd_apar_def_commands' style='display: none;'>
+          <li>Copy {{:abstract}} to clipboard</li>
+      </ul></span>
+    </td>
+
+    <td class='upd_apar_def-lpp upd_apar_def_dual_button'>
+      {{:lpp}}
+    </td>
+
+    <td class='upd_apar_def-vrmf upd_apar_def_dual_button'>
+      <span class='upd_apar_def_outer_td_span'>{{link_to ~swinfo_path(lpp + ' ' + vrmf) "upd_apar_def_link" vrmf
+        /}}<span class='upd_apar_def_inner_td_span'></span></span>
+    </td>
+
+    <td class='upd_apar_def-version upd_apar_def_dual_button'>
+      {{:version}}
+    </td>
+
+    <td class='upd_apar_def-service_pack'>
+      {{:service_pack}}
+    </td>
+  </tr>
+{{/for}}
