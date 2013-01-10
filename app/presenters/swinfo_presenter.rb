@@ -106,4 +106,8 @@ class SwinfoPresenter < ApplicationPresenter
       end
     end
   end
+
+  def to_json(options = {})
+    upd_apar_defs.to_json(options)
+  end
 end

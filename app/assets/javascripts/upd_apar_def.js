@@ -1,53 +1,72 @@
 
 /* Assume condor3.js has already defined condor3 object. */
-condor3.upd_apar_def_ready_func = function () {
-    condor3.setup_helpers();
-    return condor3.upd_apar_def_ready_func_real(window.location.href);
-};
 
-/*
- * Copy the routes created by js-routes to be helpers.  Somehow,
- * putting them directly into helpers at build time causes problems --
- * at least during testing.
- */
-condor3.setup_helpers = function () {
-    /*
-     * If this is done during load time, something screws up so do it
-     * on the ready event.
+/**
+   An object used to process the upd_apar_def table.  The processing
+   happens in stages.  Each stage uses jsrender and the
+   upd_apar_def_row template to render JSON into the rows of the
+   table.  At initialization time, the current location is passed in
+   which is usually window.location.href.  It is a separate parameter
+   to facilitate testing.  The return of the constructor is a hash of
+   public functions which is also done for testing purposes.
+   Otherwise, this could be a big anonymous function.
+
+   @constructor
+   @param {string} currentLocation - A string of the URL of the
+   current page.
+*/
+condor3.UpdAparDef = function (currentLocation) {
+    var currentLocationArray;
+    var containers;
+    var tbody;
+    var script_element;
+    var currentLocationArray;
+    var pageIndex;
+    var sortIndex;
+    var lastPage;
+    var sortOrder;
+
+    /**
+       called when a GET request completes.  The GET request is
+       triggered by the scrolling of the page to (roughly) the end of
+       the page.  The parameters follow what jQuery requires.
+
+       @param {JSON} atad - the JSON returned in the GET request.
+       @param {integer} status - the HTTP status returned.
+       @param {XHR} jqXHR - the XHR object.
+    */
+    function load_succ(atad, status, jqXHR) {
+	/* reached the end of the atad */
+	if (atad.length == 0)
+	    return;
+    
+	var offset = $('.upd_apar_defs tbody tr').length + 1;
+	$('.upd_apar_defs tbody').append($.render.upd_apar_def_row({items: atad, offset: offset}));
+	/* Hook back up for next page */
+	$(window).on('scroll', myScrollFunction);
+    };
+
+    /**
+       called when a GET request for the next batch of JSON elements
+       fails.The parameters follow what jQuery requires.
+
+       @param {JSON} atad - the JSON returned in the GET request.
+       @param {integer} status - the HTTP status returned.
+       @param {XHR} jqXHR - the XHR object.
+    */
+    function load_fail(a, b, c) {
+	alert('Fetch of additional results failed');
+    };
+
+    /**
+       Bound to the click event for the upd_apar_def_inner_td_span
+       class of elements.  These are the little down arrow things that
+       many of the elements in the page have.  The down arrow is
+       clicked to pop up a context sensitive menu.
+
+       @param {event} event - a jQuery event object
      */
-    var routes = condor3.routes;
-    Object.getOwnPropertyNames(routes).forEach(function (propName) {
-	var prop = routes[propName];
-
-	if (typeof prop === 'function') {
-	    $.views.helpers({ propName: prop });
-	}
-    });
-};
-
-condor3.upd_apar_def_ready_func_real = function (currentLocation) {
-    /*
-     * Some container element (like a div) bundles the table with the
-     * script.  Its class is upd-apar-defs-container.  In theory, the
-     * code should be able to cope with a sequence of these
-     * containers.  That part has not been implemented yet (its not
-     * currently needed).
-     */
-    var containers = $('.upd-apar-defs-container');
-    var tbody = containers.first().children('table').children('tbody');
-    var script_element = containers.first().children('script');
-
-    /*
-     * The code in here is used only for the class='upd_apar_defs'
-     * table.  If the page does not have that table, then we just want to
-     * exit.  Otherwise, we get various javascript errors.
-     */
-    if (tbody.length === 0 || script_element.length === 0) {
-	return;
-    }
-
-    /* Called from an event */
-    var upd_apar_defs_click = function (event) {
+    function click(event) {
 	var arrow_span = $(this);
 	var td = arrow_span.parents('td');
 	var ui = td.find('.upd_apar_def_commands');
@@ -58,7 +77,7 @@ condor3.upd_apar_def_ready_func_real = function (currentLocation) {
 	};
 
 	arrow_span.hide();
-	var frog = ui.contextMenu({
+	ui.contextMenu({
 	    close: function () {
 		arrow_span.show();
 		ui.off('click', 'li', pickLi);
@@ -69,78 +88,15 @@ condor3.upd_apar_def_ready_func_real = function (currentLocation) {
 	return false;
     };
 
-    var currentLocationArray = currentLocation.split('/');
-    var pageIndex = currentLocationArray.length - 1;
-    var sortIndex = pageIndex - 1;
-    var lastPage = parseInt(currentLocationArray[pageIndex]);
+    /**
+       Bound to the click event of upd_apar_defs_header_span class
+       elements.  These are the header elements of the table.  When
+       these are clicked, the sort order is changed and then a new
+       request is sent if appropriate.
 
-    /*
-     * Decorate header with the up and down arrows to indicate how the
-     * table is sorted
+       @param {event} event - a jQuery event object
      */
-    var sortOrder = currentLocationArray[sortIndex].replace(/%20/g, ' ').split(/, */)
-	    .map(function (column, index) {
-		var prefix;
-		var dir;
-		var klass;
-	
-		if (column[0] == "-") {
-		    prefix = "-";
-		    dir = "sort-down";
-		    column = column.slice(1);
-		} else {
-		    prefix = "";
-		    dir = "sort-up";
-		}
-		klass = 'upd_apar_def-' + column;
-		$('th.' + klass + ' .sort')
-		    .removeClass('sortable')
-		    .addClass(dir)
-		    .addClass('sort-pos-' + (index + 1));
-		return {
-		    prefix: prefix,
-		    column: column
-		};
-	    });
-
-    /*
-     * Return the URL for next page that we need to fetch
-     */
-    var xjxjxjxj = function () {
-	var tmp;
-	lastPage += 1;
-	tmp =  currentLocationArray.slice(0, pageIndex);
-	tmp.push(lastPage);
-	return tmp.join('/') + '.json';
-    };
-
-    var myScrollFunction = function (event) {
-	var wh = $(window).height();
-	var ds = $(document).scrollTop();
-	var tr = $('table.upd_apar_defs tbody tr');
-	tr = $(tr[tr.length - 1]);
-	var h = tr.height();
-	var o = tr.offset();
-	var top = o.top;
-
-	if ((ds + wh) > (top - (100 * h))) {
-	    $(window).off('scroll', myScrollFunction);
-	    $.when( $.get(xjxjxjxj(), null, null, 'json') )
-		.done(function (atad, status, jqXHR) {
-		    /* reached the end of the atad */
-		    if (atad.length == 0)
-			return;
-		    
-		    var offset = $('.upd_apar_defs tbody tr').length + 1;
-		    $('.upd_apar_defs tbody').append($.render.upd_apar_def_row({items: atad, offset: offset}));
-		    /* Hook back up for next page */
-		    $(window).on('scroll', myScrollFunction);
-		})
-		.fail(function (a, b, c) { alert('Fetch of additional results failed'); });
-	}
-    };
-
-    var alterSort = function(event) {
+    function alterSort(event) {
 	var th = $(this).parent();
 	var klass = th.attr('class');
 	var column = klass.split('-')[1];
@@ -167,11 +123,113 @@ condor3.upd_apar_def_ready_func_real = function (currentLocation) {
 	window.location = urlArray.join('/');
     };
 
+    /**
+       Returns the URL to use for the AJAX request to fetch the next
+       set of elements to display.
+
+       @return {string} the URL to GET.
+    */
+    function next_page_url() {
+	var tmp;
+	lastPage += 1;
+	tmp =  currentLocationArray.slice(0, pageIndex);
+	tmp.push(lastPage);
+	return tmp.join('/') + '.json';
+    };
+    
+    /**
+       Bound to the scroll event of the window.  When the window is
+       scrolled to within 100 rows of the bottom, an AJAX GET is done
+       using what next_page_url returns and load_succ is called upon
+       successful completion of the request. 
+
+       @param {event} event - a jQuery event object
+     */
+    function myScrollFunction(event) {
+	var window_height = $(window).height();
+	var document_scroll = $(document).scrollTop();
+	var all_trs = $('table.upd_apar_defs tbody tr');
+	var last_tr = $(all_trs[tr.length - 1]);
+	var tr_height = last_tr.height();
+	var o = last_tr.offset();
+	var top = o.top;
+	
+	if ((window_height + document_scroll) > (top - (100 * tr_height))) {
+	    $(window).off('scroll', myScrollFunction);
+	    $.when( $.get(next_page_url(), null, null, 'json') )
+		.done(load_succ)
+		.fail(load_fail);
+	}
+    };
+
+    /*
+     * Some container element (like a div) bundles the table with the
+     * script.  Its class is upd-apar-defs-container.  In theory, the
+     * code should be able to cope with a sequence of these
+     * containers.  That part has not been implemented yet (its not
+     * currently needed).
+     */
+    containers = $('.upd-apar-defs-container');
+    tbody = containers.first().children('table').children('tbody');
+    script_element = containers.first().children('script');
+
+    /*
+     * The code in here is used only for the class='upd_apar_defs'
+     * table.  If the page does not have that table, then we just want
+     * to exit.  Otherwise, we get various javascript errors.
+     */
+    if (tbody.length === 0 || script_element.length === 0) {
+	return;
+    }
+
+    currentLocationArray = currentLocation.split('/');
+    pageIndex = currentLocationArray.length - 1;
+    sortIndex = pageIndex - 1;
+    lastPage = parseInt(currentLocationArray[pageIndex]);
+    
+    /*
+     * Decorate header with the up and down arrows to indicate how the
+     * table is sorted
+     */
+    sortOrder = currentLocationArray[sortIndex].replace(/%20/g, ' ').split(/, */)
+	.map(function (column, index) {
+	    var prefix;
+	    var dir;
+	    var klass;
+		
+	    if (column[0] == "-") {
+		prefix = "-";
+		dir = "sort-down";
+		column = column.slice(1);
+	    } else {
+		prefix = "";
+		dir = "sort-up";
+	    }
+	    klass = 'upd_apar_def-' + column;
+	    $('th.' + klass + ' .sort')
+		.removeClass('sortable')
+		.addClass(dir)
+		.addClass('sort-pos-' + (index + 1));
+	    return {
+		prefix: prefix,
+		column: column
+	    };
+	});
+    
     $('.upd_apar_defs')
-	.on('click', '.upd_apar_def_inner_td_span', upd_apar_defs_click)
+	.on('click', '.upd_apar_def_inner_td_span', click)
 	.on('click', '.upd_apar_defs_header_span', alterSort);
     $(window).on('scroll', myScrollFunction);
     tbody.html($.render.upd_apar_def_row({items: JSON.parse(script_element[0].text), offset: 1}));
+    
+    /* Return what we want to be public */
+    if (typeof condor3.UpdAparDef.prototype.myScrollFunction === 'undefined') {
+	var p = condor3.UpdAparDef.prototype;
+	p.myScrollFunction = myScrollFunction;
+	p.next_page_url = next_page_url;
+    }
 };
 
-$(document).ready(condor3.upd_apar_def_ready_func);
+$(document).ready(function () {
+    new condor3.UpdAparDef(window.location.href);
+});

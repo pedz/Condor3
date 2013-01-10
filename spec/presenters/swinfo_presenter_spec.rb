@@ -1,11 +1,12 @@
 require 'spec_helper'
 
 describe SwinfoPresenter do
+  data = FactoryGirl.build_list(:upd_apar_def, 10)
   swinfo = Swinfo.new(params:        { item: "12345" },
                       title:         "swinfo for 12345",
                       errors:        [],
                       item:          "12345",
-                      upd_apar_defs: FactoryGirl.build_list(:upd_apar_def, 10))
+                      upd_apar_defs: data)
 
   subject do
     SwinfoPresenter.new(view, swinfo)
@@ -40,5 +41,9 @@ describe SwinfoPresenter do
         a[i][field].should == swinfo.upd_apar_defs[i][field]
       end
     end
+  end
+
+  it "should respond with JSON" do
+    subject.to_json.should eq(data.to_json)
   end
 end
