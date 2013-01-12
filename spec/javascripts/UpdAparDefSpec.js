@@ -1,6 +1,6 @@
 describe("UpdAparDef", function() {
     var the_container, the_table, the_tbody, first_row, first_tds;
-    var second_row, second_tds, data, upd_apar_def;
+    var data, upd_apar_def, $spy, $document, xxyyzz;
     var columns = { 'index': 0,
 		    'defect': 1,
 		    'apar': 2,
@@ -30,19 +30,16 @@ describe("UpdAparDef", function() {
 	return new RegExp("\\s*" + s + "\\s*");
     };
 
-    beforeEach(function onlyOnce() {
-	if (onlyOnce.done)
-	    return;
-	onlyOnce.done = 1;
+    beforeEach(function() {
 	loadFixtures('upd_apar_def_fixture.html');
+	mock_$();
+	$(window).off('scroll');
 	upd_apar_def = new condor3.UpdAparDef("http://localhost/condor3/swinfos/648438/defect,%20apar,%20ptf/1");
 	the_container = $('.upd-apar-defs-container');
 	the_table = the_container.children('table');
 	the_tbody = the_table.children('tbody');
 	first_row = the_tbody.children('tr:first-child')
 	first_tds = first_row.children('td');
-	second_row = the_tbody.children('tr:nth-child(2)')
-	second_tds = second_row.children('td');
 	data = JSON.parse(the_container.children('script').slice(0).text())[0];
     });
 
@@ -94,11 +91,88 @@ describe("UpdAparDef", function() {
     });
 
     it("next index should should be 2", function() {
+	var second_row = the_tbody.children('tr:nth-child(2)')
+	var second_tds = second_row.children('td');
 	var index = second_tds.slice(columns['index']);
 	expect(index.text()).toMatch(str_pattern('2'));
     });
 
-    it("the next page to be fetched should be at the correct URL", function() {
-	expect(upd_apar_def.next_page_url()).toEqual("http://localhost/condor3/swinfos/648438/defect,%20apar,%20ptf/2.json");
+    describe("myScrollFunction", function () {
+	it("should be called on the scroll event", function () {
+	    expect($(window)).toHandleWith('scroll', upd_apar_def.myScrollFunction);
+	});
+
+    	it("should not call ajax with scroll at top", function () {
+	    var proxy = spy$(document, 'scrollTop').andReturn(0);
+	    jasmine.Ajax.useMock();
+    	    upd_apar_def.myScrollFunction('dog');
+	    expect(proxy.spy).toHaveBeenCalled();
+	    expect(mostRecentAjaxRequest()).toBeNull();
+    	});
+
+	describe("Endless Page", function() {
+	    var all_trs;
+	    var initial_length;
+	    var top;
+	    var proxy;
+	    var request;
+	    
+	    function get_all_trs() {
+		return $('table.upd_apar_defs tbody tr');
+	    };
+		
+	    beforeEach(function () {
+		all_trs = get_all_trs();
+		initial_length = all_trs.length;
+		top = all_trs.slice(-1).offset().top;
+
+		/* Return the value of top for scrollTop */
+		proxy = spy$(document, 'scrollTop').andReturn(top);
+		jasmine.Ajax.useMock();
+    		upd_apar_def.myScrollFunction('dog');
+		request = mostRecentAjaxRequest();
+	    });
+
+    	    it("should call ajax with scroll at bottom", function () {
+		var last_index;
+
+		expect(proxy.spy).toHaveBeenCalled();
+		expect(request).not.toBeNull();
+		expect(request.url)
+		    .toEqual("http://localhost/condor3/swinfos/648438/defect,%20apar,%20ptf/2.json");
+
+		request.response(TestResponses.first_success);
+		all_trs = get_all_trs();
+		expect(all_trs.length).toBeGreaterThan(initial_length);
+
+		/*
+		 * Check the index column to make sure it increments by
+		 * one the whole way through the table
+		 */
+		all_trs.each(function (index) {
+		    expect( $(this).find('td:first-child').text() )
+			.toMatch(str_pattern((index + 1).toString()));
+		    last_index = index;
+		});
+		expect(all_trs.length).toEqual(last_index + 1);
+    	    });
+
+	    it("should call ajax a second time when scrolled to the bottom", function() {
+		var proxy2;
+
+		request.response(TestResponses.first_success);
+		all_trs = get_all_trs();
+		/* now pretend to scroll to the (new) bottom */
+		top = all_trs.slice(-1).offset().top;
+    		upd_apar_def.myScrollFunction('dog'); // 2nd call
+		request = mostRecentAjaxRequest();
+
+		expect(request).not.toBeNull();
+		expect(request.url)
+		    .toEqual("http://localhost/condor3/swinfos/648438/defect,%20apar,%20ptf/3.json");
+		request.response(TestResponses.second_success);
+		expect($(window)).not.toHandle('scroll');
+	    });
+	});
     });
 });

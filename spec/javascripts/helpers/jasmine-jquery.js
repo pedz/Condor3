@@ -117,6 +117,8 @@ jasmine.JQuery.browserTagCaseIndependentHtml = function(html) {
 };
 
 jasmine.JQuery.elementToString = function(element) {
+  if (element[0] === window)
+    return "window";
   return jQuery('<div />').append(element.clone()).html();
 };
 
@@ -220,18 +222,22 @@ jasmine.JQuery.matchersClass = {};
 
     // tests the existence of a specific event binding
     toHandle: function(eventName) {
-      var events = this.actual.data("events");
-      return events && events[eventName].length > 0;
+      var events = this.actual.data("events") || jQuery._data(this.actual[0]).events;
+      return events && events[eventName] && events[eventName].length > 0;
     },
     
     // tests the existence of a specific event binding + handler
     toHandleWith: function(eventName, eventHandler) {
-      var stack = this.actual.data("events")[eventName];
+      var events = this.actual.data("events") || jQuery._data(this.actual[0]).events;
+      var stack = events && events[eventName];
       var i;
-      for (i = 0; i < stack.length; i++) {
-        if (stack[i].handler == eventHandler) {
-          return true;
-        }
+
+      if (stack && stack.length) {
+	for (i = 0; i < stack.length; i++) {
+          if (stack[i].handler == eventHandler) {
+            return true;
+          }
+	}
       }
       return false;
     }

@@ -15,16 +15,20 @@
    @param {string} currentLocation - A string of the URL of the
    current page.
 */
+
 condor3.UpdAparDef = function (currentLocation) {
-    var currentLocationArray;
+    var $window = $(window);
     var containers;
-    var tbody;
-    var script_element;
     var currentLocationArray;
-    var pageIndex;
-    var sortIndex;
     var lastPage;
+    var pageIndex;
+    var script_element;
+    var sortIndex;
     var sortOrder;
+    var tbody;
+    var instanceCounter;
+
+    global_u_w = $window;
 
     /**
        called when a GET request completes.  The GET request is
@@ -37,13 +41,16 @@ condor3.UpdAparDef = function (currentLocation) {
     */
     function load_succ(atad, status, jqXHR) {
 	/* reached the end of the atad */
-	if (atad.length == 0)
+	if (!atad || atad.length == 0) {
+	    console.log('leaving');
 	    return;
+	}
     
 	var offset = $('.upd_apar_defs tbody tr').length + 1;
 	$('.upd_apar_defs tbody').append($.render.upd_apar_def_row({items: atad, offset: offset}));
 	/* Hook back up for next page */
-	$(window).on('scroll', myScrollFunction);
+	console.log('window on 1');
+	$window.on('scroll', myScrollFunction);
     };
 
     /**
@@ -146,21 +153,24 @@ condor3.UpdAparDef = function (currentLocation) {
        @param {event} event - a jQuery event object
      */
     function myScrollFunction(event) {
-	var window_height = $(window).height();
+	var window_height = $window.height();
 	var document_scroll = $(document).scrollTop();
 	var all_trs = $('table.upd_apar_defs tbody tr');
-	var last_tr = $(all_trs[tr.length - 1]);
+	var last_tr = $(all_trs[all_trs.length - 1]);
 	var tr_height = last_tr.height();
 	var o = last_tr.offset();
 	var top = o.top;
 	
 	if ((window_height + document_scroll) > (top - (100 * tr_height))) {
-	    $(window).off('scroll', myScrollFunction);
+	    console.log('window off');
+	    $window.off('scroll', myScrollFunction);
 	    $.when( $.get(next_page_url(), null, null, 'json') )
 		.done(load_succ)
 		.fail(load_fail);
 	}
     };
+
+    this.myScrollFunction = myScrollFunction;
 
     /*
      * Some container element (like a div) bundles the table with the
@@ -219,15 +229,10 @@ condor3.UpdAparDef = function (currentLocation) {
     $('.upd_apar_defs')
 	.on('click', '.upd_apar_def_inner_td_span', click)
 	.on('click', '.upd_apar_defs_header_span', alterSort);
-    $(window).on('scroll', myScrollFunction);
+    console.log('window on 2');
+    $window.on('scroll', myScrollFunction);
     tbody.html($.render.upd_apar_def_row({items: JSON.parse(script_element[0].text), offset: 1}));
-    
-    /* Return what we want to be public */
-    if (typeof condor3.UpdAparDef.prototype.myScrollFunction === 'undefined') {
-	var p = condor3.UpdAparDef.prototype;
-	p.myScrollFunction = myScrollFunction;
-	p.next_page_url = next_page_url;
-    }
+    return this;
 };
 
 $(document).ready(function () {
