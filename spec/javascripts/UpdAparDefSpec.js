@@ -1,6 +1,5 @@
 describe("UpdAparDef", function() {
-    var the_container, the_table, the_tbody, first_row, first_tds;
-    var data, upd_apar_def, $spy, $document, xxyyzz;
+    var upd_apar_def;
     var columns = { 'index': 0,
 		    'defect': 1,
 		    'apar': 2,
@@ -12,20 +11,6 @@ describe("UpdAparDef", function() {
 		    'service_pack': 8
 		  };
 
-    function nth(column) {
-	return [ "first",
-		 "second",
-		 "third",
-		 "fourth",
-		 "fifth",
-		 "sixth",
-		 "seventh",
-		 "eighth",
-		 "ninth",
-		 "tenth"
-	       ][column];
-    };
-
     function str_pattern(s) {
 	return new RegExp("\\s*" + s + "\\s*");
     };
@@ -34,75 +19,83 @@ describe("UpdAparDef", function() {
 	loadFixtures('upd_apar_def_fixture.html');
 	mock_$();
 	$(window).off('scroll');
-	upd_apar_def = new condor3.UpdAparDef("http://localhost/condor3/swinfos/648438/defect,%20apar,%20ptf/1");
-	the_container = $('.upd-apar-defs-container');
-	the_table = the_container.children('table');
-	the_tbody = the_table.children('tbody');
-	first_row = the_tbody.children('tr:first-child')
-	first_tds = first_row.children('td');
-	data = JSON.parse(the_container.children('script').slice(0).text())[0];
+	upd_apar_def = new condor3.UpdAparDef("http://localhost/condor3/swinfos/648438/-defect,%20apar,%20ptf/1");
     });
 
-    describe("Each Row of the table", function () {
-	it("the index in the " + nth(columns['index']) + " column should start at 1", function() {
-	    var index = first_tds.slice(columns['index']);
-	    expect(index.text()).toMatch(str_pattern('1'));
-	});
+    it("should render all the columns correctly", function() {
+	var the_container = $('.upd-apar-defs-container');
+	var the_table = the_container.children('table');
+	var the_tbody = the_table.children('tbody');
+	var first_row = the_tbody.children('tr:first-child')
+	var first_tds = first_row.children('td');
+	var data = JSON.parse(the_container.children('script').slice(0).text())[0];
 
-	it("the defect should be in the " + nth(columns['defect']) + " column", function() {
-	    var defect = first_tds.slice(columns['defect']);
-	    expect(defect.text()).toMatch(str_pattern(data['defect']));
-	});
+	var index = first_tds.slice(columns['index']);
+	expect(index.text()).toMatch(str_pattern('1'));
 
-	it("the apar should be in the " + nth(columns['apar']) + " column", function() {
-	    var apar = first_tds.slice(columns['apar']);
-	    expect(apar.text()).toMatch(str_pattern(data['apar']));
-	});
+	var defect = first_tds.slice(columns['defect']);
+	expect(defect.text()).toMatch(str_pattern(data['defect']));
 
-	it("the ptf should be in the " + nth(columns['ptf']) + " column", function() {
-	    var ptf = first_tds.slice(columns['ptf']);
-	    expect(ptf.text()).toMatch(str_pattern(data['ptf']));
-	});
+	var apar = first_tds.slice(columns['apar']);
+	expect(apar.text()).toMatch(str_pattern(data['apar']));
 
-	it("the abstract should be in the " + nth(columns['abstract']) + " column", function() {
-	    var abstract = first_tds.slice(columns['abstract']);
-	    expect(abstract.text()).toMatch(str_pattern(data['abstract']));
-	});
+	var ptf = first_tds.slice(columns['ptf']);
+	expect(ptf.text()).toMatch(str_pattern(data['ptf']));
 
-	it("the lpp should be in the " + nth(columns['lpp']) + " column", function() {
-	    var lpp = first_tds.slice(columns['lpp']);
-	    expect(lpp.text()).toMatch(str_pattern(data['lpp']));
-	});
+	var abstract = first_tds.slice(columns['abstract']);
+	expect(abstract.text()).toMatch(str_pattern(data['abstract']));
 
-	it("the vrmf should be in the " + nth(columns['vrmf']) + " column", function() {
-	    var vrmf = first_tds.slice(columns['vrmf']);
-	    expect(vrmf.text()).toMatch(str_pattern(data['vrmf']));
-	});
+	var lpp = first_tds.slice(columns['lpp']);
+	expect(lpp.text()).toMatch(str_pattern(data['lpp']));
 
-	it("the version should be in the " + nth(columns['version']) + " column", function() {
-	    var version = first_tds.slice(columns['version']);
-	    expect(version.text()).toMatch(str_pattern(data['version']));
-	});
+	var vrmf = first_tds.slice(columns['vrmf']);
+	expect(vrmf.text()).toMatch(str_pattern(data['vrmf']));
 
-	it("the service_pack should be in the " + nth(columns['service_pack']) + " column", function() {
-	    var service_pack = first_tds.slice(columns['service_pack']);
-	    expect(service_pack.text()).toMatch(str_pattern(data['service_pack']));
-	});
+	var version = first_tds.slice(columns['version']);
+	expect(version.text()).toMatch(str_pattern(data['version']));
+
+	var service_pack = first_tds.slice(columns['service_pack']);
+	expect(service_pack.text()).toMatch(str_pattern(data['service_pack']));
     });
 
-    it("next index should should be 2", function() {
+    it("index in second row should be 2", function() {
+	var the_container = $('.upd-apar-defs-container');
+	var the_table = the_container.children('table');
+	var the_tbody = the_table.children('tbody');
 	var second_row = the_tbody.children('tr:nth-child(2)')
 	var second_tds = second_row.children('td');
 	var index = second_tds.slice(columns['index']);
 	expect(index.text()).toMatch(str_pattern('2'));
     });
 
-    describe("myScrollFunction", function () {
-	it("should be called on the scroll event", function () {
+    it("should properly indicate the sorting in the header", function() {
+	var table_headers = $('.upd-apar-defs-container thead th');
+	var temp;
+
+	temp = table_headers.eq(columns['defect']).find('.sort');
+	expect(temp).toHaveClass('sort-down');
+	expect(temp).toHaveClass('sort-pos-1');
+
+	temp = table_headers.eq(columns['apar']).find('.sort');
+	expect(temp).toHaveClass('sort-up');
+	expect(temp).toHaveClass('sort-pos-2');
+
+	temp = table_headers.eq(columns['ptf']).find('.sort');
+	expect(temp).toHaveClass('sort-up');
+	expect(temp).toHaveClass('sort-pos-3');
+
+	['abstract', 'lpp', 'vrmf', 'version', 'service_pack'].forEach(function(name) {
+	    temp = table_headers.eq(columns[name]).find('.sort');
+	    expect(temp).toHaveClass('sortable');
+	});
+    });
+
+    describe("myScrollFunction", function() {
+	it("should be called on the window scroll event", function() {
 	    expect($(window)).toHandleWith('scroll', upd_apar_def.myScrollFunction);
 	});
 
-    	it("should not call ajax with scroll at top", function () {
+    	it("should not call ajax with page scrolled to the top", function() {
 	    var proxy = spy$(document, 'scrollTop').andReturn(0);
 	    jasmine.Ajax.useMock();
     	    upd_apar_def.myScrollFunction('dog');
@@ -121,7 +114,7 @@ describe("UpdAparDef", function() {
 		return $('table.upd_apar_defs tbody tr');
 	    };
 		
-	    beforeEach(function () {
+	    beforeEach(function() {
 		all_trs = get_all_trs();
 		initial_length = all_trs.length;
 		top = all_trs.slice(-1).offset().top;
@@ -133,13 +126,13 @@ describe("UpdAparDef", function() {
 		request = mostRecentAjaxRequest();
 	    });
 
-    	    it("should call ajax with scroll at bottom", function () {
+    	    it("should request next data when page is scrolled to the bottom", function() {
 		var last_index;
 
 		expect(proxy.spy).toHaveBeenCalled();
 		expect(request).not.toBeNull();
 		expect(request.url)
-		    .toEqual("http://localhost/condor3/swinfos/648438/defect,%20apar,%20ptf/2.json");
+		    .toEqual("http://localhost/condor3/swinfos/648438/-defect,%20apar,%20ptf/2.json");
 
 		request.response(TestResponses.first_success);
 		all_trs = get_all_trs();
@@ -157,7 +150,7 @@ describe("UpdAparDef", function() {
 		expect(all_trs.length).toEqual(last_index + 1);
     	    });
 
-	    it("should call ajax a second time when scrolled to the bottom", function() {
+	    it("should request third set of data when page is scrolled to the bottom again", function() {
 		var proxy2;
 
 		request.response(TestResponses.first_success);
@@ -169,10 +162,58 @@ describe("UpdAparDef", function() {
 
 		expect(request).not.toBeNull();
 		expect(request.url)
-		    .toEqual("http://localhost/condor3/swinfos/648438/defect,%20apar,%20ptf/3.json");
+		    .toEqual("http://localhost/condor3/swinfos/648438/-defect,%20apar,%20ptf/3.json");
 		request.response(TestResponses.second_success);
 		expect($(window)).not.toHandle('scroll');
 	    });
+	});
+    });
+
+    describe("Clicking on the table headers", function() {
+	var table_headers;
+
+	beforeEach(function() {
+	    table_headers = $('.upd-apar-defs-container thead th');
+	});
+
+	it("should negate the order when first sort column header is clicked", function() {
+	    spyOn(condor3.utils, 'setLocation');
+	    table_headers.eq(columns['defect']).find('.upd_apar_defs_header_span').click();
+	    expect(condor3.utils.setLocation)
+		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/defect, apar, ptf/1");
+	    table_headers.eq(columns['defect']).find('.upd_apar_defs_header_span').click();
+	    expect(condor3.utils.setLocation)
+		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/-defect, apar, ptf/1");
+	});
+
+	it("should reorder to  2nd, 1st, 3rd when the 2nd column is clicked", function() {
+	    spyOn(condor3.utils, 'setLocation');
+	    table_headers.eq(columns['apar']).find('.upd_apar_defs_header_span').click();
+	    expect(condor3.utils.setLocation)
+		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/apar, -defect, ptf/1");
+	    table_headers.eq(columns['apar']).find('.upd_apar_defs_header_span').click();
+	    expect(condor3.utils.setLocation)
+		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/-apar, -defect, ptf/1");
+	});
+
+	it("should reorder to  3rd, 1st, 2nd when the 3nd column is clicked", function() {
+	    spyOn(condor3.utils, 'setLocation');
+	    table_headers.eq(columns['ptf']).find('.upd_apar_defs_header_span').click();
+	    expect(condor3.utils.setLocation)
+		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/ptf, -defect, apar/1");
+	    table_headers.eq(columns['ptf']).find('.upd_apar_defs_header_span').click();
+	    expect(condor3.utils.setLocation)
+		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/-ptf, -defect, apar/1");
+	});
+
+	it("should reorder to  new, 1st, 2nd when a new column is clicked", function() {
+	    spyOn(condor3.utils, 'setLocation');
+	    table_headers.eq(columns['lpp']).find('.upd_apar_defs_header_span').click();
+	    expect(condor3.utils.setLocation)
+		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/lpp, -defect, apar/1");
+	    table_headers.eq(columns['lpp']).find('.upd_apar_defs_header_span').click();
+	    expect(condor3.utils.setLocation)
+		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/-lpp, -defect, apar/1");
 	});
     });
 });

@@ -11,3 +11,7 @@
  */
 
 window['condor3'] = window['condor3'] || {};
+condor3.utils = condor3.utils || {};
+condor3.utils.setLocation = function (url) {
+    window.location = url;
+};

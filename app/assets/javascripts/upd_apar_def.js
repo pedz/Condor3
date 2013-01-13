@@ -28,8 +28,6 @@ condor3.UpdAparDef = function (currentLocation) {
     var tbody;
     var instanceCounter;
 
-    global_u_w = $window;
-
     /**
        called when a GET request completes.  The GET request is
        triggered by the scrolling of the page to (roughly) the end of
@@ -42,14 +40,12 @@ condor3.UpdAparDef = function (currentLocation) {
     function load_succ(atad, status, jqXHR) {
 	/* reached the end of the atad */
 	if (!atad || atad.length == 0) {
-	    console.log('leaving');
 	    return;
 	}
     
 	var offset = $('.upd_apar_defs tbody tr').length + 1;
 	$('.upd_apar_defs tbody').append($.render.upd_apar_def_row({items: atad, offset: offset}));
 	/* Hook back up for next page */
-	console.log('window on 1');
 	$window.on('scroll', myScrollFunction);
     };
 
@@ -127,7 +123,7 @@ condor3.UpdAparDef = function (currentLocation) {
 		return columnSpec.prefix + columnSpec.column;
 	    }).join(', '));
 	urlArray.push(1);
-	window.location = urlArray.join('/');
+	condor3.utils.setLocation(urlArray.join('/'));
     };
 
     /**
@@ -162,7 +158,6 @@ condor3.UpdAparDef = function (currentLocation) {
 	var top = o.top;
 	
 	if ((window_height + document_scroll) > (top - (100 * tr_height))) {
-	    console.log('window off');
 	    $window.off('scroll', myScrollFunction);
 	    $.when( $.get(next_page_url(), null, null, 'json') )
 		.done(load_succ)
@@ -170,7 +165,12 @@ condor3.UpdAparDef = function (currentLocation) {
 	}
     };
 
+    /*
+     * These are hooked up to allow for spies
+     */
     this.myScrollFunction = myScrollFunction;
+    this.click = click;
+    this.alterSort = alterSort;
 
     /*
      * Some container element (like a div) bundles the table with the
@@ -229,7 +229,6 @@ condor3.UpdAparDef = function (currentLocation) {
     $('.upd_apar_defs')
 	.on('click', '.upd_apar_def_inner_td_span', click)
 	.on('click', '.upd_apar_defs_header_span', alterSort);
-    console.log('window on 2');
     $window.on('scroll', myScrollFunction);
     tbody.html($.render.upd_apar_def_row({items: JSON.parse(script_element[0].text), offset: 1}));
     return this;
