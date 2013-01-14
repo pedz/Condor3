@@ -17,6 +17,7 @@
 */
 
 condor3.UpdAparDef = function (currentLocation) {
+    var thisThis = this;	// the `this' of this object.
     var $window = $(window);
     var containers;
     var currentLocationArray;
@@ -46,7 +47,7 @@ condor3.UpdAparDef = function (currentLocation) {
 	var offset = $('.upd_apar_defs tbody tr').length + 1;
 	$('.upd_apar_defs tbody').append($.render.upd_apar_def_row({items: atad, offset: offset}));
 	/* Hook back up for next page */
-	$window.on('scroll', myScrollFunction);
+	$window.on('scroll', thisThis.myScrollFunction);
     };
 
     /**
@@ -62,6 +63,51 @@ condor3.UpdAparDef = function (currentLocation) {
     };
 
     /**
+       Returns the URL to use for the AJAX request to fetch the next
+       set of elements to display.
+
+       @return {string} the URL to GET.
+    */
+    function next_page_url() {
+	var tmp;
+	lastPage += 1;
+	tmp =  currentLocationArray.slice(0, pageIndex);
+	tmp.push(lastPage);
+	return tmp.join('/') + '.json';
+    };
+    
+
+    /*
+     * These are hooked up to allow for spies.  They are not defined
+     * within the closure so that the spies will take effect.
+     */
+
+    /**
+       Bound to the scroll event of the window.  When the window is
+       scrolled to within 100 rows of the bottom, an AJAX GET is done
+       using what next_page_url returns and load_succ is called upon
+       successful completion of the request. 
+
+       @param {event} event - a jQuery event object
+     */
+    thisThis.myScrollFunction = function (event) {
+	var window_height = $window.height();
+	var document_scroll = $(document).scrollTop();
+	var all_trs = $('table.upd_apar_defs tbody tr');
+	var last_tr = $(all_trs[all_trs.length - 1]);
+	var tr_height = last_tr.height();
+	var o = last_tr.offset();
+	var top = o.top;
+	
+	if ((window_height + document_scroll) > (top - (100 * tr_height))) {
+	    $window.off('scroll', thisThis.myScrollFunction);
+	    $.when( $.get(next_page_url(), null, null, 'json') )
+		.done(load_succ)
+		.fail(load_fail);
+	}
+    };
+
+    /**
        Bound to the click event for the upd_apar_def_inner_td_span
        class of elements.  These are the little down arrow things that
        many of the elements in the page have.  The down arrow is
@@ -69,13 +115,13 @@ condor3.UpdAparDef = function (currentLocation) {
 
        @param {event} event - a jQuery event object
      */
-    function click(event) {
+    thisThis.click = function (event) {
 	var arrow_span = $(this);
 	var td = arrow_span.parents('td');
 	var ui = td.find('.upd_apar_def_commands');
 	var link = td.find('.upd_apar_def_link');
 
-	var pickLi = function (event) {
+	thisThis.pickLi = function (event) {
 	    ui.contextMenu('close');
 	};
 
@@ -83,11 +129,11 @@ condor3.UpdAparDef = function (currentLocation) {
 	ui.contextMenu({
 	    close: function () {
 		arrow_span.show();
-		ui.off('click', 'li', pickLi);
+		ui.off('click', 'li', thisThis.pickLi);
 	    },
 	    bottom: -ui.outerHeight(),
 	    left: link.width() - ui.width()
-	}).on('click', 'li', pickLi);
+	}).on('click', 'li', thisThis.pickLi);
 	return false;
     };
 
@@ -99,7 +145,7 @@ condor3.UpdAparDef = function (currentLocation) {
 
        @param {event} event - a jQuery event object
      */
-    function alterSort(event) {
+    thisThis.alterSort = function (event) {
 	var th = $(this).parent();
 	var klass = th.attr('class');
 	var column = klass.split('-')[1];
@@ -123,54 +169,17 @@ condor3.UpdAparDef = function (currentLocation) {
 		return columnSpec.prefix + columnSpec.column;
 	    }).join(', '));
 	urlArray.push(1);
-	condor3.utils.setLocation(urlArray.join('/'));
+	thisThis.setLocation(urlArray.join('/'));
     };
 
     /**
-       Returns the URL to use for the AJAX request to fetch the next
-       set of elements to display.
+       Helper method which can be mocked to set the location to go to.
 
-       @return {string} the URL to GET.
-    */
-    function next_page_url() {
-	var tmp;
-	lastPage += 1;
-	tmp =  currentLocationArray.slice(0, pageIndex);
-	tmp.push(lastPage);
-	return tmp.join('/') + '.json';
-    };
-    
-    /**
-       Bound to the scroll event of the window.  When the window is
-       scrolled to within 100 rows of the bottom, an AJAX GET is done
-       using what next_page_url returns and load_succ is called upon
-       successful completion of the request. 
-
-       @param {event} event - a jQuery event object
+       @params {string} url - the URL to go to.
      */
-    function myScrollFunction(event) {
-	var window_height = $window.height();
-	var document_scroll = $(document).scrollTop();
-	var all_trs = $('table.upd_apar_defs tbody tr');
-	var last_tr = $(all_trs[all_trs.length - 1]);
-	var tr_height = last_tr.height();
-	var o = last_tr.offset();
-	var top = o.top;
-	
-	if ((window_height + document_scroll) > (top - (100 * tr_height))) {
-	    $window.off('scroll', myScrollFunction);
-	    $.when( $.get(next_page_url(), null, null, 'json') )
-		.done(load_succ)
-		.fail(load_fail);
-	}
+    thisThis.setLocation = function (url) {
+	window.location = url;
     };
-
-    /*
-     * These are hooked up to allow for spies
-     */
-    this.myScrollFunction = myScrollFunction;
-    this.click = click;
-    this.alterSort = alterSort;
 
     /*
      * Some container element (like a div) bundles the table with the
@@ -227,9 +236,9 @@ condor3.UpdAparDef = function (currentLocation) {
 	});
     
     $('.upd_apar_defs')
-	.on('click', '.upd_apar_def_inner_td_span', click)
-	.on('click', '.upd_apar_defs_header_span', alterSort);
-    $window.on('scroll', myScrollFunction);
+	.on('click', '.upd_apar_def_inner_td_span', thisThis.click)
+	.on('click', '.upd_apar_defs_header_span', thisThis.alterSort);
+    $window.on('scroll', thisThis.myScrollFunction);
     tbody.html($.render.upd_apar_def_row({items: JSON.parse(script_element[0].text), offset: 1}));
     return this;
 };

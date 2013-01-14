@@ -177,43 +177,94 @@ describe("UpdAparDef", function() {
 	});
 
 	it("should negate the order when first sort column header is clicked", function() {
-	    spyOn(condor3.utils, 'setLocation');
+	    spyOn(upd_apar_def, 'setLocation');
 	    table_headers.eq(columns['defect']).find('.upd_apar_defs_header_span').click();
-	    expect(condor3.utils.setLocation)
+	    expect(upd_apar_def.setLocation)
 		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/defect, apar, ptf/1");
 	    table_headers.eq(columns['defect']).find('.upd_apar_defs_header_span').click();
-	    expect(condor3.utils.setLocation)
+	    expect(upd_apar_def.setLocation)
 		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/-defect, apar, ptf/1");
 	});
 
 	it("should reorder to  2nd, 1st, 3rd when the 2nd column is clicked", function() {
-	    spyOn(condor3.utils, 'setLocation');
+	    spyOn(upd_apar_def, 'setLocation');
 	    table_headers.eq(columns['apar']).find('.upd_apar_defs_header_span').click();
-	    expect(condor3.utils.setLocation)
+	    expect(upd_apar_def.setLocation)
 		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/apar, -defect, ptf/1");
 	    table_headers.eq(columns['apar']).find('.upd_apar_defs_header_span').click();
-	    expect(condor3.utils.setLocation)
+	    expect(upd_apar_def.setLocation)
 		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/-apar, -defect, ptf/1");
 	});
 
 	it("should reorder to  3rd, 1st, 2nd when the 3nd column is clicked", function() {
-	    spyOn(condor3.utils, 'setLocation');
+	    spyOn(upd_apar_def, 'setLocation');
 	    table_headers.eq(columns['ptf']).find('.upd_apar_defs_header_span').click();
-	    expect(condor3.utils.setLocation)
+	    expect(upd_apar_def.setLocation)
 		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/ptf, -defect, apar/1");
 	    table_headers.eq(columns['ptf']).find('.upd_apar_defs_header_span').click();
-	    expect(condor3.utils.setLocation)
+	    expect(upd_apar_def.setLocation)
 		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/-ptf, -defect, apar/1");
 	});
 
 	it("should reorder to  new, 1st, 2nd when a new column is clicked", function() {
-	    spyOn(condor3.utils, 'setLocation');
+	    spyOn(upd_apar_def, 'setLocation');
 	    table_headers.eq(columns['lpp']).find('.upd_apar_defs_header_span').click();
-	    expect(condor3.utils.setLocation)
+	    expect(upd_apar_def.setLocation)
 		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/lpp, -defect, apar/1");
 	    table_headers.eq(columns['lpp']).find('.upd_apar_defs_header_span').click();
-	    expect(condor3.utils.setLocation)
+	    expect(upd_apar_def.setLocation)
 		.toHaveBeenCalledWith("http://localhost/condor3/swinfos/648438/-lpp, -defect, apar/1");
+	});
+    });
+
+    describe("The Context Menus", function () {
+	/*
+	 * Each td (except for the first which is used for the index) in
+	 * the table looks like this:
+	 *
+	 * <td class='upd_apar_def-defect upd_apar_def_dual_button'>
+	 *   <span class='upd_apar_def_outer_td_span'>
+	 *     {{link_to ~swinfo_path(defect) "upd_apar_def_link" defect /}}
+	 *     <span class='upd_apar_def_inner_td_span'>
+	 *       where the arrow is displayed
+	 *     </span>
+	 *     <ul class='upd_apar_def_commands' style='display: none;'>
+	 *       <li>Show CMVC Defect</li>
+	 *       <li>Show Code Changes</li>
+	 *       <li>Show APAR Draft</li>
+	 *     </ul>
+	 *   </span>
+	 * </td>
+	 *
+	 * The upd_apar_def-defect class changes but the other classes
+	 * stay the same and the list of ``commands'' (the <li> entries)
+	 * also change.
+	 */
+	var td_class = 'upd_apar_def_dual_button';
+	var outter_span_class = 'upd_apar_def_outer_td_span';
+	var arrow_span_class = 'upd_apar_def_inner_td_span';
+	var cmd_list_class = 'upd_apar_def_commands';
+	var test_td;
+	var arrow;
+	var cmd_list;
+
+	beforeEach(function () {
+	    test_td = $('.upd-apar-defs-container tbody tr:nth-child(6) td:nth-child(2)');
+	    arrow = test_td.find('.' + arrow_span_class);
+	    cmd_list = test_td.find('.' + cmd_list_class);
+	});
+
+	it("should initially have the commands hidden and the arrow visable", function () {
+	    expect(test_td).toHaveClass(td_class); // sanity check test selector
+	    expect(test_td.length).toEqual(1);	   // another sanity check
+	    expect(arrow).toBeVisible();
+	    expect(cmd_list).toBeHidden();
+	});
+
+	it("should hide arrow and display commands when arrow is clicked", function () {
+	    arrow.click();
+	    expect(arrow).toBeHidden();
+	    expect(cmd_list).toBeVisible();
 	});
     });
 });
