@@ -23,7 +23,7 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'capybara', '1.1.4'
+  gem 'capybara'
   gem 'capybara-webkit'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'

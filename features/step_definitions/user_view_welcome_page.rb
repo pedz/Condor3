@@ -2,8 +2,10 @@
 Given /^I am on the welcome page$/ do
   case page.mode.to_s
   when 'selenium'
-    r = page.driver.rack_server
-    visit("http://username:password@#{r.host}:#{r.port}#{welcome_path}")
+    # r = page.driver.rack_server
+    # visit("http://username:password@#{r.host}:#{r.port}#{welcome_path}")
+    # visit(welcome_path)
+    visit("http://username:password@localhost#{welcome_path}")
 
   when 'rack_test'
     encoded_login = ["pedzan@us.ibm.com:lostgr8t"].pack("m*")
