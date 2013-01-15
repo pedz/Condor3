@@ -5,7 +5,6 @@ end
 And /^I enter a defect into the swinfo form$/ do
   within('#swinfo_form') do
     fill_in('item', with: @current_adv.defect.name)
-    save_and_open_page
   end
 end
 

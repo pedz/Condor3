@@ -1,20 +1,19 @@
 
 Given /^I am on the welcome page$/ do
+  # Note that currently when in the test environment, any username and
+  # password will work but one needs to be supplied.  I'm assuming at
+  # some point, I may have different types of users.
   case page.mode.to_s
   when 'selenium'
-    # r = page.driver.rack_server
-    # visit("http://username:password@#{r.host}:#{r.port}#{welcome_path}")
-    # visit(welcome_path)
     visit("http://username:password@localhost#{welcome_path}")
 
   when 'rack_test'
-    encoded_login = ["pedzan@us.ibm.com:lostgr8t"].pack("m*")
+    encoded_login = ["username:password"].pack("m*")
     page.driver.header 'Authorization', "Basic #{encoded_login}"
     visit(welcome_path)
 
   when 'webkit'
-    encoded_login = ["pedzan@us.ibm.com:lostgr8t"].pack("m*")
-    page.driver.header 'Authorization', "Basic #{encoded_login}"
+    page.driver.browser.authenticate('username', 'password')
     visit(welcome_path)
   end
 end
