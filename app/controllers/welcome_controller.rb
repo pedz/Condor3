@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
   respond_to :html, :json
   
   def index
-    describe(self)
+    # describe(self)
     respond_with(create_presenter(:welcome))
   end
   

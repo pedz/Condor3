@@ -5,16 +5,24 @@
  * at least during testing.
  */
 (function () {
-    /*
-     * If this is done during load time, something screws up so do it
-     * on the ready event.
-     */
     var routes = condor3.routes;
     Object.getOwnPropertyNames(routes).forEach(function (propName) {
 	var prop = routes[propName];
 
 	if (typeof prop === 'function') {
-	    $.views.helpers({ propName: prop });
+	    var t = {};
+	    /*
+	     * I decided to wrapper all of these because if a null is
+	     * passed to the js-route routines, they throw an error.
+	     * While that is bad, I don't want errors thrown.
+	     */
+	    t[propName] = function route_wrapper() {
+		if (arguments.length < 1 || arguments[0] == false)
+		    return "#"
+		else
+		    return prop.apply(this, arguments);
+	    };
+	    $.views.helpers(t);
 	}
     });
     return true;
