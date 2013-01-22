@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2012 Ease Software, Inc.
+# Copyright 2012-2013 Ease Software, Inc.
 # All Rights Reserved
 #
 class WhichFilesetsController < ApplicationController
   def show
     @path = params[:path]
-    return redirect_to which_filesets_path(@path) if request.post?
 
     files = do_find(@path)
+    # If 1st try is empty, try removing any 32 or 64 qualifiers.
     if files.empty?
       if (md = /(.*)(_?64$|_?32$)/.match(@path))
         @path = md[1]
@@ -32,8 +32,12 @@ class WhichFilesetsController < ApplicationController
     end
   end
   
+  def create
+    redirect_to which_filesets(params[:path])
+  end
+
   private
-  
+
   def do_find(path)
     AixFile.find(:all,
                  :conditions => ("basename(path) = basename('#{path}') AND " +

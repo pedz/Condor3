@@ -104,14 +104,14 @@ class WelcomePresenter < ApplicationPresenter
     end
   end
 
-  def welcome_form(name, param, text_label)
-    form_tag send("#{name}_post_path".to_sym), :id => "#{name}_form" do
+  def welcome_form(name, path, param, text_label)
+    form_tag path, :id => "#{name}-form" do
       out = "\n"
       out << label_tag(param, text_label, :class => "form-description")
       out << "\n"
       out << text_field_tag(param)
       out << "\n"
-      out << submit_tag("Submit", :id => "#{name}_submit")
+      out << submit_tag("Submit", :id => "#{name}-submit")
       out.html_safe
     end
   end

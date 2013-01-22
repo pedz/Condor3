@@ -14,9 +14,9 @@ describe WelcomePresenter do
   end
 
   it "should provide a way to create UI forms" do
-    markup = subject.welcome_form('swinfo', 'item', 'swinfo')
+    markup = subject.welcome_form('name-thing', 'path/to/name/thing', 'theparam', 'thelabel')
+
   end
-end
 
 #   describe "the swinfo form" do
 #     before(:each) do
@@ -140,19 +140,20 @@ end
 #     end
 #   end
 
-#   it "the 'file changes' form" do
-#     render
-#     within 'form#file_changes_form' do |form|
-#       form[:action].should == '/file_changes'
-#       form.should have_selector('input[type="submit"]')
+  # it "the 'file changes' form" do
+  #   render
+  #   within 'form#file_changes_form' do |form|
+  #     form[:action].should == '/file_changes'
+  #     form.should have_selector('input[type="submit"]')
+      
+  #     form.find('label').tap do |label|
+  #       label.text.should == 'file change history'
+  #       label[:for].should == 'file'
+  #     end
 
-#       form.find('label').tap do |label|
-#         label.text.should == 'file change history'
-#         label[:for].should == 'file'
-#       end
-
-#       form.find('input[type="text"]').tap do |text_box|
-#         text_box[:name].should == 'file'
-#       end
-#     end
-#   end
+  #     form.find('input[type="text"]').tap do |text_box|
+  #       text_box[:name].should == 'file'
+  #     end
+  #   end
+  # end
+end

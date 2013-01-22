@@ -1,9 +1,9 @@
 class SwinfoPresenter < ApplicationPresenter
   presents :swinfo
-  delegate :params, :item, :errors, :upd_apar_defs, to: :swinfo
+  delegate :item, :errors, :upd_apar_defs, to: :swinfo
 
   def page_title
-    swinfo.title
+    "swinfo for #{item}"
   end
 
   def help_text
@@ -20,7 +20,7 @@ class SwinfoPresenter < ApplicationPresenter
     build_html do
       section hash do
         h3 "Errors:"
-        ul hash do
+        ul do
           errors.each do |msg|
             li msg
           end

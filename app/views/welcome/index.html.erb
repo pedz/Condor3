@@ -4,10 +4,10 @@
 -%>
 <!-- <%= __FILE__[Rails.root.to_s.length+1 .. -1] %> -->
 <div class='forms'>
-  <%= presenter.welcome_form('swinfo', 'item', 'swinfo') %>
-  <%= presenter.welcome_form('which_filesets', 'path', 'which fileset') %>
-  <%= presenter.welcome_form('sha1s', 'sha1', 'sha1') %>
-  <%= presenter.welcome_form('defects', 'defect', 'cmvc defect') %>
-  <%= presenter.welcome_form('changes', 'change', 'cmvc defect changes') %>
-  <%= presenter.welcome_form('file_changes', 'file', 'file change history') %>
+  <%= presenter.welcome_form('swinfo', swinfo_post_path, 'item', 'swinfo') %>
+  <%= presenter.welcome_form('which-filesets', which_filesets_post_path, 'path', 'which fileset') %>
+  <%= presenter.welcome_form('sha1s', sha1s_post_path, 'sha1', 'sha1') %>
+  <%= presenter.welcome_form('defects', defects_post_path, 'defect', 'cmvc defect') %>
+  <%= presenter.welcome_form('changes', changes_post_path, 'change', 'cmvc defect changes') %>
+  <%= presenter.welcome_form('file-changes', file_changes_post_path, 'file', 'file change history') %>
 </div>
