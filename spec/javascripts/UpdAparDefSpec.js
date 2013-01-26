@@ -30,7 +30,7 @@ describe("UpdAparDef", function() {
 	upd_apar_def = new condor3.UpdAparDef("http://localhost/condor3/swinfos/648438/-defect,%20apar,%20ptf/1");
     });
 
-    xit("should render all the columns correctly", function() {
+    it("should render all the columns correctly", function() {
 	var the_container = $('.upd-apar-defs-container');
 	var the_table = the_container.children('table');
 	var the_tbody = the_table.children('tbody');
@@ -66,7 +66,7 @@ describe("UpdAparDef", function() {
 	expect(service_pack.text()).toMatch(str_pattern(data['service_pack']));
     });
 
-    xit("index in second row should be 2", function() {
+    it("index in second row should be 2", function() {
 	var the_container = $('.upd-apar-defs-container');
 	var the_table = the_container.children('table');
 	var the_tbody = the_table.children('tbody');
@@ -76,7 +76,7 @@ describe("UpdAparDef", function() {
 	expect(index.text()).toMatch(str_pattern('2'));
     });
 
-    xit("should properly indicate the sorting in the header", function() {
+    it("should properly indicate the sorting in the header", function() {
 	var table_headers = $('.upd-apar-defs-container thead th');
 	var temp;
 
@@ -98,7 +98,7 @@ describe("UpdAparDef", function() {
 	});
     });
 
-    xdescribe("myScrollFunction", function() {
+    describe("myScrollFunction", function() {
 	it("should be called on the window scroll event", function() {
 	    expect($(window)).toHandleWith('scroll', upd_apar_def.myScrollFunction);
 	});
@@ -177,7 +177,7 @@ describe("UpdAparDef", function() {
 	});
     });
 
-    xdescribe("Clicking on the table headers", function() {
+    describe("Clicking on the table headers", function() {
 	var table_headers;
 
 	beforeEach(function() {
@@ -225,7 +225,7 @@ describe("UpdAparDef", function() {
 	});
     });
 
-    xdescribe("The Context Menus", function () {
+    describe("The Context Menus", function () {
 	/*
 	 * Each td (except for the first which is used for the index) in
 	 * the table looks like this:
