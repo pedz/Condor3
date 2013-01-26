@@ -1,10 +1,14 @@
 require 'spec_helper'
 
 describe SwinfoPresenter do
+  # We really don't need this complex of data right here but it seems
+  # to not spend much time so lets keep it.
   let(:data) { FactoryGirl.build_list(:upd_apar_def, 10) }
   let(:swinfo) {
-    temp = Swinfo.new(item: "12345", sort: "defect, apar, ptf", page: 1)
+    temp = double('Swinfo')
     temp.stub(:upd_apar_defs).and_return(data)
+    temp.stub(:errors).and_return([])
+    temp.stub(:item).and_return("12345")
     temp
   }
 
@@ -15,7 +19,6 @@ describe SwinfoPresenter do
   it_behaves_like "a presenter"
 
   it "should hide the errors list if there are no errors" do
-    puts subject.show_errors
     markup = Capybara.string(subject.show_errors)
     markup.should have_selector("section[style='display: none;']")
   end

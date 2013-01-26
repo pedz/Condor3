@@ -23,6 +23,7 @@ group :assets do
 end
 
 group :development, :test do
+  gem 'aruba'
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'cucumber-rails', :require => false
