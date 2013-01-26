@@ -136,4 +136,34 @@ describe Swinfo do
     swinfo.errors.should be_empty
     swinfo.item.should eq(item)
   end
+
+  it "should call cache's read method and return what it returns" do
+    item = '12345'
+    cached_result = [ 1, 2, 3 ]
+    local_cache.stub(:read) do |arg|
+      arg.should be_a(Hash)
+      arg.should eq({order: "\"col_a\" ASC, \"col_b\" ASC, \"col_c\" ASC", limit: 1000, item: "12345"})
+      cached_result
+    end
+    swinfo = Swinfo.new(typical_options.merge(item: item))
+    swinfo.errors.should be_empty
+    swinfo.item.should eq(item)
+    swinfo.upd_apar_defs.should eq(cached_result)
+  end
+
+  it "should call cache's write method with the results of the find" do
+    item = '12345'
+    cached_result = [ 1, 2, 3 ]
+    local_cache.stub(:write) do |arg, result|
+      arg.should be_a(Hash)
+      arg.should eq({order: "\"col_a\" ASC, \"col_b\" ASC, \"col_c\" ASC", limit: 1000, item: "12345"})
+      result.should eq(cached_result)
+      true
+    end
+    local_model.stub(:find_all_by_defect) { cached_result }
+    swinfo = Swinfo.new(typical_options.merge(item: item))
+    swinfo.errors.should be_empty
+    swinfo.item.should eq(item)
+    swinfo.upd_apar_defs.should eq(cached_result)
+  end
 end
