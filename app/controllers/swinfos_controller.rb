@@ -15,6 +15,7 @@ class SwinfosController < ApplicationController
       return
     end
 
+    logger.error(params.class)
     swinfo = Swinfo.new(params)
     respond_with(create_presenter(swinfo))
   end

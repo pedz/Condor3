@@ -3,6 +3,9 @@ require 'spec_helper'
 describe "welcome/index.html.erb" do
   it "should call welcome form for each of the forms we want" do
     presenter = double('presenter')
+    # The 2nd argument is the path.  We don't want to test what it is.
+    # The fact that the view can make the call says that the path is
+    # valid.
     presenter.stub(:welcome_form) do |a, b, c, d|
       "#{a} #{c} '#{d}'".html_safe
     end
