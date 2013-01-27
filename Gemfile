@@ -29,10 +29,14 @@ group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'guard-rspec'
   gem 'jasmine'
   gem 'launchy'
   gem 'rails-footnotes', '>= 3.7.5.rc4'
+  gem 'rb-fsevent', :require => false
   gem 'rspec-rails'
+  gem 'ruby_gntp'
+  gem 'spork', '~> 1.0rc'
   gem 'thin'
   gem 'xpath'
 end
