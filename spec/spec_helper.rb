@@ -46,18 +46,31 @@ Spork.prefork do
     config.order = "random"
 
     config.include RSpec::CapybaraExtensions, type: :view
+
     config.include RSpec::Rails::ViewExampleGroup, :type => :presenter, :example_group => {
       :file_path => config.escaped_path(%w[spec presenters])
     }
+
+    # The following three items set up specs for the asset pipeline
     config.include RSpec::Rails::AssetExampleGroup, :type => :asset, :example_group => {
       :file_path => config.escaped_path(%w[spec assets])
     }
+
+    config.before(:each, :type => :asset) do
+      @original_cache = Rails.application.assets.cache
+      Rails.application.assets.cache = ActiveSupport::Cache.lookup_store(:null_store)
+    end
+
+    config.after(:each, :type => :asset) do
+      Rails.application.assets.cache = @original_cache
+    end
+
   end
 end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-
+  FactoryGirl.reload
 end
 
 # --- Instructions ---
