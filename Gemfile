@@ -29,7 +29,9 @@ group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'guard-cucumber'
   gem 'guard-rspec'
+  gem 'guard-spork'
   gem 'jasmine'
   gem 'launchy'
   gem 'rails-footnotes', '>= 3.7.5.rc4'
