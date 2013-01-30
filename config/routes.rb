@@ -8,7 +8,9 @@ Condor3::Application.routes.draw do
   end
 
   scope 'which_filesets' do
-    get '*path' => 'which_filesets#show', :as => 'which_filesets'
+    get('*path' => 'which_filesets#show',
+        :as => 'which_filesets',
+        :format => /json|html/)
     post '/' => 'which_filesets#create', :as => 'which_filesets_post'
   end
 
@@ -28,7 +30,9 @@ Condor3::Application.routes.draw do
   end
 
   scope 'file_changes' do
-    get '*file' => 'file_changes#show', :as => 'file_changes'
+    get('*file' => 'file_changes#show',
+        :as => 'file_changes',
+        :format => /json|html/)
     post '/' => 'file_changes#create', :as => 'file_changes_post'
   end
 
@@ -36,7 +40,7 @@ Condor3::Application.routes.draw do
       :version => /[1-9][0-9]*(\.[1-9][0-9]*)+/,
       :as => 'src_files')
 
-  get('diffs/:release/*path/:version(/:prev_version)' => 'diffs#show',
+  get('diffs/:release/*path/:version(/p:prev_version)' => 'diffs#show',
       :version => /[1-9][0-9]*(\.[1-9][0-9]*)+/,
       :prev_version => /[1-9][0-9]*(\.[1-9][0-9]*)+/,
       :as => 'diffs')
