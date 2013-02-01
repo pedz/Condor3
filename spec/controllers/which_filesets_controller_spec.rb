@@ -16,13 +16,21 @@ describe WhichFilesetsController do
 
   describe "GET" do
     it "should create a new WhichFileset with the params" do
-      which_fileset = double('which_fileset')
       options = { path: 'msnentdd' }
+      which_fileset = double('which_fileset')
       WhichFileset.stub(:new) do |args|
         args.symbolize_keys.should eq(options.merge(controller: 'which_filesets', action: 'show'))
         which_fileset
       end
       controller.stub(:create_presenter)
+      get :show, options
+    end
+
+    it "should pass the new WhichFileset to create_presenter" do
+      options = { path: 'msnentdd'}
+      which_fileset = double('which_fileset')
+      WhichFileset.stub(:new).and_return(which_fileset)
+      controller.stub(:create_presenter).with(which_fileset)
       get :show, options
     end
   end

@@ -33,8 +33,8 @@ describe SwinfosController do
     end
 
     it "should create a new Swinfo with the params" do
-      swinfo = double('swinfo')
       options = { item: '98765', sort: 'first, second, third', page: '400' }
+      swinfo = double('swinfo')
       Swinfo.stub(:new) do |args|
         args.symbolize_keys.should eq(options.merge(controller: 'swinfos', action: 'show'))
         swinfo
@@ -45,11 +45,10 @@ describe SwinfosController do
 
     it "should should pass the new swinfo to create_presenter" do
       options = { item: '98765', sort: 'first, second, third', page: '400' }
-      swinfo = Swinfo.new(options)
+      swinfo = double('swinfo')
       Swinfo.stub(:new).and_return(swinfo)
-      get :show, options
       controller.stub(:create_presenter).with(swinfo)
-      assigns[:presenter].should be_a(SwinfoPresenter)
+      get :show, options
     end
   end
 end
