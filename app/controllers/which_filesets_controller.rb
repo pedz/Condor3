@@ -4,45 +4,14 @@
 # All Rights Reserved
 #
 class WhichFilesetsController < ApplicationController
+  respond_to :html, :json
+
   def show
-    @path = params[:path]
-
-    files = do_find(@path)
-    # If 1st try is empty, try removing any 32 or 64 qualifiers.
-    if files.empty?
-      if (md = /(.*)(_?64$|_?32$)/.match(@path))
-        @path = md[1]
-        files = do_find(@path)
-      elsif (md = /^(.*)(32|64)(\..*)$/.match(@path))
-        @path = md[1] + md[3]
-        files = do_find(@path)
-      end
-    end
-
-    @paths = {}
-    files.each do |f|
-      @paths[f.path] = ((@paths[f.path] || []) + f.filesets.map { |fileset| fileset.lpp.name }).sort.uniq
-    end
-    
-    respond_to do |format|
-      format.html { render :action => "show" }
-      format.xml  {
-        render :xml => files.to_xml(:include => { :filesets => { :include => [:lpp, :service_packs] }})
-      }
-    end
+    which_fileset = WhichFileset.new(params)
+    respond_with(create_presenter(which_fileset))
   end
   
   def create
-    redirect_to which_filesets(params[:path])
-  end
-
-  private
-
-  def do_find(path)
-    AixFile.find(:all,
-                 :conditions => ("basename(path) = basename('#{path}') AND " +
-                                 "path LIKE '%#{path}'"),
-                 :order => "path",
-                 :include => [ { :filesets => :lpp }])
+    redirect_to which_filesets_path(params[:path])
   end
 end

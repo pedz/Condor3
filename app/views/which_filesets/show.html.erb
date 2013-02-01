@@ -1,35 +1,9 @@
 <%# -*- coding: utf-8 -*- 
- Copyright 2012 Ease Software, Inc.
+ Copyright 2012-2013 Ease Software, Inc.
  All Rights Reserved
 -%>
 <!-- <%= __FILE__[Rails.root.to_s.length+1 .. -1] %> -->
-<%- @title = "Which Filesets for #{@path}" -%>
-<table class='which_filesets'>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Path</th>
-      <th>Lpp</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%- if @paths.length == 0 -%>
-      <tr>
-	<td colspan='3'>
-	  Did not find any shipped files matching <%= @path %>
-	</td>
-      </tr>
-    <%- else -%>
-      <%- index = 0 -%>
-      <%- @paths.each_pair do |path, lpps| -%>
-	<%- lpps.each do |lpp| -%>
-	  <tr>
-	    <td><%= index += 1 %></td>
-	    <td><%= path %></td>
-	    <td><%= link_to(lpp, swinfo_get_path(lpp)) %></td>
-	  </tr>
-	<%- end -%>
-      <%- end -%>
-    <%- end -%>
-  </tbody>
-</table>
+<div class='which-filesets-container'>
+  <%= presenter.show_table %>
+  <%= presenter.append_results %>
+</div>

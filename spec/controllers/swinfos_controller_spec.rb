@@ -32,7 +32,7 @@ describe SwinfosController do
                                   :page => '1')
     end
 
-    it "should should create a new Swinfo with the params" do
+    it "should create a new Swinfo with the params" do
       swinfo = double('swinfo')
       options = { item: '98765', sort: 'first, second, third', page: '400' }
       Swinfo.stub(:new) do |args|

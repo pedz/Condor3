@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2012-2013 Ease Software, Inc.
+# All Rights Reserved
+#
+
+# Class which other presenters inherit from
 class ApplicationPresenter < Keynote::Presenter
   def header_tags
     [

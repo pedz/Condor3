@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2012-2013 Ease Software, Inc.
+# All Rights Reserved
+#
+
+# Welcome page presenter
 class WelcomePresenter < ApplicationPresenter
   def page_title
     "Welcome to Condor 3"
