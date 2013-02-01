@@ -1,7 +1,6 @@
 Condor3::Application.configure do
   # For the local laptop development, the base of the application is
   # at /condor3
-  # config.action_controller.relative_url_root = '/condor3'
   config.relative_url_root = '/condor3'
 
   # Settings specified here will take precedence over those in config/application.rb
