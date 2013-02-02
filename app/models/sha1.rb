@@ -17,8 +17,9 @@ class Sha1
   # The list of shipped files that match the passed in sha1
   attr_reader :shipped_files
   
-  def initialize(params)
-    @sha1 = params[:sha1]
+  def initialize(options)
+    @options = options
+    @sha1 = options[:sha1]
     dalli_params = { sha1: sha1, request: 'sha1s'}
     unless (@shipped_files = cache.read(dalli_params))
       @shipped_files = model.find(:all,
