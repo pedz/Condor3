@@ -23,35 +23,31 @@ class WhichFilesetPresenter < ApplicationPresenter
 
   def show_table
     build_html do
-      out = table.which_filesets do
-        thead do
-          tr do
-            th '#'
-            th 'Path'
-            th 'Lpp'
-          end
+      if paths.keys.length == 0
+        div.which_filesets do
+          span "Did not find any shipped files matching #{path}"
         end
-      end
-      body = tbody do
-        if @paths.length == 0
-          tr do
-            td colspan: '3' do
-              "Did not find any shipped files matching #{path}"
+      else
+        table.which_filesets do
+          thead do
+            tr do
+              th '#'
+              th 'Path'
+              th 'Lpp'
             end
           end
-        else
-          index = 0
-          out = ""
-          out += paths.each_pair do |path, lpps|
-            lpps.each do |lpp|
-              tr do
-                td index += 1
-                td path
-                td link_to(lpp, swinfo_get_path(lpp))
+          tbody do
+            index = 0
+            paths.each_pair do |path, lpps|
+              lpps.each do |lpp|
+                tr do
+                  td index += 1
+                  td path
+                  td link_to(lpp, swinfo_get_path(lpp))
+                end
               end
             end
           end
-          out
         end
       end
     end

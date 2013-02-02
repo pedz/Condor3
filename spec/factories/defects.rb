@@ -5,7 +5,7 @@ FactoryGirl.define do
   sequence(:cq_defect, 12345) {|n| "SW0#{n}" }
 
   factory :defect do
-    name FactoryGirl.generate(:defect_name)
-    cq_defect FactoryGirl.generate(:cq_defect)
+    name { generate(:defect_name) }
+    cq_defect { generate(:cq_defect) }
   end
 end

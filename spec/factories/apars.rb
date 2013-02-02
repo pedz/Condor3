@@ -5,7 +5,7 @@ FactoryGirl.define do
   sequence(:abstract) { |n| "Random Apar Abstract #{n} Blah"}
 
   factory :apar do
-    abstract FactoryGirl.generate(:abstract)
-    name FactoryGirl.generate(:apar_name)
+    abstract { generate(:abstract) }
+    name { generate(:apar_name) }
   end
 end

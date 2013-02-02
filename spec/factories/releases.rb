@@ -18,6 +18,6 @@ FactoryGirl.define do
   end
 
   factory :release do
-    name FactoryGirl.generate(:release_name)
+    name { generate(:release_name) }
   end
 end

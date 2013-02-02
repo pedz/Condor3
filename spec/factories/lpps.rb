@@ -10,6 +10,6 @@ FactoryGirl.define do
   end
 
   factory :lpp do
-    name FactoryGirl.generate(:lpp_name)
+    name { generate(:lpp_name) }
   end
 end

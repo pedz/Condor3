@@ -1,5 +1,9 @@
 
 body.which_filesets {
+    div.which_filesets {
+	@extend .centered-span;
+    }
+
     table.which_filesets {
 	@extend table.centered-table;
     }

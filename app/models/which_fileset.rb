@@ -50,7 +50,7 @@ class WhichFileset
       request: 'which_filesets'
     }
     unless (items = cache.read(dalli_params))
-      items = []
+      items = {}
       model.find(:all,
                  :conditions => ("basename(path) = basename('#{path}') AND " +
                                  "path LIKE '%#{path}'"),

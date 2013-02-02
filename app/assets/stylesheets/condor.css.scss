@@ -1,8 +1,4 @@
 /*
- * I wanted the CSS reset before this so application.css is just a digest
- */
-
-/*
  * List of darker/lighter shades of lightblue from
  * http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=ADD8E6
  */
@@ -46,6 +42,20 @@ $text-line-height: 1.25em;
     pre {
 	line-height: $text-line-height;
 	margin-left: $title-margin;
+    }
+}
+
+.centered-span {
+    text-align: center;
+    padding-top: $title-margin;
+    padding-bottom: $title-margin;
+    
+    span {
+	@include box-border;
+	background-color: white;
+	display: inline-block;
+	font-weight: bold;
+	padding: .5em;
     }
 }
 
@@ -147,17 +157,10 @@ body {
     }
 
     h2.title {
-	text-align: center;
-	padding-top: $title-margin;
-	padding-bottom: $title-margin;
+	@extend .centered-span;
 
 	span {
-	    @include box-border;
 	    font-size: 120%;
-	    background-color: white;
-	    display: inline-block;
-	    font-weight: bold;
-	    padding: .5em;
 	}
     }
 }

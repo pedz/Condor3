@@ -18,6 +18,6 @@ FactoryGirl.define do
   end
   
   factory :service_pack do
-    name FactoryGirl.generate(:service_pack_name)
+    name { generate(:service_pack_name) }
   end
 end

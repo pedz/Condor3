@@ -5,11 +5,11 @@ describe SwinfoPresenter do
   # to not spend much time so lets keep it.
   let(:data) { FactoryGirl.build_list(:upd_apar_def, 10) }
   let(:swinfo) {
-    temp = double('Swinfo')
-    temp.stub(:upd_apar_defs).and_return(data)
-    temp.stub(:errors).and_return([])
-    temp.stub(:item).and_return("12345")
-    temp
+    double('Swinfo').tap do |d|
+      d.stub(:upd_apar_defs).and_return(data)
+      d.stub(:errors).and_return([])
+      d.stub(:item).and_return("12345")
+    end
   }
 
   subject do

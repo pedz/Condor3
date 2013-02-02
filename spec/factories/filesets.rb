@@ -19,6 +19,6 @@ FactoryGirl.define do
 
   factory :fileset do
     association :lpp, strategy: :build
-    vrmf FactoryGirl.generate(:vrmf_name)
+    vrmf { generate(:vrmf_name) }
   end
 end

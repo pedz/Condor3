@@ -4,6 +4,6 @@ FactoryGirl.define do
   sequence(:ptf_name, 123456) { |n| "U#{n}" }
 
   factory :ptf do
-    name FactoryGirl.generate(:ptf_name)
+    name { generate(:ptf_name) }
   end
 end

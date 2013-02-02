@@ -4,6 +4,6 @@ FactoryGirl.define do
   sequence(:family_name) { "aix" }
 
   factory :family do
-    name FactoryGirl.generate(:family_name)
+    name { generate(:family_name) }
   end
 end
