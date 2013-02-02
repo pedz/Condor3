@@ -6,6 +6,8 @@
 
 # Class which other presenters inherit from
 class ApplicationPresenter < Keynote::Presenter
+  Keynote::Rumble.use_html_5_tags
+
   def header_tags
     [
      icon_favicon('condor_64.jpg', '64x64'),
