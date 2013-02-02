@@ -1,3 +1,9 @@
+/* -*- coding: utf-8 -*-
+ *
+ * Copyright 2012-2013 Ease Software, Inc. and Perry Smith
+ * All Rights Reserved
+ *
+ */
 /*
  * Each page has a help button.  This is the javascript that drives
  * it.  Currently layout is:

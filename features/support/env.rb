@@ -1,3 +1,8 @@
+#  -*- coding: utf-8 -*-
+# 
+#  Copyright 2012-2013 Ease Software, Inc. and Perry Smith
+#  All Rights Reserved
+# 
 require 'rubygems'
 require 'spork'
 #uncomment the following line to use spork with the debugger

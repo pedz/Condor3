@@ -1,3 +1,8 @@
+#  -*- coding: utf-8 -*-
+# 
+#  Copyright 2012-2013 Ease Software, Inc. and Perry Smith
+#  All Rights Reserved
+# 
 Feature: User submits a swinfo query
   In order to look up the entries for a given Defect or other item, I
   submit a query in the swinfo form.

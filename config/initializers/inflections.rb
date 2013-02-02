@@ -1,3 +1,8 @@
+#  -*- coding: utf-8 -*-
+# 
+#  Copyright 2012-2013 Ease Software, Inc. and Perry Smith
+#  All Rights Reserved
+# 
 # Be sure to restart your server when you modify this file.
 
 # Add new inflection rules using the following format

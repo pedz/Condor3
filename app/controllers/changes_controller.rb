@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2012 Ease Software, Inc. and Perry Smith
+# Copyright 2012-2013 Ease Software, Inc. and Perry Smith
 # All Rights Reserved
 #
 

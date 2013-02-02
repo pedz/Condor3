@@ -1,3 +1,8 @@
+#  -*- coding: utf-8 -*-
+# 
+#  Copyright 2012-2013 Ease Software, Inc. and Perry Smith
+#  All Rights Reserved
+# 
 Condor3::Application.configure do
   # For the local laptop development, the base of the application is
   # at /condor3

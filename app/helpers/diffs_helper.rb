@@ -1,3 +1,8 @@
+#  -*- coding: utf-8 -*-
+# 
+#  Copyright 2012-2013 Ease Software, Inc. and Perry Smith
+#  All Rights Reserved
+# 
 module DiffsHelper
   def put_file_div(lines, which, src_file)
     render(:partial => "put_file_div",

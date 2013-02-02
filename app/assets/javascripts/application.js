@@ -1,3 +1,9 @@
+/* -*- coding: utf-8 -*-
+ *
+ * Copyright 2012-2013 Ease Software, Inc. and Perry Smith
+ * All Rights Reserved
+ *
+ */
 /*
  * We load the libraries first which includes jsrender and jsviews
  */

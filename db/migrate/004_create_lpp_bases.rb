@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
+!# -*- coding: utf-8 -*-
 #
-# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# Copyright 2007-2013 Ease Software, Inc. and Perry Smith
 # All Rights Reserved
 #
 # The ptfapardef.constant files have a column which seems to be the

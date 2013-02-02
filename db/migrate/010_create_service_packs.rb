@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# Copyright 2007-2013 Ease Software, Inc. and Perry Smith
 # All Rights Reserved
 #
 # Currently this is not used any where but the name will be soemthing

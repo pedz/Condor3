@@ -1,3 +1,9 @@
+/* -*- coding: utf-8 -*-
+ *
+ * Copyright 2012-2013 Ease Software, Inc. and Perry Smith
+ * All Rights Reserved
+ *
+ */
 /*
  * This is the first application specific file in application.js.  It
  * comes after jQuery and other global things are loaded but before

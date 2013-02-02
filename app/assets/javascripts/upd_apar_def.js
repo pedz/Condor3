@@ -1,3 +1,9 @@
+/* -*- coding: utf-8 -*-
+ *
+ * Copyright 2012-2013 Ease Software, Inc. and Perry Smith
+ * All Rights Reserved
+ *
+ */
 
 /* Assume condor3.js has already defined condor3 object. */
 

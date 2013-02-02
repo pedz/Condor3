@@ -3,6 +3,7 @@
 # Copyright 2012-2013 Ease Software, Inc.
 # All Rights Reserved
 #
+
 class WhichFilesetsController < ApplicationController
   respond_to :html, :json
 

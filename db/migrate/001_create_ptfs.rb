@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
+!# -*- coding: utf-8 -*-
 #
-# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# Copyright 2007-2013 Ease Software, Inc. and Perry Smith
 # All Rights Reserved
 #
 # Table for PTFs

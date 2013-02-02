@@ -1,3 +1,8 @@
+/*  -*- coding: utf-8 -*-
+ * 
+ *  Copyright 2012-2013 Ease Software, Inc. and Perry Smith
+ *  All Rights Reserved
+ */
 describe("UpdAparDef", function() {
     var upd_apar_def;
     var columns = { 'index': 0,

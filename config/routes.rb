@@ -1,3 +1,8 @@
+#  -*- coding: utf-8 -*-
+# 
+#  Copyright 2012-2013 Ease Software, Inc. and Perry Smith
+#  All Rights Reserved
+# 
 Condor3::Application.routes.draw do
   scope 'swinfos' do
     constraints(:item => /[^\/]+/) do # item can have dots in it e.g. bos.mp64 6.1.7.3

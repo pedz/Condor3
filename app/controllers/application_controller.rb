@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2012-2013 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
+
 class ApplicationController < ActionController::Base
   # auto reload lib in development mode.
   before_filter :reload_libs if Rails.env.development?
