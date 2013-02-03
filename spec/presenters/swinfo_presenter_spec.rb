@@ -9,6 +9,7 @@ describe SwinfoPresenter do
   # We really don't need this complex of data right here but it seems
   # to not spend much time so lets keep it.
   let(:data) { FactoryGirl.build_list(:upd_apar_def, 10) }
+
   let(:swinfo) {
     double('Swinfo').tap do |d|
       d.stub(:upd_apar_defs).and_return(data)

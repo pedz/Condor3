@@ -5,6 +5,10 @@
 //
 
 body.sha1s {
+    div.sha1s {
+	@extend .centered-span;
+    }
+
     table.sha1s {
 	@extend table.centered-table;
     }
