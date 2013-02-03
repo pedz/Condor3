@@ -5,21 +5,21 @@
 # 
 require "spec_helper"
 
-describe "defects routes" do
-  it "routes post of /defects to defects controller create method" do
-    expect(:post => "/defects").to route_to("defects#create")
+describe "cmvc defects routes" do
+  it "a POST => /cmvc_defects to cmvc_defects#create" do
+    expect(:post => "/cmvc_defects").to route_to("cmvc_defects#create")
   end
 
-  it "routes get of /defects with a defect to defects controller show method" do
-    expect(:get => "/defects/123456").to route_to(:controller => "defects",
-                                                  :action => "show",
-                                                  :defect => '123456')
-  end
-
-  it "routes get of path with json format to defects controller show method" do
-    expect(:get => "/defects/123456.json").to route_to(:controller => "defects",
+  it "a GET => /cmvc_defects/:cmvc_defect to cmvc_defects#show" do
+    expect(:get => "/cmvc_defects/123456").to route_to(:controller => "cmvc_defects",
                                                        :action => "show",
-                                                       :defect => '123456',
-                                                       :format => 'json')
+                                                       :cmvc_defect => '123456')
+  end
+
+  it "a GET => /cmvc_defects/:cmvc_defect.json to cmvc_defects#show with json format" do
+    expect(:get => "/cmvc_defects/123456.json").to route_to(:controller => "cmvc_defects",
+                                                            :action => "show",
+                                                            :cmvc_defect => '123456',
+                                                            :format => 'json')
   end
 end

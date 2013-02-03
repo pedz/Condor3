@@ -38,7 +38,8 @@ describe SwinfoPresenter do
   end
 
   it "should present the table" do
-    markup = Capybara.string(subject.show_table)
+    p = subject.show_table
+    markup = Capybara.string(p)
     markup.should have_selector("table.upd_apar_defs thead")
     markup.should have_selector("table.upd_apar_defs tbody")
   end

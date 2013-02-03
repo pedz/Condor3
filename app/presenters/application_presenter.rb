@@ -6,7 +6,7 @@
 
 # Class which other presenters inherit from
 class ApplicationPresenter < Keynote::Presenter
-  Keynote::Rumble.use_html_5_tags
+  Keynote::Rumble.use_html_5_tags(self)
 
   def header_tags
     [

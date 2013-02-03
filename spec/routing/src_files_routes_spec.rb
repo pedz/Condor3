@@ -5,8 +5,8 @@
 # 
 require "spec_helper"
 
-describe "source file routes" do
-  it "routes get of source file to source files controller show method" do
+describe "source files routes" do
+  it "a GET => /src_files/REL/a/long/file/1.2.3.4 to src_files#show" do
     expect(:get => "/src_files/REL/a/long/file/1.2.3.4").to route_to(:controller => "src_files",
                                                                      :action => "show",
                                                                      :release => 'REL',
@@ -14,7 +14,7 @@ describe "source file routes" do
                                                                      :version => '1.2.3.4')
   end
 
-  it "routes get of file with json format to source files controller show method" do
+  it "a GET => /src_files/REL/a/long/file/1.2.3.4.json to src_files#show with json format" do
     expect(:get => "/src_files/REL/a/long/file/1.2.3.4.json").to route_to(:controller => "src_files",
                                                                           :action => "show",
                                                                           :release => 'REL',

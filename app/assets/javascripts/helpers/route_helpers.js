@@ -24,7 +24,7 @@
 	     */
 	    t[propName] = function route_wrapper() {
 		if (arguments.length < 1 || arguments[0] == false)
-		    return "#"
+		    return "#";
 		else
 		    return prop.apply(this, arguments);
 	    };

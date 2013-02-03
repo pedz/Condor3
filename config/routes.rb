@@ -24,14 +24,14 @@ Condor3::Application.routes.draw do
     post '/' => 'sha1s#create', :as => 'sha1s_post'
   end
 
-  scope 'defects' do
-    get ':defect' => 'defects#show', :as => 'defects'
-    post '/' => 'defects#create', :as => 'defects_post'
+  scope 'cmvc_defects' do
+    get ':cmvc_defect' => 'cmvc_defects#show', :as => 'cmvc_defects'
+    post '/' => 'cmvc_defects#create', :as => 'cmvc_defects_post'
   end
 
-  scope 'changes' do
-    get ':change' => 'changes#show', :as => 'changes'
-    post '/' => 'changes#create', :as => 'changes_post'
+  scope 'cmvc_changes' do
+    get ':cmvc_change' => 'cmvc_changes#show', :as => 'cmvc_changes'
+    post '/' => 'cmvc_changes#create', :as => 'cmvc_changes_post'
   end
 
   scope 'file_changes' do

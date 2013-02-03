@@ -4,7 +4,7 @@
 # All Rights Reserved
 #
 
-class DefectsController < ApplicationController
+class CmvcDefectsController < ApplicationController
   def show
     defect_name = params[:defect]
     return redirect_to defects_path(defect_name) if request.post?

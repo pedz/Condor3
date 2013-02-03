@@ -5,21 +5,21 @@
 # 
 require "spec_helper"
 
-describe "changes routes" do
-  it "routes post of /changes to changes controller create method" do
-    expect(:post => "/changes").to route_to("changes#create")
+describe "cmvc changes routes" do
+  it "a POST => /cmvc_changes to cmvc_changes#create" do
+    expect(:post => "/cmvc_changes").to route_to("cmvc_changes#create")
   end
 
-  it "routes get of /changes with a change to changes controller show method" do
-    expect(:get => "/changes/123456").to route_to(:controller => "changes",
-                                                  :action => "show",
-                                                  :change => '123456')
-  end
-
-  it "routes get of path with json format to changes controller show method" do
-    expect(:get => "/changes/123456.json").to route_to(:controller => "changes",
+  it "a GET => /cmvc_changes with a cmvc_change to cmvc_changes#show" do
+    expect(:get => "/cmvc_changes/123456").to route_to(:controller => "cmvc_changes",
                                                        :action => "show",
-                                                       :change => '123456',
-                                                       :format => 'json')
+                                                       :cmvc_change => '123456')
+  end
+
+  it "a GET => /cmvc_changes/cmvc_change.json to cmvc_changes#show with json format" do
+    expect(:get => "/cmvc_changes/123456.json").to route_to(:controller => "cmvc_changes",
+                                                            :action => "show",
+                                                            :cmvc_change => '123456',
+                                                            :format => 'json')
   end
 end

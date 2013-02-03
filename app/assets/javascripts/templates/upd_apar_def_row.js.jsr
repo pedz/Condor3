@@ -8,7 +8,7 @@
       <span class='upd_apar_def_outer_td_span'
             >{{link_to ~swinfo_path(defect) "upd_apar_def_link" defect
         /}}<span class='upd_apar_def_inner_td_span'></span><ul class='upd_apar_def_commands' style='display: none;'>
-          <li>{{link_to ~defects_path(defect) "link-to-defect" "Show CMVC Defect" /}}</li>
+          <li>{{link_to ~cmvc_defects_path(defect) "link-to-defect" "Show CMVC Defect" /}}</li>
           <li>Show Code Changes</li>
           <li>Show APAR Draft</li>
       </ul></span>

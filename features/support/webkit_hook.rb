@@ -11,10 +11,5 @@
 # first.
 
 Before('@webkit') do
-  puts "webkit"
   Capybara.current_driver = :webkit
-end
-
-Before('@javascript') do
-  puts "javascript"
 end

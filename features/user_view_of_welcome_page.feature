@@ -1,8 +1,3 @@
-#  -*- coding: utf-8 -*-
-# 
-#  Copyright 2012-2013 Ease Software, Inc. and Perry Smith
-#  All Rights Reserved
-# 
 Feature: User views Welcome page
   In order to allow versitility I will need a choice of queries that I
   can submit.
@@ -23,7 +18,7 @@ Feature: User views Welcome page
     | swinfo              | swinfo-form         | item        |
     | which fileset       | which-filesets-form | path        |
     | sha1                | sha1s-form          | sha1        |
-    | cmvc defect         | defects-form        | defect      |
-    | cmvc defect changes | changes-form        | change      |
+    | cmvc defect         | cmvc-defects-form   | cmvc_defect |
+    | cmvc defect changes | cmvc-changes-form   | cmvc_change |
     | file change history | file-changes-form   | file        |
 

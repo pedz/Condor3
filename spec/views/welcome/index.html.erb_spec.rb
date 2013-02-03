@@ -20,8 +20,8 @@ describe "welcome/index.html.erb" do
     rendered.should have_content("swinfo item 'swinfo'")
     rendered.should have_content("which-filesets path 'which fileset'")
     rendered.should have_content("sha1s sha1 'sha1'")
-    rendered.should have_content("defects defect 'cmvc defect'")
-    rendered.should have_content("changes change 'cmvc defect changes'")
+    rendered.should have_content("cmvc-defects cmvc_defect 'cmvc defect'")
+    rendered.should have_content("cmvc-changes cmvc_change 'cmvc defect changes'")
     rendered.should have_content("file-changes file 'file change history'")
   end
 end

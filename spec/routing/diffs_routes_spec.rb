@@ -6,7 +6,7 @@
 require "spec_helper"
 
 describe "diffs routes" do
-  it "routes get of diff to diffs controller show method" do
+  it "a GET => /diff/release/some/path/Version1 to diffs#show" do
     expect(:get => "/diffs/REL/a/long/file/1.2.3.4").to route_to(:controller => "diffs",
                                                                  :action => "show",
                                                                  :release => 'REL',
@@ -14,7 +14,7 @@ describe "diffs routes" do
                                                                  :version => '1.2.3.4')
   end
 
-  it "routes get of file with json format to source files controller show method" do
+  it "a GET => /diff/release/some/path/Version1.json diffs#show with json format" do
     expect(:get => "/diffs/REL/a/long/file/1.2.3.4.json").to route_to(:controller => "diffs",
                                                                       :action => "show",
                                                                       :release => 'REL',
@@ -23,7 +23,7 @@ describe "diffs routes" do
                                                                       :format => 'json')
   end
 
-  it "routes get of diff with previous version to diffs controller show method" do
+  it "a GET => /diff/release/some/path/Version1/pVersion2 to diffs#show" do
     expect(:get => "/diffs/REL/a/long/file/1.2.3.4/p5.6.7.8").to route_to(:controller => "diffs",
                                                                           :action => "show",
                                                                           :release => 'REL',
@@ -32,7 +32,7 @@ describe "diffs routes" do
                                                                           :prev_version => '5.6.7.8')
   end
 
-  it "routes get of file with previous version and json format to source files controller show method" do
+  it "a GET => /diff/release/some/path/Version1/pVersion2.json to diffs#show with json format" do
     expect(:get => "/diffs/REL/a/long/file/1.2.3.4/p5.6.7.8.json").to route_to(:controller => "diffs",
                                                                                :action => "show",
                                                                                :release => 'REL',

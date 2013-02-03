@@ -6,24 +6,24 @@
 require "spec_helper"
 
 describe "which filesets routes" do
-  it "routes post of /which_filesets to which filesets controller create method" do
+  it "a POST => /which_filesets which_filesets#create" do
     expect(:post => "/which_filesets").to route_to("which_filesets#create")
   end
 
-  it "routes get of path to which filesets controller show method" do
+  it "a GET => /which_filesets/a/long/path.foo to which_filesets#show" do
     expect(:get => "/which_filesets/a/long/path.foo").to route_to(:controller => "which_filesets",
                                                                   :action => "show",
                                                                   :path => 'a/long/path.foo')
   end
 
-  it "routes get of path with json format to which filesets controller show method" do
+  it "a GET => /which_filesets/a/long/path.foo.json to which_filesets#show with json format" do
     expect(:get => "/which_filesets/a/long/path.foo.json").to route_to(:controller => "which_filesets",
                                                                        :action => "show",
                                                                        :path => 'a/long/path.foo',
                                                                        :format => 'json')
   end
 
-  it "routes get of path with html format to which filesets controller show method" do
+  it "a GET /which_filesets/a/long/path.foo.html to which_filesets#show with html format" do
     expect(:get => "/which_filesets/a/long/path.foo.html").to route_to(:controller => "which_filesets",
                                                                        :action => "show",
                                                                        :path => 'a/long/path.foo',

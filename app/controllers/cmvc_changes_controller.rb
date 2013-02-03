@@ -5,7 +5,7 @@
 #
 
 # Controller used for Defect Changes
-class ChangesController < ApplicationController
+class CmvcChangesController < ApplicationController
   # Show the changes for the given defect
   def show
     @defect = params[:change]

@@ -6,7 +6,7 @@
 require 'spec_helper'
 
 describe "layouts/application" do
-  it "puts the header tags into the header" do
+  it "adds the header tags into the header" do
     presenter = double('presenter')
     # Title called twice
     presenter.should_receive(:page_title).and_return('The Title'.html_safe)
