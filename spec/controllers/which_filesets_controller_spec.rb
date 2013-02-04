@@ -6,6 +6,10 @@
 require 'spec_helper'
 
 describe WhichFilesetsController do
+  let(:model) { GetWhichFilesets }
+
+  let(:presenter) { :which_fileset }
+  
   let(:path) { 'msnentdd' }
 
   let(:post_options) { { path: path } }

@@ -6,8 +6,6 @@
 shared_examples_for "a controller" do
   let(:controller_name) { controller.class.name.sub('Controller', '').underscore }
   
-  let(:model) { controller.class.name.sub('Controller', '').singularize.constantize }
-  
   describe "POST actions" do
     it "should redirect to the full path" do
       post :create, post_options
@@ -29,7 +27,7 @@ shared_examples_for "a controller" do
     it "should pass the new model to create_presenter" do
       dbl = double(controller_name.singularize)
       model.stub(:new).and_return(dbl)
-      controller.stub(:create_presenter).with(dbl)
+      controller.stub(:create_presenter).with(presenter, dbl)
       get :show, full_options
     end
   end

@@ -5,7 +5,7 @@
 # 
 require 'spec_helper'
 
-describe Sha1 do
+describe GetSha1s do
   let(:local_cache) {
     double('local_cache').tap do |d|
       d.stub(:read) { nil }
@@ -30,9 +30,9 @@ describe Sha1 do
       options[:conditions][:aix_file_sha1].should eq(sample_sha1)
       FactoryGirl.build_list(:shipped_file, 10)
     end
-    sha1 = Sha1.new(typical_options)
-    sha1.sha1.should eq(sample_sha1)
-    sha1.shipped_files.should be_a(Array)
-    sha1.shipped_files.should have(10).items
+    get_sha1s = GetSha1s.new(typical_options)
+    get_sha1s.sha1.should eq(sample_sha1)
+    get_sha1s.shipped_files.should be_a(Array)
+    get_sha1s.shipped_files.should have(10).items
   end
 end

@@ -5,7 +5,7 @@
 #
 
 # A model to contain the logic needed for a which_fileset request.
-class WhichFileset
+class GetWhichFilesets
   ##
   # :attr: path
   # the path that was requested

@@ -21,8 +21,7 @@ class SwinfosController < ApplicationController
       return
     end
 
-    swinfo = Swinfo.new(params)
-    respond_with(create_presenter(swinfo))
+    respond_with(create_presenter(:swinfo, GetSwinfos.new(params)))
   end
 
   def create

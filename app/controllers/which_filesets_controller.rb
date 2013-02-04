@@ -8,8 +8,7 @@ class WhichFilesetsController < ApplicationController
   respond_to :html, :json
 
   def show
-    which_fileset = WhichFileset.new(params)
-    respond_with(create_presenter(which_fileset))
+    respond_with(create_presenter(:which_fileset, GetWhichFilesets.new(params)))
   end
   
   def create

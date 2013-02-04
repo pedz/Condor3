@@ -5,7 +5,7 @@
 #
 require 'spec_helper'
 
-describe WhichFileset do
+describe GetWhichFilesets do
   let(:local_cache) {
     double('local_cache').tap do |d|
       d.stub(:read) { nil }
@@ -46,9 +46,9 @@ describe WhichFileset do
       end
       r
     end
-    which_fileset = WhichFileset.new(typical_options)
-    which_fileset.path.should eq(typical_options[:path])
-    which_fileset.paths.should be_a(Hash)
-    which_fileset.paths.keys.should have(4).items
+    get_which_filesets = GetWhichFilesets.new(typical_options)
+    get_which_filesets.path.should eq(typical_options[:path])
+    get_which_filesets.paths.should be_a(Hash)
+    get_which_filesets.paths.keys.should have(4).items
   end
 end

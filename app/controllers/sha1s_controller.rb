@@ -10,8 +10,7 @@ class Sha1sController < ApplicationController
   respond_to :html, :json
   
   def show
-    sha1 = Sha1.new(params)
-    respond_with(create_presenter(sha1))
+    respond_with(create_presenter(:sha1, GetSha1s.new(params)))
   end
 
   def create

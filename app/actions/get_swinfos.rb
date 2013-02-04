@@ -5,7 +5,7 @@
 #
 
 # A model passed to the view from the SwinfosController
-class Swinfo
+class GetSwinfos
   ##
   # :attr: errors
   # Errors hit when processing the request

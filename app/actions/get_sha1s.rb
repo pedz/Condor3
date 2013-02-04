@@ -6,7 +6,7 @@
 
 # A model passed to the view from the Sha1Controller.  It does the
 # actual database search
-class Sha1
+class GetSha1s
   ##
   # :attr: sha1
   # The sha1 that was searched for

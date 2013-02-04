@@ -6,6 +6,10 @@
 require 'spec_helper'
 
 describe Sha1sController do
+  let(:model) { GetSha1s }
+
+  let(:presenter) { :sha1 }
+  
   let(:sha1) { '1234567890123456789012345678901234567890' }
 
   let(:post_options) { { sha1: sha1 } }

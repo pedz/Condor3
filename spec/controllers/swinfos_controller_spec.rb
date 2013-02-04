@@ -6,6 +6,10 @@
 require 'spec_helper'
 
 describe SwinfosController do
+  let(:model) { GetSwinfos }
+
+  let(:presenter) { :swinfo }
+
   let(:item) { '12345' }
 
   let(:post_options) { { item: item } }
