@@ -1,7 +1,26 @@
+#!/usr/bin/env bash
+#
+# Intended to be sourced actually
+#
 prvm_use ruby-1.9.3-p194
 export PGDATABASE=condor3_development
 
 function run-jasmine
 {
     rake jasmine RAILS_ENV=test
+}
+
+function clear-log
+{
+    for i in log/*
+    do
+	cp /dev/null $i
+    done
+}
+
+function restart
+{
+    # It seems to automatically restart
+    launchctl stop org.condor3.5200
+    launchctl stop org.condor3.5201
 }

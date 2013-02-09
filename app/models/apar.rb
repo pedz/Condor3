@@ -63,6 +63,4 @@ class Apar < ActiveRecord::Base
   def <=>(other)
     self.name <=> other.name
   end
-
-  # @bal = Diff::LCS.traverse_balanced(old_file, new_file, mc)
 end
