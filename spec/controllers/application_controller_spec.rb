@@ -35,14 +35,19 @@ describe ApplicationController do
         test_user
       end
 
-      User.stub(:find_by_ldap_id) do |args|
+      # And the call to find_by_ldap_id
+      User.stub(:find_by_ldap_id) do |name|
+        name.should eq(test_user_name)
         test_user
       end
 
+      # Make sure that get_user param works.  This could be a separate
+      # test but may as well ensure that it works in all the various
+      # paths
       controller.stub(:index) do
         controller.params.should include(:get_user)
-        user = controller.params[:get_user].call
-        user.should eq(test_user)
+        controller.params[:get_user].should be_a(Proc)
+        controller.params[:get_user].call.should eq(test_user)
         controller.render text: "Hello World"
       end
     end
@@ -73,14 +78,16 @@ describe ApplicationController do
       end
 
       it "should pass if ldap authentication passes" do
-        LdapUser.stub(:authenticate_from_email).and_return(true)
+        LdapUser.should_receive(:authenticate_from_email) do |user, password|
+          user == test_user_name && password == test_user_password
+        end
 
         get :index
         response.should be_success
       end
 
       it "should fail if ldap authentication fails" do
-        LdapUser.stub(:authenticate_from_email).and_return(false)
+        LdapUser.should_receive(:authenticate_from_email).and_return(false)
         get :index
         response.should_not be_success
       end
@@ -104,11 +111,23 @@ describe ApplicationController do
         get :index
         response.should_not be_success
       end
+
+      it "should reject a session without the authenticated key" do
+        session.delete(:authenticated)
+        get :index
+        response.should_not be_success
+      end
+
+      it "should reject a session without the user_id key" do
+        session.delete(:user_id)
+        get :index
+        response.should_not be_success
+      end
     end
 
     it "should create a new user if necessary" do
-      User.stub(:find_by_ldap_id) { nil }
-      User.stub(:new) { test_user }
+      User.should_receive(:find_by_ldap_id) { nil }
+      User.should_receive(:new) { test_user }
       request.env['HTTP_X_FORWARDED_USER'] = test_user_name
       get :index
       response.should be_success
