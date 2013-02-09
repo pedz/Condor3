@@ -61,6 +61,9 @@ Spork.prefork do
       file_path: config.escaped_path(%w[spec assets])
     }
 
+    # Not 100% sure I want to do this.  The thought is that, in
+    # general, the controller testing is after any authentication and
+    # the authentication will be tested explicitly.
     config.before(:each, type: :controller) do
       controller.stub(:authenticate) { true }
     end

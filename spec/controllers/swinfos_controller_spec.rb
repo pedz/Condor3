@@ -19,7 +19,7 @@ describe SwinfosController do
   it_behaves_like "a controller"
 
   describe "GET" do
-    it "should redirect if page is not given" do
+    it "should redirect if sort is not given" do
       get :show, item: item, page: '5'
       response.should redirect_to(action: 'show',
                                   item: item,

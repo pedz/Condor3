@@ -4,7 +4,7 @@
 # All Rights Reserved
 #
 
-class CmvcDefect
+class GetCmvcDefect
   ##
   # :attr: defect
   # The defect or feature that was requested
