@@ -10,26 +10,21 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate
   before_filter :add_get_user_to_params
 
-  rescue_from User::NoLDAP,        :with => :no_ldap_failure
-  rescue_from User::NoUID,         :with => :no_ldap_uid
-  rescue_from User::NoBootStrap,   :with => :no_boot_strap
-  rescue_from User::LoginNotFound, :with => :login_not_found
-  rescue_from Cmvc::CmvcError,     :with => :cmvc_error
-
   protect_from_forgery
 
   private
-
-  # Add a lambda to params that returns the current user when called
-  def add_get_user_to_params
-    params[:get_user] = -> { user }
-  end
 
   # auto reload lib in development mode.
   def reload_libs
     Dir["#{Rails.root}/lib/**/*.rb"].each { |path| require_dependency path }
   end
 
+  # Add a lambda to params that returns the current user when called
+  def add_get_user_to_params
+    params[:get_user] = -> { user }
+  end
+
+  # Should this be merged into the lambda above?
   def user
     @user ||= User.find(:first, :conditions => { :id => session[:user_id]})
   end
@@ -107,31 +102,6 @@ class ApplicationController < ActionController::Base
     session[:authenticated] = true
     session[:tod] = Time.current
     return true
-  end
-
-  def no_ldap_failure(exception)
-    @Exception = exception
-    render "users/no_ldap_failure"
-  end
-
-  def no_ldap_uid(exception)
-    @exception = exception
-    render "users/no_ldap_uid"
-  end
-
-  def no_boot_strap(exception)
-    @exception = exception
-    render "users/no_boot_strap"
-  end
-
-  def login_not_found(exception)
-    @exception = exception
-    render "users/login_not_found"
-  end
-
-  def cmvc_error(exception)
-    @exception = exception
-    render "cmvcs/cmvc_error"
   end
 
   def create_presenter(*args)

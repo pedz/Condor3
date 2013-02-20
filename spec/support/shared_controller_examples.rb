@@ -8,14 +8,18 @@ shared_examples_for "a controller" do
   
   describe "POST actions" do
     it "should require authentication" do
-      controller.unstub(:authenticate)
-      post :create, post_options
-      response.should_not be_success
+      unless post_options.nil?
+        controller.unstub(:authenticate)
+        post :create, post_options
+        response.should_not be_success
+      end
     end
 
     it "should redirect to the full path" do
-      post :create, post_options
-      response.should redirect_to(full_options.merge(controller: controller_name, action: 'show'))
+      unless post_options.nil?
+        post :create, post_options
+        response.should redirect_to(full_options.merge(controller: controller_name, action: 'show'))
+      end
     end
   end
 
@@ -27,21 +31,19 @@ shared_examples_for "a controller" do
     end
 
     it "should create a new model with the params" do
-      dbl = double(controller_name.singularize)
       model.stub(:new) do |args|
         args.symbolize_keys.should include(full_options.merge(controller: controller_name, action: 'show'))
-        dbl
+        double(controller_name.singularize)
       end
       controller.stub(:create_presenter)
       get :show, full_options
     end
     
     it "should add a lambda ':get_user' to params" do
-      dbl = double(controller_name.singularize)
       model.stub(:new) do |args|
         args.should include(:get_user)
         args[:get_user].should be_a(Proc)
-        dbl
+        double(controller_name.singularize)
       end
       controller.stub(:create_presenter)
       get :show, full_options
@@ -50,7 +52,7 @@ shared_examples_for "a controller" do
     it "should pass the new model to create_presenter" do
       dbl = double(controller_name.singularize)
       model.stub(:new).and_return(dbl)
-      controller.stub(:create_presenter).with(presenter, dbl)
+      controller.should_receive(:create_presenter).with(presenter, dbl)
       get :show, full_options
     end
   end

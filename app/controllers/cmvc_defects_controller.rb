@@ -8,6 +8,10 @@ class CmvcDefectsController < ApplicationController
   respond_to :html, :json
 
   def show
-    respond_with(create_presenter(CmvcDefect.new(params)))
+    respond_with(create_presenter(:cmvc_defect, GetCmvcDefectTextLines.new(params)))
+  end
+
+  def create
+    redirect_to cmvc_defects_path(params[:cmvc_defect])
   end
 end

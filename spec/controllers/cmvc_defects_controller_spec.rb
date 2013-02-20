@@ -6,5 +6,15 @@
 require 'spec_helper'
 
 describe CmvcDefectsController do
+  let(:model) { GetCmvcDefectTextLines }
+
+  let(:presenter) { :cmvc_defect }
   
+  let(:defect) { '123456' }
+
+  let(:post_options) { { cmvc_defect: defect } }
+
+  let(:full_options) { post_options }
+
+  it_behaves_like "a controller"
 end

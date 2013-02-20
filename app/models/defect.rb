@@ -64,33 +64,6 @@ class Defect < ActiveRecord::Base
     self.adv_ptf_release_maps.map { |m| m.release }
   end
 
-  # Retrieves the text of the defect from CMVC.
-  def fetch_text(cmvc)
-    options = {
-      :view => name,
-      :family => 'aix',
-      :long => ""
-    }
-    begin
-      @cmd = cmvc.defect!(options)
-    rescue Cmvc::CmvcError => err
-      begin
-        @cmd = cmvc.feature(options)
-        raise err unless @cmd.rc == 0
-      end
-    end
-  end
-
-  # Returns text as an array of lines
-  def lines
-    @cmd.lines
-  end
-
-  # Returns the text of the Defect or Feature
-  def text
-    @cmd.stdout
-  end
-
   # returns self.name <=> other.name
   def <=>(other)
     self.name <=> other.name
