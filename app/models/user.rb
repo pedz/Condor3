@@ -50,4 +50,13 @@ class User < ActiveRecord::Base
         given
       end
   end
+
+  # Set the user's cmvc login id.  new_id is the id (like "fred") and
+  # a cmvc model is created, associated with the user, filled in, and
+  # then saved.
+  def cmvc_login=(new_id)
+    cmvc_temp = user.build_cmvc
+    cmvc_temp.login = new_id
+    cmvc_temp.save!
+  end
 end

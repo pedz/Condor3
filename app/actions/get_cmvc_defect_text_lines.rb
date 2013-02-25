@@ -10,9 +10,23 @@ class GetCmvcDefectTextLines
   # The defect or feature that was requested
   attr_reader :defect_name
   
+  ##
+  # :attr: lines
+  # The lines from the CMVC defect or feature
+  attr_reader :lines
+
+  ##
+  # :attr: error
+  # The error to pass back
+  attr_reader :error
+
+  # Fetches the cmvc text for the defect specified by the :cmvc_defect
+  # attribute in the options hash
   def initialize(options)
     @options = options.dup
     @defect_name = options[:cmvc_defect]
+    @lines = nil
+    @error = nil
 
     hash = {
       get_user: options[:get_user],
@@ -22,52 +36,34 @@ class GetCmvcDefectTextLines
       long: nil
     }
     
-    @cmd = model.new(hash)
-    if (@cmd.rc != 0)
-      # if Defect fails, try Feature
-      cmd2 = model.new(hash.merge(cmd: 'Feature'))
+    cmd = execute_cmvc_command.new(hash)
+
+    # if Defect fails, try Feature
+    if (cmd.rc != 0)
+      cmd2 = execute_cmvc_command.new(hash.merge(cmd: 'Feature'))
+
       # if Feature works, then use that result
       if (cmd2.rc == 0)
-        @cmd = cmd2
+        cmd = cmd2
       end
+    end
+
+    # If the command worked, then stdout will be the lines
+    if (cmd.rc == 0)
+      @lines = cmd.stdout
+    else                        # otherwise, stderr is the error message
+      @error = cmd.stderr
     end
   end
 
   private
 
-  def model
-    @model ||= @options[:model] || ExecuteCmvcCommand
+  def execute_cmvc_command
+    @execute_cmvc_command ||= @options[:execute_cmvc_command] || ExecuteCmvcCommand
   end
 
   # Not used yet
   def cache
     @cache ||= @options[:cache] || Condor3::Application.config.my_dalli
   end
-
-  # # Retrieves the text of the defect from CMVC.
-  # def fetch_text(cmvc)
-  #   options = {
-  #     :view => name,
-  #     :family => 'aix',
-  #     :long => ""
-  #   }
-  #   begin
-  #     @cmd = cmvc.defect!(options)
-  #   rescue Cmvc::CmvcError => err
-  #     begin
-  #       @cmd = cmvc.feature(options)
-  #       raise err unless @cmd.rc == 0
-  #     end
-  #   end
-  # end
-
-  # # Returns text as an array of lines
-  # def lines
-  #   @cmd.lines
-  # end
-
-  # # Returns the text of the Defect or Feature
-  # def text
-  #   @cmd.stdout
-  # end
 end
