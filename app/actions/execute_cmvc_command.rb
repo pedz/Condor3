@@ -6,25 +6,25 @@
 
 class ExecuteCmvcCommand
   def stdout
-    @cmd_result.stdout
+    @result.stdout
   end
   
   def stderr
-    @cmd_result.stderr
+    @result.stderr
   end
   
   def rc
-    @cmd_result.rc
+    @result.rc
   end
   
   def signal
-    @cmd_result.signal
+    @result.signal
   end
   
   def initialize(options)
     @options = options.dup
 
-    @cmd_result = get_cmvc_from_user.new(@options)
+    @result = get_cmvc_from_user.new(@options)
     return if rc != 0
 
     cmd = [ @options.delete(:cmd) , "-become", stdout ]
@@ -35,9 +35,10 @@ class ExecuteCmvcCommand
       cmd << "\"#{v}\"" unless v.blank?
     end
 
+    cmd = cmd.join(' ')
     Rails.logger.debug("CMD= #{cmd}")
-    stdout, stderr, rc, signal = cmvc_host.exec(cmd)
-    @cmd_result = cmd_result.new(stdout: stdout, stderr: stderr, rc: rc, signal: signal)
+    stdout, stderr, rc, signal = cmvc_host.new(cmd)
+    @result = cmd_result.new(stdout: stdout, stderr: stderr, rc: rc, signal: signal)
   end
 
   private

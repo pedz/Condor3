@@ -26,7 +26,7 @@ class GetCmvcFromUser
   # Options include :get_user which is a proc / lambda that is called
   # to return an object that can fulfill a user roll.  The user roll
   # needs to support a cmvc method and a set_cmvc method.
-  def initialize(options)
+  def initialize(options = {})
     @options = options
 
     begin

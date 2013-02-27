@@ -5,6 +5,7 @@
 # 
 
 Given /^I am on the welcome page$/ do
+  puts "hi"
   # Note that currently when in the test environment, any username and
   # password will work but one needs to be supplied.  I'm assuming at
   # some point, I may have different types of users.
