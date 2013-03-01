@@ -17,6 +17,10 @@ describe CmdResult do
     cmd_result.signal.should eq("HUP")
   end
 
+  it_should_behave_like "a cmd_result duck type" do
+    let(:cmd_result ) { CmdResult.new }
+  end
+
   it "should set non-specified options to nil" do
     cmd_result = CmdResult.new
     cmd_result.stdout.should be_nil

@@ -5,7 +5,7 @@
 #
 
 class GetCmvcFromUser
-  PseudoCmvc = Struct.new(:cmvc)
+  PseudoCmvc = Struct.new(:cmvc_login)
   
   def stdout
     @cmd_result.stdout
@@ -39,54 +39,57 @@ class GetCmvcFromUser
       return
     end
     
-    cmvc_temp = user.cmvc
-
-    if cmvc_temp.nil? || cmvc_temp.login.nil? || cmvc_temp.login.blank?
-      # Fetch the LdapUser for this User
-      unless l = user.ldap
-        @cmd_result = cmd_result.new(stderr: "User does not have LDAP entry")
-        return
-      end
-
-      # Must have a uid
-      unless !ldap.attribute_present?(:uid) || (uid = ldap.uid) || uid.blank?
-        @cmd_result = cmd_result.new(stderr: "User's uid field in LDAP is blank")
-        return
-      end
-
-      # Need a bootstrap cmvc id.  This can not be saved because there
-      # is no user associated with it.
-      boot_cmvc = CmvcHost::BootstrapCmvcUser
-      if boot_cmvc.blank?
-        @cmd_result = cmd_result.new(stderr: "No bootstrap CMVC user set up")
-        return
-      end
-      
-      cmd_hash = {
-        get_user: -> { PseudoCmvc.new(boot_cmvc) },
-        cmd: 'Report',
-        family: 'aix',
-        general: 'UserView',
-        where: "ccnum = '#{uid.downcase}' or ccnum = '#{uid}'",
-        select: "login"
-      }
-
-      # Find the CMVC User whoes ccum matches the uid
-      @cmd_result = execute_cmvc_command.new(cmd_hash)
-      return if @cmd_result.rc != 0
-
-      # Clean up output -- should be a single line with just the cmvc
-      # login.
-      stdout = @cmd_result.stdout.chomp
-      # CMVC login must not be blank
-      if stdout.blank?
-        @cmd_result = cmd_result.new(stderr: "CMVC search for ccnum = #{uid} returned no results")
-        return
-      end
-
-      # Dance to create a new Cmvc record for this User
-      user.cmvc_login = stdout
+    cmvc_login = user.cmvc_login
+    unless cmvc_login.blank?
+      @cmd_result = cmd_result.new(stdout: cmvc_login)
+      return
     end
+
+    # Fetch the LdapUser for this User
+    unless ldap = user.ldap
+      @cmd_result = cmd_result.new(stderr: "User does not have LDAP entry")
+      return
+    end
+    
+    # Must have a uid
+    unless ldap.respond_to?(:attribute_present?) &&
+        ldap.attribute_present?(:uid) && (uid = ldap.uid) && !uid.blank?
+      @cmd_result = cmd_result.new(stderr: "User's uid field in LDAP is blank or missing")
+      return
+    end
+
+    # Need a bootstrap cmvc id.  This can not be saved because there
+    # is no user associated with it.
+    boot_cmvc = CmvcHost::BootstrapCmvcUser
+    if boot_cmvc.blank?
+      @cmd_result = cmd_result.new(stderr: "No bootstrap CMVC user set up")
+      return
+    end
+    
+    cmd_hash = {
+      get_user: -> { PseudoCmvc.new(boot_cmvc) },
+      cmd: 'Report',
+      family: 'aix',
+      general: 'UserView',
+      where: "ccnum = '#{uid.downcase}' or ccnum = '#{uid}'",
+      select: "login"
+    }
+    
+    # Find the CMVC User whoes ccum matches the uid
+    @cmd_result = execute_cmvc_command.new(cmd_hash)
+    return if @cmd_result.rc != 0
+    
+    # Clean up output -- should be a single line with just the cmvc
+    # login.
+    stdout = @cmd_result.stdout.chomp
+    # CMVC login must not be blank
+    if stdout.blank?
+      @cmd_result = cmd_result.new(stderr: "CMVC search for ccnum = #{uid} returned no results")
+      return
+    end
+    
+    # Dance to create a new Cmvc record for this User
+    user.cmvc_login = stdout
   end
 
   private

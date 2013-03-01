@@ -21,7 +21,7 @@ class ExecuteCmvcCommand
     @result.signal
   end
   
-  def initialize(options)
+  def initialize(options = {})
     @options = options.dup
 
     @result = get_cmvc_from_user.new(@options)
