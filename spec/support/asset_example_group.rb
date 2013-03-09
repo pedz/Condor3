@@ -3,6 +3,7 @@
 #  Copyright 2012-2013 Ease Software, Inc. and Perry Smith
 #  All Rights Reserved
 # 
+
 module RSpec::Rails
   module AssetExampleGroup
     extend ActiveSupport::Concern

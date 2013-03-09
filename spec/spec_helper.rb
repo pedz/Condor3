@@ -76,6 +76,8 @@ Spork.prefork do
     config.after(:each, type: :asset) do
       Rails.application.assets.cache = @original_cache
     end
+
+    config.alias_it_should_behave_like_to :the_passed_in, "the passed in"
   end
 end
 

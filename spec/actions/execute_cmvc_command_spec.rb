@@ -28,7 +28,7 @@ describe ExecuteCmvcCommand do
       }
     end
   end
-  it_should_behave_like "a cmd_result duck type" do
+  it_should_behave_like "a cmd_result" do
     let(:cmd_result ) { cmd_result_class.new }
   end
 

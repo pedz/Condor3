@@ -17,7 +17,7 @@ describe CmdResult do
     cmd_result.signal.should eq("HUP")
   end
 
-  it_should_behave_like "a cmd_result duck type" do
+  it_should_behave_like "a cmd_result" do
     let(:cmd_result ) { CmdResult.new }
   end
 

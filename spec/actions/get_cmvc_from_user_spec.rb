@@ -16,7 +16,7 @@ describe GetCmvcFromUser do
     get_cmvc_from_user.stderr.should eq("Exception encountered when fetching user")
   end
 
-  it "should error off when no get_user option return nil" do
+  it "should error off when get_user option returns nil" do
     get_cmvc_from_user = GetCmvcFromUser.new get_user: -> { nil }
     get_cmvc_from_user.rc.should eq(1)
     get_cmvc_from_user.stderr.should eq("User not found")
@@ -28,9 +28,9 @@ describe GetCmvcFromUser do
     get_cmvc_from_user.stderr.should eq("Exception encountered when fetching user")
   end
 
-  context "simple valid get_user proc" do
+  context "with a get_user option producing a complete user" do
     get_user_proc = -> { Struct.new(:cmvc_login).new("test_user") }
-    it_should_behave_like "a get_user proc" do
+    the_passed_in "get_user option" do
       let(:get_user) { get_user_proc }
     end
 
@@ -49,7 +49,7 @@ describe GetCmvcFromUser do
     get_cmvc_from_user.stderr.should eq("User does not have LDAP entry")
   end
 
-  context "various ldap of the user model requirements" do
+  context "ldap of the user model" do
     it "should fail if ldap for user does not respond to attribute_present?" do
       get_user_proc = -> do
         ldap = Struct.new(:joe).new(nil)
@@ -111,7 +111,7 @@ describe GetCmvcFromUser do
     get_cmvc_from_user.stderr.should eq("No bootstrap CMVC user set up")
   end
 
-  context "With valid arguments" do
+  context "with valid arguments" do
     before(:each) do
       @rc = 0
       @execute_cmvc_command_class = double("execute_cmvc_command_class").tap do |e|
@@ -130,13 +130,14 @@ describe GetCmvcFromUser do
         @user_temp
       end
     end
+
     context "with good return from execute_cmvc_command" do
       before(:each) do
         @get_cmvc_from_user = GetCmvcFromUser.new(get_user: @get_user_proc,
                                                   execute_cmvc_command: @execute_cmvc_command_class)
       end
 
-      it_should_behave_like "a get_user proc" do
+      the_passed_in "get_user option" do
         let(:get_user) { @options[:get_user] }
       end
     
@@ -155,9 +156,12 @@ describe GetCmvcFromUser do
     context "with bad return from execute_cmvc_command" do
       before(:each) do
         @rc = 1
-      
         @get_cmvc_from_user = GetCmvcFromUser.new(get_user: @get_user_proc,
                                                   execute_cmvc_command: @execute_cmvc_command_class)
+      end
+
+      the_passed_in "get_user option" do
+        let(:get_user) { @options[:get_user] }
       end
 
       it "should return values from the execute_cmvc_command" do
