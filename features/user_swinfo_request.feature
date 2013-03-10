@@ -2,7 +2,7 @@ Feature: User submits a swinfo query
   In order to look up the entries for a given Defect or other item, I
   submit a query in the swinfo form.
 
-  @javascript @webkit
+  @javascript
   Scenario: Submit swinfo query for a defect via browser
     Given I am on the welcome page
     And The database has a single entry

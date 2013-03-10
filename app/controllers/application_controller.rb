@@ -42,8 +42,6 @@ class ApplicationController < ActionController::Base
         apache_authenticate(user_name, password)
       elsif request.headers.has_key?('HTTP_X_FORWARDED_USER')
         proxy_apache_authenticate(user_name, password)
-      elsif Rails.env == "test"
-        testing_authenticate(user_name, password)
       else
         ldap_authenticate(user_name, password)
       end
@@ -61,7 +59,9 @@ class ApplicationController < ActionController::Base
   # This authenticates against bluepages using LDAP.
   def ldap_authenticate(user_name, password)
     logger.info("attempt to ldap authenticate: user_name #{user_name}")
-    return false unless LdapUser.authenticate_from_email(user_name, password)
+    result = LdapUser.authenticate_from_email(user_name, password)
+    logger.info("ldap authenticate of #{user_name} returned #{result}")
+    return false unless result
     return common_authenticate(user_name, password)
   end
 

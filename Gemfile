@@ -42,6 +42,7 @@ group :development, :test do
   gem 'launchy'
   gem 'rails-footnotes', '>= 3.7.5.rc4'
   gem 'rb-fsevent', :require => false
+  gem 'rspec', '>= 2.13'
   gem 'rspec-rails'
   gem 'ruby_gntp'
   gem 'spork', '~> 1.0rc'

@@ -34,7 +34,9 @@ class LdapUser < ActiveLdap::Base
   # password is the correct password for the user specified by the
   # email address.
   def self.authenticate_from_email(email, password)
+    logger.info("here 1")
     return nil unless (u = find(:first, :attribute => 'mail', :value => email, :attributes => [ 'dn']))
+    logger.info("here 2")
     begin
       # dn = u.dn.to_s.gsub(/\+/, "\\\\+")
       dn = u.dn.to_s
