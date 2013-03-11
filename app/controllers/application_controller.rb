@@ -51,7 +51,24 @@ class ApplicationController < ActionController::Base
     else
       logger.info("attempt to authenticate with http_basic")
       authenticate_or_request_with_http_basic "Bluepages Authentication" do |user_name, password|
-        ldap_authenticate(user_name, password)
+        # After much sole searching and net surfing, there is no way
+        # to get a fast path through the authentication process
+        # without introducing some test specific code into the
+        # application.  Most other methods also require mocking and
+        # code to set a cookie or some other piece of magic.
+        #
+        # I decided to just make the code obvious and not bother with
+        # all the sneaky stuff.  The logic is this: In the test
+        # environment, if the user is 'testuser', then the
+        # authentication process is mostly bypassed; Otherwise the
+        # normal process is followed.  This allows a fast path and a
+        # path to fully test all the real paths and the ability to
+        # pick between the two quickly and obviously.
+        if Rails.env.test? && user_name == 'testuser'
+          test_authenticate(user_name, password)
+        else
+          ldap_authenticate(user_name, password)
+        end
       end
     end
   end
@@ -61,6 +78,12 @@ class ApplicationController < ActionController::Base
       session.has_key?(:authenticated) && session[:authenticated] == true &&
       session.has_key?(:user_id)       && !session[:user_id].blank?       &&
       session.has_key?(:tod)           && session[:tod] >= 1.day.ago
+  end
+
+  # This authenticates in the test environment
+  def test_authenticate(user_name, password)
+    logger.info("test_authenticate #{user_name}")
+    return common_authenticate(user_name)
   end
 
   # This authenticates against bluepages using LDAP.

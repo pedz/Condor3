@@ -4,7 +4,7 @@ Feature: User submits a swinfo query
 
   @javascript @webkit
   Scenario: Submit swinfo query for a defect via browser
-    Given I am on the welcome page
+    Given A Real user is on the welcome page
     And The database has a single entry
     And I enter a defect into the swinfo form
     When I hit the submit button

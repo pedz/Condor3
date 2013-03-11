@@ -5,21 +5,17 @@
 # 
 
 Given /^I am on the welcome page$/ do
-  puts "hi"
-  # Note that currently when in the test environment, any username and
-  # password will work but one needs to be supplied.  I'm assuming at
-  # some point, I may have different types of users.
-  case page.mode.to_s
-  when 'selenium'
-    visit("http://username:password@localhost#{welcome_path}")
+  case page.mode
+  when :selenium
+    visit("http://pedzan%40us.ibm.com:g0lf4you@localhost#{welcome_path}")
 
-  when 'rack_test'
-    encoded_login = ["username:password"].pack("m*")
+  when :rack_test
+    encoded_login = ["pedzan@us.ibm.com:g0lf4you"].pack("m*")
     page.driver.header 'Authorization', "Basic #{encoded_login}"
     visit(welcome_path)
 
-  when 'webkit'
-    page.driver.browser.authenticate('username', 'password')
+  when :webkit
+    page.driver.browser.authenticate('pedzan@us.ibm.com', 'g0lf4you')
     visit(welcome_path)
   end
 end

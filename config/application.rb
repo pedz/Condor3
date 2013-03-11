@@ -6,7 +6,12 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+
+# ActiveLdap added the first require.  I added the second require when
+# I discovered that I get a trap when it is lazy loaded when using
+# a feature marked with @javascript in Cucumber.
 require "active_ldap/railtie"
+require 'ldap'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line

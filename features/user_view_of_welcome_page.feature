@@ -3,11 +3,11 @@ Feature: User views Welcome page
   can submit.
   
   Scenario: Various queries which must be avalable on the welcome page
-    Given I am on the welcome page
+    Given A test user is on the welcome page
     Then I should see multiple forms
 
   Scenario Outline: The types of queries should include
-    Given I am on the welcome page
+    Given A test user is on the welcome page
     Then I see the <FormName> form
     And The form has <VisualText> to guide me to the correct text box
     And The text box is called <TextBoxName>
