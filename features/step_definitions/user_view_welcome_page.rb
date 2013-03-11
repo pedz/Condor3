@@ -4,22 +4,6 @@
 #  All Rights Reserved
 # 
 
-Given /^I am on the welcome page$/ do
-  case page.mode
-  when :selenium
-    visit("http://pedzan%40us.ibm.com:g0lf4you@localhost#{welcome_path}")
-
-  when :rack_test
-    encoded_login = ["pedzan@us.ibm.com:g0lf4you"].pack("m*")
-    page.driver.header 'Authorization', "Basic #{encoded_login}"
-    visit(welcome_path)
-
-  when :webkit
-    page.driver.browser.authenticate('pedzan@us.ibm.com', 'g0lf4you')
-    visit(welcome_path)
-  end
-end
-
 Then /^I should see multiple forms$/ do
   all('form').should have_at_least(2).forms
 end

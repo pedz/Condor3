@@ -19,7 +19,7 @@ end
 World(Authentication)
 
 Given /^A Real user is on the welcome page$/ do
-  visit_as('pedzan@us.ibm.com', 'g0lf4you', welcome_path)
+  visit_as('pedzan@us.ibm.com', Authentication::GoodPassword, welcome_path)
 end
 
 Given /^A test user is on the welcome page$/ do
