@@ -22,6 +22,14 @@ Given /^A Real user is on the welcome page$/ do
   visit_as('pedzan@us.ibm.com', Authentication::GoodPassword, welcome_path)
 end
 
-Given /^A test user is on the welcome page$/ do
+Given /^A Test user is on the welcome page$/ do
   visit_as('testuser', 'secret', welcome_path)
+end
+
+Given /^An Unknown user goes to the welcome page$/ do
+  visit_as('xxyyzz', 'secret', welcome_path)
+end
+
+Given /^A Real user but an invalid password goes to the welcome page$/ do
+  visit_as('pedzan@us.ibm.com', 'badpassword', welcome_path)
 end
