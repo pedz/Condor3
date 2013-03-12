@@ -1,4 +1,6 @@
 Need db restore
+Jasmine Endless Page test raises an alert box.
+Some Jasmine test creates the overlay and forgets to remove it.
 Needed Controllers:
   apar_drafts SW A SW D
   file_changes FP 6
