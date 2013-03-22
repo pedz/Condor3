@@ -17,13 +17,14 @@ template:
   adapter: postgresql
   encoding: unicode
   database: condor3_template
+#  template: condor3_development
 
 test: &test
   adapter: postgresql
-  template: condor3_template
   encoding: unicode
   database: condor3_test
   pool: 5
+#  template: condor3_template
 
 production:
   adapter: postgresql
