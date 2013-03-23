@@ -11,6 +11,5 @@
 # first.
 
 Before('@webkit') do
-  puts "Before @webkit"
   Capybara.current_driver = :webkit
 end

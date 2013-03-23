@@ -26,6 +26,12 @@ test: &test
   pool: 5
 #  template: condor3_template
 
+postgres:
+  adapter: postgresql
+  encoding: unicode
+  database: postgres
+  pool: 5
+
 production:
   adapter: postgresql
   encoding: unicode

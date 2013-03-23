@@ -18,12 +18,6 @@ Spork.prefork do
   # newer version of cucumber-rails. Consider adding your own code to a new file 
   # instead of editing this one. Cucumber will automatically load all features/**/*.rb
   # files.
-
-  Before do
-    puts "Before @snapshot"
-    # DatabaseCleaner.strategy = :snapshot
-  end
-
   require 'cucumber/rails'
 
   # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In

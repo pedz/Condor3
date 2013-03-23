@@ -1,4 +1,4 @@
-@snapshot @javascript @webkit
+@snapshot @no-database-cleaner
 Feature: Test of the snapshot database cleaner
 
   Scenario: Submit sha1 query using snapshot
