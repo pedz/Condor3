@@ -20,6 +20,7 @@ module CmvcHost
   case Method
   when "ssh"
     def self.exec(cmd)
+      Rails.logger.debug("CmvcHost ssh exec: #{cmd}")
       stdout_data = ""
       stderr_data = ""
       exit_code = nil
@@ -59,6 +60,7 @@ module CmvcHost
 
   when "local"
     def self.exec(cmd)
+      Rails.logger.debug("CmvcHost local exec: #{cmd}")
       # create a temp file
       err_file = Tempfile.new("condor")
       # call the command.  Redirect stderr to temp file

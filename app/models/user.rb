@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   # a cmvc model is created, associated with the user, filled in, and
   # then saved.
   def cmvc_login=(new_id)
-    cmvc_temp = user.build_cmvc
+    cmvc_temp = self.build_cmvc
     cmvc_temp.login = new_id
     cmvc_temp.save!
   end

@@ -7,7 +7,7 @@ Feature: User submits a swinfo query
     Given A Test user is on the welcome page
     And I want to find <ItemType>
     And I enter <Item> into the swinfo form
-    When I hit the submit button
+    When I hit the swinfo submit button
     Then I should see <Item> in the results
 
     Examples:
@@ -24,5 +24,5 @@ Feature: User submits a swinfo query
     Given A Test user is on the welcome page
     And I want to find a CQ defect
     And I enter AX114369 into the swinfo form
-    When I hit the submit button
+    When I hit the swinfo submit button
     Then I should see 741813 in the results

@@ -1,5 +1,5 @@
 @snapshot @no-database-cleaner
-Feature: User submits a which fileset query
+Feature: User can determine which filesets shipped a particular AIX file
 
   Scenario: Submit which fileset query using full path
     Given A Test user is on the welcome page

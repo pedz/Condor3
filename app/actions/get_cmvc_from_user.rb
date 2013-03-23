@@ -81,7 +81,7 @@ class GetCmvcFromUser
     
     # Clean up output -- should be a single line with just the cmvc
     # login.
-    stdout = @cmd_result.stdout.chomp
+    @cmd_result.stdout.chomp!
     # CMVC login must not be blank
     if stdout.blank?
       @cmd_result = cmd_result.new(stderr: "CMVC search for ccnum = #{uid} returned no results")
@@ -95,19 +95,19 @@ class GetCmvcFromUser
   private
   
   def execute_cmvc_command
-    @execute_cmvc_command ||= @options[:execute_cmvc_command] || ExecuteCmvcCommand
+    @execute_cmvc_command ||= @options.delete(:execute_cmvc_command) || ExecuteCmvcCommand
   end
 
   def cmd_result
-    @cmd_result ||= @options[:cmd_result] || CmdResult
+    @cmd_result ||= @options.delete(:cmd_result) || CmdResult
   end
 
   # Not used yet
   def cache
-    @cache ||= @options[:cache] || Condor3::Application.config.my_dalli
+    @cache ||= @options.delete(:cache) || Condor3::Application.config.my_dalli
   end
 
   def user
-    @user ||= @options[:get_user].call
+    @user ||= @options.delete(:get_user).call
   end
 end

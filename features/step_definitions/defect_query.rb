@@ -19,7 +19,7 @@ And /^I enter (.*) into the swinfo form$/ do |item|
   end
 end
 
-When /^I hit the submit button$/ do
+When /^I hit the swinfo submit button$/ do
   within('#swinfo-form') do
     click_button('Submit')
   end
