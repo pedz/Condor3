@@ -74,6 +74,10 @@ class ApplicationController < ActionController::Base
   end
 
   def session_authenticated?
+    logger.info("user_name = #{session[:user_name]}")
+    logger.info("authenticated = #{session[:authenticated]}")
+    logger.info("user_id = #{session[:user_id]}")
+    logger.info("tod = #{session[:tod]}")
     session.has_key?(:user_name)       && !session[:user_name].blank?     &&
       session.has_key?(:authenticated) && session[:authenticated] == true &&
       session.has_key?(:user_id)       && !session[:user_id].blank?       &&

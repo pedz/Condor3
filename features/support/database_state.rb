@@ -25,7 +25,6 @@ class DatabaseState
   private
 
   def determine_state
-    return if @state == :unknown
     if last_strategy == :deletion || last_strategy == :truncation
       @state = :empty
     end
