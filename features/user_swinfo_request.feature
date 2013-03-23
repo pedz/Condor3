@@ -1,4 +1,4 @@
-@snapshot @no-database-cleaner @javascript
+@snapshot @no-database-cleaner @javascript @webkit
 Feature: User submits a swinfo query
   In order to look up the entries for a given Defect or other item, I
   submit a query in the swinfo form.

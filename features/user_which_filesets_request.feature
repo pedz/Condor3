@@ -1,5 +1,5 @@
 @snapshot @no-database-cleaner
-Feature: Test of the snapshot database cleaner
+Feature: User submits a which fileset query
 
   Scenario: Submit which fileset query using full path
     Given A Test user is on the welcome page
