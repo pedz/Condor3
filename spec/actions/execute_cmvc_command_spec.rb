@@ -54,7 +54,7 @@ describe ExecuteCmvcCommand do
   }
 
   it "should call cmvc_host with the command string and report back the result" do
-    cmvc_host_class.should_receive(:new).once
+    cmvc_host_class.should_receive(:exec).once
     exec = ExecuteCmvcCommand.new(typical_options.merge(cmd: "Blah"))
     exec.rc.should eq(0)
     exec.stdout.should eq("the result")

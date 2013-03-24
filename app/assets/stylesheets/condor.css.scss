@@ -44,10 +44,8 @@ $text-line-height: 1.25em;
 }
 
 @mixin base-pre {
-    pre {
-	line-height: $text-line-height;
-	margin-left: $title-margin;
-    }
+    line-height: $text-line-height;
+    margin-left: $title-margin;
 }
 
 .centered-span {
@@ -166,6 +164,25 @@ body {
 
 	span {
 	    font-size: 120%;
+	}
+    }
+
+    /*
+     * This is the same as .centered-span except using a pre instead
+     * of a span.  It needs to be merged in somehow
+     */
+    div.error_block {
+	text-align: center;
+	padding-top: $title-margin;
+	padding-bottom: $title-margin;
+    
+	pre {
+	    @include box-border;
+	    font-family: "DejaVu Sans Mono", Menlo, Monaco, Consolas, Courier, monospace;
+	    text-align: left;
+	    background-color: white;
+	    display: inline-block;
+	    padding: .5em;
 	}
     }
 }

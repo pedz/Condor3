@@ -56,16 +56,17 @@ class Change
   # The previous SCCS id of the file before the Change.
   attr_reader :prev_sccsid
 
-  def initialize(release, defect, level, sccsid, path, type, reference,
-                 abstract, prev_sccsid = nil)
+  def initialize(release, defect_type, defect, level, sccsid, path, type, reference,
+                 prev_sccsid, abstract)
     @release = release
+    @defect_type = defect_type
     @defect = defect
     @level = level
     @sccsid = sccsid
     @path = path
     @type = type
     @reference = reference
-    @abstract = abstract
     @prev_sccsid = prev_sccsid
+    @abstract = abstract
   end
 end

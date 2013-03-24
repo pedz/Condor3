@@ -34,8 +34,8 @@ class GetCmvcFromUser
         @cmd_result = cmd_result.new(stderr: "User not found")
         return
       end
-    rescue
-      @cmd_result = cmd_result.new(stderr: "Exception encountered when fetching user")
+    rescue => e
+      @cmd_result = cmd_result.new(stderr: "Exception encountered when fetching user: #{e.message}")
       return
     end
     

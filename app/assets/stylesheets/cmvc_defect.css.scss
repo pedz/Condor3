@@ -1,0 +1,14 @@
+// -*- coding: utf-8 -*-
+//
+// Copyright 2012-2013 Ease Software, Inc. and Perry Smith
+// All Rights Reserved
+//
+body.cmvc_defects {
+    pre {
+	@include box-border;
+	margin-left: 8px;
+	margin-right: 8px;
+	padding: 8px;
+	font-family: "DejaVu Sans Mono", Menlo, Monaco, Consolas, Courier, monospace;
+    }
+}

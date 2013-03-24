@@ -12,6 +12,6 @@ class CmvcDefectsController < ApplicationController
   end
 
   def create
-    redirect_to cmvc_defects_path(params[:cmvc_defect])
+    redirect_to cmvc_defects_path(params[:cmvc_defect].strip)
   end
 end

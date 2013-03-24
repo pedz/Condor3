@@ -56,6 +56,14 @@ class ApplicationPresenter < Keynote::Presenter
 
   private
 
+  def error_block(error)
+    build_html do
+      div.error_block do
+        pre error
+      end
+    end
+  end
+
   def icon_favicon(path, size)
     favicon_link_tag(path, rel: :icon, type: 'image/jpeg', sizes: size)
   end

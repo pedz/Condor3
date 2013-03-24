@@ -4,5 +4,7 @@
 // All Rights Reserved
 //
 body.src_files {
-    @include base-pre;
+    pre {
+	@include base-pre;
+    }
 }

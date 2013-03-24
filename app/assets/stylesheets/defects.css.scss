@@ -4,5 +4,7 @@
 // All Rights Reserved
 //
 body.defects {
-    @include base-pre;
+    pre {
+	@include base-pre;
+    }
 }

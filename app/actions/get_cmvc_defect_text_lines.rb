@@ -11,6 +11,11 @@ class GetCmvcDefectTextLines
   attr_reader :defect_name
   
   ##
+  # :attr: type
+  # Set to either "Feature" or "Defect"
+  attr_reader :type
+
+  ##
   # :attr: lines
   # The lines from the CMVC defect or feature
   attr_reader :lines
@@ -24,12 +29,12 @@ class GetCmvcDefectTextLines
   # attribute in the options hash
   def initialize(options)
     @options = options.dup
-    @defect_name = options[:cmvc_defect]
+    @defect_name = @options[:cmvc_defect].strip
     @lines = nil
     @error = nil
 
     hash = {
-      get_user: options[:get_user],
+      get_user: @options[:get_user],
       cmd: 'Defect',
       view: @defect_name,
       family: 'aix',
@@ -37,7 +42,8 @@ class GetCmvcDefectTextLines
     }
     
     cmd = execute_cmvc_command.new(hash)
-
+    @type = 'Defect'
+    
     # if Defect fails, try Feature
     if (cmd.rc != 0)
       cmd2 = execute_cmvc_command.new(hash.merge(cmd: 'Feature'))
@@ -45,6 +51,7 @@ class GetCmvcDefectTextLines
       # if Feature works, then use that result
       if (cmd2.rc == 0)
         cmd = cmd2
+        @type = 'Feature'
       end
     end
 

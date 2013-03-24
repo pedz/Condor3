@@ -13,6 +13,6 @@ class CmvcChangesController < ApplicationController
   end
 
   def create
-    redirect_to cmvc_changes_path(params[:cmvc_change])
+    redirect_to cmvc_changes_path(params[:cmvc_change].strip)
   end
 end
