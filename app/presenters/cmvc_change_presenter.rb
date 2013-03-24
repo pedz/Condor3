@@ -28,53 +28,103 @@ class CmvcChangePresenter < ApplicationPresenter
   end
   
   def show_changes
-    Rails.logger.debug("here!!!")
     if error.blank?
       build_html do
-        changes.each do |change|
-          defect = change.defect
-          ul.defect do
-            li do
-              "Defect #{link_to defect, swinfo_get_path(defect)}: #{change.abstract}"
-              until change.nil? || change.defect != defect
-                release = change.release
-                ul.release do
-                  li do
-                    "Product #{release} [#{change.level}]"
-                    until change.nil? || change.release != release
-                      ul.change do
-                        li do
-                          if change.prev_sccsid.nil?
-                            "Initial Drop"
-                          else
-                            link_to(change.prev_sccsid,
-                                    src_files_path(change.release,
-                                                   change.path.split(/\//),
-                                                   change.prev_sccsid))
-                            link_to("->",
-                                    diffs_path(change.release,
-                                               change.path.split(/\//),
-                                               change.sccsid))
-                          end
-                          link_to(change.sccsid,
-                                  src_files_path(change.release,
-                                                 change.path.split(/\//),
-                                                 change.sccsid))
-                          change.type
-                          change.path
-                          change = changes.shift
-                        end
-                      end
-                    end
-                  end
-                end
-              end
-            end
-          end
+        c_enum = changes.to_enum
+        div.defect do
+          describe_defect_changes(c_enum)
         end
       end
     else
       error_block(error)
     end
+  end
+
+  private
+
+  def describe_defect_changes(enum)
+    begin
+      change = enum.peek
+    rescue StopIteration
+      return ""
+    end
+    span do
+      defect_heading(change)
+    end
+    ul.defect do
+      list_defect_changes(enum)
+    end
+  end
+
+  def defect_heading(change)
+    defect = change.defect
+    text change.defect_type.capitalize
+    text ' '
+    a(defect, href: swinfo_get_path(defect))
+    text ": "
+    text change.abstract
+  end
+
+  def list_defect_changes(enum)
+    change = enum.peek
+    defect = change.defect
+    loop do
+      break if change.defect != defect
+      li do
+        describe_changes_within_release(enum)
+      end
+      begin
+        change = enum.peek
+      rescue StopIteration
+        break
+      end
+    end
+  end
+
+  def describe_changes_within_release(enum)
+    change = enum.peek
+    span "Product #{change.release} [#{change.level}]"
+    ul.release do
+      list_changes_within_release(enum)
+    end
+  end
+
+  def list_changes_within_release(enum)
+    change = enum.peek
+    release = change.release
+    while change.release == release
+      li do
+        describe_single_change(change)
+      end
+      begin
+        enum.next
+        change = enum.peek
+      rescue StopIteration
+        break
+      end
+    end
+  end
+
+  def describe_single_change(change)
+    split_path = change.path.split(/\//)
+    if change.prev_sccsid.blank?
+      text "Initial Drop"
+    else
+      a(change.prev_sccsid, href: src_files_path(change.release,
+                                                 split_path,
+                                                 change.prev_sccsid))
+      text ' '
+      a("->", href: diffs_path(change.release,
+                               split_path,
+                               change.sccsid))
+    end
+    text ' '
+    a(change.sccsid, href: src_files_path(change.release,
+                                          split_path,
+                                          change.sccsid))
+    text ' '
+    text change.type
+    text ' '
+    text change.path
   end
 end

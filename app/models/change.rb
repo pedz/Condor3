@@ -13,6 +13,11 @@ class Change
   attr_reader :release
 
   ##
+  # :attr: defect_type
+  # Either "defect" or "feature"
+  attr_reader :defect_type
+
+  ##
   # :attr: defect
   # The CMVC defect that made the Change
   attr_reader :defect

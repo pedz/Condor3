@@ -36,7 +36,7 @@ describe CmvcDefectPresenter do
   it "should present the error when there is one" do
     get_cmvc_defect_text_lines.stub(:error).and_return(defect_error)
     markup = Capybara.string(subject.show_defect)
-    markup.should have_selector("div.cmvc_defect")
-    markup.find("div.cmvc_defect").should have_content(defect_error)
+    markup.should have_selector("div.error_block")
+    markup.find("div.error_block").should have_content(defect_error)
   end
 end

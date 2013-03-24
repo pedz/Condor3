@@ -14,7 +14,20 @@ describe CmvcChangePresenter do
     double("GetCmvcDefectTextLines").tap do |d|
       d.stub(:error).and_return(nil)
       d.stub(:defect_name).and_return(defect_name)
-      d.stub(:changes).and_return([Change.new('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j')])
+      d.stub(:changes) do
+        [
+         Change.new('rel1', 'dt1', 'def1', 'lev1', '1.2.3.1', 'path1', 'type1', 'ref1', '2.3.4.1', 'abstract1'),
+         Change.new('rel1', 'dt1', 'def1', 'lev1', '1.2.3.2', 'path2', 'type1', 'ref1', '2.3.4.2', 'abstract1'),
+         Change.new('rel1', 'dt1', 'def1', 'lev1', '1.2.3.3', 'path3', 'type1', 'ref1', '2.3.4.3', 'abstract1'),
+         Change.new('rel1', 'dt1', 'def1', 'lev1', '1.2.3.4', 'path4', 'type1', 'ref1', '2.3.4.4', 'abstract1'),
+         Change.new('rel1', 'dt1', 'def1', 'lev1', '1.2.3.5', 'path5', 'type1', 'ref1', '2.3.4.5', 'abstract1'),
+         Change.new('rel2', 'dt1', 'def1', 'lev1', '1.2.4.1', 'path1', 'type1', 'ref1', '',        'abstract1'),
+         Change.new('rel2', 'dt1', 'def1', 'lev1', '1.2.4.2', 'path2', 'type1', 'ref1', '2.3.4.2', 'abstract1'),
+         Change.new('rel2', 'dt1', 'def1', 'lev1', '1.2.4.3', 'path3', 'type1', 'ref1', '2.3.4.3', 'abstract1'),
+         Change.new('rel2', 'dt1', 'def1', 'lev1', '1.2.4.4', 'path4', 'type1', 'ref1', '2.3.4.4', 'abstract1'),
+         Change.new('rel2', 'dt1', 'def1', 'lev1', '1.2.4.5', 'path5', 'type1', 'ref1', '2.3.4.5', 'abstract1')
+        ]
+      end
     end
   end
 
@@ -26,12 +39,12 @@ describe CmvcChangePresenter do
 
   it "should present the changes if no errors" do
     markup = Capybara.string(subject.show_changes)
-    markup.should have_selector("ul.defect")
-    markup.find("ul.defect").should have_content('c')
+    markup.should have_selector("div.defect")
+    markup.find("div.defect").should have_content('Initial Drop')
   end
 
   it "should present the error when there is one" do
-    get_cmvc_defect_text_lines.stub(:error).and_return(defect_error)
+    get_cmvc_defect_changes.stub(:error).and_return(defect_error)
     markup = Capybara.string(subject.show_changes)
     markup.should have_selector("div.error_block")
     markup.find("div.error_block").should have_content(defect_error)

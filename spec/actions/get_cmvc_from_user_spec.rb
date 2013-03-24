@@ -13,7 +13,7 @@ describe GetCmvcFromUser do
   it "should error off when no get_user option supplied" do
     get_cmvc_from_user = GetCmvcFromUser.new
     get_cmvc_from_user.rc.should eq(1)
-    get_cmvc_from_user.stderr.should eq("Exception encountered when fetching user")
+    get_cmvc_from_user.stderr.should match(/Exception encountered when fetching user/)
   end
 
   it "should error off when get_user option returns nil" do
@@ -25,7 +25,7 @@ describe GetCmvcFromUser do
   it "should error off when get_user raises an exception" do
     get_cmvc_from_user = GetCmvcFromUser.new get_user: -> { raise "a hullabaloo" }
     get_cmvc_from_user.rc.should eq(1)
-    get_cmvc_from_user.stderr.should eq("Exception encountered when fetching user")
+    get_cmvc_from_user.stderr.should match(/Exception encountered when fetching user/)
   end
 
   context "with a get_user option producing a complete user" do
