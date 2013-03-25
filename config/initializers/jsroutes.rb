@@ -5,6 +5,9 @@
 # 
 
 begin
+  # In real production, we can't load this.  But in 'production' when
+  # we precompile the assets, we can load it (and need to configure
+  # various things).
   require 'js_routes'
 
   JsRoutes.setup do |config|
@@ -13,6 +16,6 @@ begin
       config.prefix = '/condor3/'
     end
   end
-rescue
-  0
+rescue LoadError => e
+  true
 end
