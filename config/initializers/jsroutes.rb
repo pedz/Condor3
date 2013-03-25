@@ -3,11 +3,16 @@
 #  Copyright 2012-2013 Ease Software, Inc. and Perry Smith
 #  All Rights Reserved
 # 
-if Rails.env != 'production'
+
+begin
+  require 'js_routes'
+
   JsRoutes.setup do |config|
     config.namespace = 'condor3.routes'
     if Rails.env == 'development'
       config.prefix = '/condor3/'
     end
   end
+rescue
+  0
 end
