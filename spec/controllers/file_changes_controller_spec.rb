@@ -5,14 +5,14 @@
 # 
 require 'spec_helper'
 
-describe CmvcDefectsController do
-  let(:model) { GetCmvcDefectTextLines }
+describe FileChangesController do
+  let(:model) { GetFileChanges }
 
-  let(:presenter) { :cmvc_defect_text_line }
+  let(:presenter) { :file_change }
   
-  let(:defect) { '123456' }
+  let(:file) { 'banana.c' }
 
-  let(:post_options) { { cmvc_defect: defect } }
+  let(:post_options) { { file: file } }
 
   let(:full_options) { post_options }
 

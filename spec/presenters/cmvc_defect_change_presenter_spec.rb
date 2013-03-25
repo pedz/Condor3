@@ -5,13 +5,13 @@
 # 
 require "spec_helper"
 
-describe CmvcChangePresenter do
+describe CmvcDefectChangePresenter do
   let(:defect_name) { "123456" }
 
   let(:defect_error) { "A bad error message" }
 
   let(:get_cmvc_defect_changes) do
-    double("GetCmvcDefectTextLines").tap do |d|
+    double("GetCmvcDefectChanges").tap do |d|
       d.stub(:error).and_return(nil)
       d.stub(:defect_name).and_return(defect_name)
       d.stub(:changes) do
@@ -32,7 +32,7 @@ describe CmvcChangePresenter do
   end
 
   subject do
-    CmvcChangePresenter.new(view, get_cmvc_defect_changes)
+    CmvcDefectChangePresenter.new(view, get_cmvc_defect_changes)
   end
   
   it_behaves_like "a presenter"

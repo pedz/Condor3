@@ -5,7 +5,7 @@
 # 
 require "spec_helper"
 
-describe CmvcDefectPresenter do
+describe CmvcDefectTextLinePresenter do
   let(:defect_name) { "123456" }
 
   let(:defect_text) { "Some defect text" }
@@ -22,7 +22,7 @@ describe CmvcDefectPresenter do
   end
 
   subject do
-    CmvcDefectPresenter.new(view, get_cmvc_defect_text_lines)
+    CmvcDefectTextLinePresenter.new(view, get_cmvc_defect_text_lines)
   end
   
   it_behaves_like "a presenter"

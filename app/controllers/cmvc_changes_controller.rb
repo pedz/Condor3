@@ -9,7 +9,7 @@ class CmvcChangesController < ApplicationController
   respond_to :html, :json
 
   def show
-    respond_with(create_presenter(:cmvc_change, GetCmvcDefectChanges.new(params)))
+    respond_with(create_presenter(:cmvc_defect_change, GetCmvcDefectChanges.new(params)))
   end
 
   def create

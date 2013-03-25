@@ -8,7 +8,7 @@ require 'spec_helper'
 describe CmvcChangesController do
   let(:model) { GetCmvcDefectChanges }
 
-  let(:presenter) { :cmvc_change }
+  let(:presenter) { :cmvc_defect_change }
   
   let(:change) { '123456' }
 

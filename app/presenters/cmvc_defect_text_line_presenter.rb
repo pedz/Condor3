@@ -5,7 +5,7 @@
 #
 
 # cmvc defect presenter
-class CmvcDefectPresenter < ApplicationPresenter
+class CmvcDefectTextLinePresenter < ApplicationPresenter
   presents :get_cmvc_defect
   delegate :type, :defect_name, :error, :lines, to: :get_cmvc_defect
 

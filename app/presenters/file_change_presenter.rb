@@ -5,20 +5,12 @@
 #
 
 # cmvc change presenter
-class CmvcChangePresenter < ApplicationPresenter
-  presents :get_cmvc_defect_changes
-  delegate :defect_name, :error, :changes, to: :get_cmvc_defect_changes
+class FileChangePresenter < ApplicationPresenter
+  presents :get_file_changes
+  delegate :file_name, :error, :changes, to: :get_file_changes
 
   def page_title
-    "Changes Introduced by CMVC #{type}#{defect_name}"
-  end
-
-  def type
-    if changes.length > 0 && changes[0].defect_type
-      "#{changes[0].defect_type.capitalize} "
-    else
-      ""
-    end
+    "Changes to #{file_name}"
   end
 
   def help_text
@@ -31,8 +23,8 @@ class CmvcChangePresenter < ApplicationPresenter
     if error.blank?
       build_html do
         c_enum = changes.to_enum
-        div.defect do
-          describe_defect_changes(c_enum)
+        div.changes do
+          describe_changes(c_enum)
         end
       end
     else
@@ -42,36 +34,31 @@ class CmvcChangePresenter < ApplicationPresenter
 
   private
 
-  def describe_defect_changes(enum)
+  def describe_changes(enum)
     begin
       change = enum.peek
     rescue StopIteration
       return ""
     end
     span do
-      defect_heading(change)
+      file_heading(change)
     end
-    ul.defect do
-      list_defect_changes(enum)
+    ul.path do
+      list_paths(enum)
     end
   end
 
-  def defect_heading(change)
-    defect = change.defect
-    text change.defect_type.capitalize
-    text ' '
-    a(defect, href: swinfo_get_path(defect))
-    text ": "
-    text change.abstract
+  def file_heading(change)
+    text "File #{change.path}"
   end
 
-  def list_defect_changes(enum)
+  def list_paths(enum)
     change = enum.peek
-    defect = change.defect
+    path = change.path
     loop do
-      break if change.defect != defect
+      break if change.path != path
       li do
-        describe_changes_within_release(enum)
+        describe_changes_within_path(enum)
       end
       begin
         change = enum.peek
@@ -81,7 +68,7 @@ class CmvcChangePresenter < ApplicationPresenter
     end
   end
 
-  def describe_changes_within_release(enum)
+  def describe_changes_within_path(enum)
     change = enum.peek
     span "Product #{change.release} [#{change.level}]"
     ul.release do
@@ -122,9 +109,8 @@ class CmvcChangePresenter < ApplicationPresenter
     a(change.sccsid, href: src_files_path(change.release,
                                           split_path,
                                           change.sccsid))
-    text ' '
-    text change.type
-    text ' '
-    text change.path
+    text " #{change.defect_type.capitalize} "
+    a(change.defect, href: swinfo_get_path(change.defect))
+    text " #{change.abstract}"
   end
 end

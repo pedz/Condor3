@@ -79,7 +79,7 @@ class GetFileChanges
                                             'published' ) AND \
                                 t.id = lm.trackid ) \
               ) \
-              ORDER BY path, rname, c.versionId \
+              ORDER BY path, release, c.versionId \
 	     ",
       select: "r.name AS release, \
                d.type AS defect_type, \
