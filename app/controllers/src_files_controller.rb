@@ -5,13 +5,9 @@
 #
 
 class SrcFilesController < ApplicationController
+  respond_to :html, :json
+  
   def show
-    options = {
-      :release => params[:release],
-      :version => params[:version],
-      :path => params[:path],
-      :cmvc => user.cmvc
-    }
-    @src_file = SrcFile.new(options)
+    respond_with(create_presenter(:src_file, GetSrcFile.new(params)))
   end
 end
