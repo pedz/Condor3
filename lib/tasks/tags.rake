@@ -1,28 +1,35 @@
 
 desc "Create TAGS and ALL-TAGS"
 task :create_tags do
-  sh <<-'EOF'
-    # Directories to exclude within gems
-    EXCLUDE="-name doc -o -name spec -o -name features -o -name test"
-    # How to call ctags via xargs
-    CTAGS="xargs -0 ctags -e -a"
+  regexp = Regexp.new('^ +\* +([^ ]+) \(([^)]*)\).*$')
+  ctags = "xargs -0 ctags -e -a"
 
-    # Get where the gems are located
-    gems=$( gem env gemdir )/gems
-    # Get real gem directory names
-    dirs=$( bundle list | sed -n -e "s% *\* *\([^ ]*\) (\([^)]*\)).*$%$gems/\1-\2%p" | \
-            ls -d 2>/dev/null )
-    # Start clean
-    rm -f TAGS ALL-TAGS
-    # Find tags just for application
-    find . \( -type d \( -name .bundle -o -name doc \) -prune \) -o -type f -print0 | $CTAGS
-    # save a copy of those
-    cp TAGS sTAGS
-    # append tags for gems
-    find $dirs \( -type d \( $EXCLUDE \) -prune \) -o -type f -print0 | $CTAGS
-    # call the big one ALL-TAGS
-    mv TAGS ALL-TAGS
-    # call the app only TAGS
-    mv sTAGS TAGS
-  EOF
+  # Clean out old tags
+  system "rm -f TAGS ALL-TAGS"
+
+  # Creates tags with only application in it
+  exclude = %w{ .bundle doc .git tmp cache }.map{ |n| "-name #{n}"}.join(' -o ')
+  prune = "\\( -type d \\( #{exclude} \\) -prune \\)"
+  cmd = %Q{find . #{prune} -o -type f -print0 | #{ctags}}
+  system cmd
+
+  # save as sTAGS
+  system "cp TAGS sTAGS"
+  
+  # list becomes a string like
+  # actionmailer-3.2.11|actionpack-3.2.11|activeldap-3.2.2|activemodel-3.2.11 ...
+  list = %x[ bundle list ].split("\n").find_all { |l| regexp.match(l) }
+  list = list.map { |l| l.gsub(regexp, '\1-\2') }.join('|')
+
+  exclude = %w{ doc spec features test .git tmp cache }.map{ |n| "-name #{n}"}.join(' -o ')
+  prune = "\\( -type d \\( #{exclude} \\) -prune \\)"
+  want = %Q{-regex "\\./\\.bundle/.*/(#{list}).*" -type f}
+  cmd = %Q{find -E . #{prune} -or #{want} -print0 | #{ctags} }
+  
+  # append tags for gems
+  system cmd
+
+  # Now rename
+  system "mv TAGS ALL-TAGS"
+  system "mv sTAGS TAGS"
 end
