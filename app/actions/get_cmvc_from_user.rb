@@ -4,28 +4,66 @@
 # All Rights Reserved
 #
 
+# An _action_ that retrieves the CMVC id for a given "user".  The
+# result is returned in the +stdout+ attribute if there is no error.
+# The "user" is fetched when the +:get_user+ lambda is called.  If the
+# +cmvc_login+ attribute is already set, then that is set into
+# +stdout+.  Otherwise, a call to ExecuteCmvcCommand is done to try
+# and retrieve the id from CMVC.
+#
+# A real user will be a User record.  The +ldap_id+ will be the
+# intranet id for the user and is used to query the bluepages ldap
+# server for the user.  The ldap entry should have a +uid+ field in
+# it.  This field should match the +ccnum+ field of the CMVC record
+# for the user.  To recap: user.ldap_id.uid == user.cmvc_login.ccnum
+# (although the ccnum field is not saved).
+#
+# The command passed to ExecuteCmvcCommand is a Report to query and
+# find this match.  When this command is done, the +:get_user+ field
+# in the +options+ hash will point to a lambda that returns a
+# PseudoCmvc struct with the +cmvc_login+ field filled out to
+# CmvcHost::BootstrapCmvcUser.
+#
+# ExecuteCmvcCommand and the CmdResult classes may be passed in via
+# +options+ to facilitate testing.
 class GetCmvcFromUser
+  # A Struct having a single attribute of +cmvc_login+ and satisfies
+  # the duck type needed by this class
   PseudoCmvc = Struct.new(:cmvc_login)
   
+  # Contains the user's cmvc id upon successful completion.
   def stdout
     @cmd_result.stdout
   end
   
+  # Contains any error messages received during the lookup of the CMVC
+  # id.
   def stderr
     @cmd_result.stderr
   end
   
+  # The process's exit status of the command used to look up the CMVC
+  # id.
   def rc
     @cmd_result.rc
   end
   
+  # The name of the signal, if any, causing the lookup process to
+  # terminate.
   def signal
     @cmd_result.signal
   end
   
-  # Options include :get_user which is a proc / lambda that is called
-  # to return an object that can fulfill a user roll.  The user roll
-  # needs to support a cmvc method and a set_cmvc method.
+  # * *Args*    :
+  #   - +options+ -> A hash providing:
+  #     * +:get_user+ -> A lambda returning a duck type with a
+  #       read/write attribute of cmvc_login (required).
+  #     * +:cache+ -> An optional cache objec that defaults to
+  #       Condor3::Application.config.my_dalli
+  #     * +:cmd_result+ -> An optional class name that defaults to
+  #       CmdResult.
+  #     * +:execute_cmvc_command+ -> An optional class name that
+  #       defaults to ExecuteCmvcCommand
   def initialize(options = {})
     @options = options
 
