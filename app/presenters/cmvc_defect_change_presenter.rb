@@ -4,21 +4,24 @@
 # All Rights Reserved
 #
 
-# cmvc change presenter
+# Presents a GetCmvcDefectChange
 class CmvcDefectChangePresenter < ApplicationPresenter
   presents :get_cmvc_defect_changes
   delegate :defect_name, :error, :changes, to: :get_cmvc_defect_changes
 
+  # Returns the text string for the title of the page
   def page_title
     "Changes Introduced by CMVC #{type}#{defect_name}"
   end
 
+  # Returns HTML for the help text of the page.
   def help_text
     build_html do
       p "Lots more help needed here"
     end
   end
   
+  # Returns HTML for the changes the defect created.
   def show_changes
     if error.blank?
       build_html do
@@ -34,6 +37,8 @@ class CmvcDefectChangePresenter < ApplicationPresenter
 
   private
 
+  # Called from page_title to determine if this was a Feature or a
+  # Defect.
   def type
     if changes.length > 0 && changes[0].defect_type
       "#{changes[0].defect_type.capitalize} "
@@ -42,6 +47,8 @@ class CmvcDefectChangePresenter < ApplicationPresenter
     end
   end
 
+  # The outter most loop of the changes.  Creates an unordered list of
+  # releases the defect hit.
   def describe_defect_changes(enum)
     begin
       change = enum.peek
@@ -56,6 +63,7 @@ class CmvcDefectChangePresenter < ApplicationPresenter
     end
   end
 
+  # The HTML needed to present the head of the defect.
   def defect_heading(change)
     defect = change.defect
     text change.defect_type.capitalize
@@ -65,6 +73,7 @@ class CmvcDefectChangePresenter < ApplicationPresenter
     text change.abstract
   end
 
+  # Creates the HTML listing the releases the CMVC hit.
   def list_defect_changes(enum)
     change = enum.peek
     defect = change.defect
@@ -81,6 +90,8 @@ class CmvcDefectChangePresenter < ApplicationPresenter
     end
   end
 
+  # Creates an unordered HTML list describing the changes for the
+  # defect within a particular release.
   def describe_changes_within_release(enum)
     change = enum.peek
     span "Product #{change.release} [#{change.level}]"
@@ -89,6 +100,8 @@ class CmvcDefectChangePresenter < ApplicationPresenter
     end
   end
 
+  # Creates the list items for the changes for the defect within a
+  # particular release
   def list_changes_within_release(enum)
     change = enum.peek
     release = change.release
@@ -105,6 +118,7 @@ class CmvcDefectChangePresenter < ApplicationPresenter
     end
   end
 
+  # Creates the HTML for an individual change.
   def describe_single_change(change)
     split_path = change.path.split(/\//)
     if change.prev_sccsid.blank?

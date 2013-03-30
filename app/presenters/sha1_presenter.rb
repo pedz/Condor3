@@ -4,21 +4,25 @@
 # All Rights Reserved
 #
 
-# which fileset presenter
+# Presents a GetSha1s
 class Sha1Presenter < ApplicationPresenter
   presents :sha1
   delegate :shipped_files, to: :sha1
 
+  # Returns the string for the title of the page.
   def page_title
     "SHA1 for #{sha1.sha1}"
   end
 
+  # Returns the HTML for the help text for the page.
   def help_text
     build_html do
       p "Lots more help needed here"
     end
   end
 
+  # Returns a table showing the matching SHA1 entries or a div showing
+  # "No matches" if none were found.
   def show_table
     build_html do
       if shipped_files.length == 0

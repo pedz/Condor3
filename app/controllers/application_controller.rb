@@ -4,6 +4,8 @@
 # All Rights Reserved
 #
 
+# Parent class for all the controllers.  Contains the authentication
+# methods and other support routines.
 class ApplicationController < ActionController::Base
   # auto reload lib in development mode.
   before_filter :reload_libs if Rails.env.development?

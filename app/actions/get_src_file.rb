@@ -54,7 +54,8 @@ class GetSrcFile
         family: 'aix',
         extract: @path,
         version: @version,
-        release: @release
+        release: @release,
+        stdout: nil
       }
 
       cmd = execute_cmvc_command.new(exec_params)

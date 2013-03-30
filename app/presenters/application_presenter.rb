@@ -4,10 +4,11 @@
 # All Rights Reserved
 #
 
-# Class which other presenters inherit from
+# Class which other presenters inherit from.
 class ApplicationPresenter < Keynote::Presenter
   Keynote::Rumble.use_html_5_tags(self)
 
+  # Returns the HTML needed for the header element of the page.
   def header_tags
     [
      icon_favicon('condor_64.jpg', '64x64'),
@@ -21,6 +22,7 @@ class ApplicationPresenter < Keynote::Presenter
      ].join("\n").html_safe
   end
 
+  # Creates a nice Home button used by all the pages.
   def home_button
     build_html do
       div.home do
@@ -31,6 +33,7 @@ class ApplicationPresenter < Keynote::Presenter
     end
   end
 
+  # Creates a nice help button used by all the pages.
   def help_button
     build_html do
       div class: 'help' do
@@ -44,6 +47,8 @@ class ApplicationPresenter < Keynote::Presenter
     end
   end
 
+  # Returns HTML for the page's title.  Calls page_title in the
+  # subclass.
   def title_heading
     build_html do
       h2.title do
@@ -56,6 +61,8 @@ class ApplicationPresenter < Keynote::Presenter
 
   private
 
+  # Used by many of the subclasses to create a div containing the
+  # error message they want to present.
   def error_block(error)
     build_html do
       div.error_block do
@@ -64,6 +71,7 @@ class ApplicationPresenter < Keynote::Presenter
     end
   end
 
+  # Utility method used to create an icon tag.
   def icon_favicon(path, size)
     favicon_link_tag(path, rel: :icon, type: 'image/jpeg', sizes: size)
   end

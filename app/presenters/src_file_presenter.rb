@@ -4,14 +4,14 @@
 # All Rights Reserved
 #
 
-# Presents a GetCmvcDefect
-class CmvcDefectTextLinePresenter < ApplicationPresenter
-  presents :get_cmvc_defect
-  delegate :type, :defect_name, :error, :lines, to: :get_cmvc_defect
+# Presents a GetSrcFile
+class SrcFilePresenter < ApplicationPresenter
+  presents :get_src_file
+  delegate :error, :path, :version, :release, :lines, to: :get_src_file
 
   # Creates the page title string for the page
   def page_title
-    "CMVC #{type} #{defect_name}"
+    "#{release} #{path} #{version}"
   end
 
   # Creates the HTML for the help text.
@@ -23,10 +23,10 @@ class CmvcDefectTextLinePresenter < ApplicationPresenter
   
   # Creates a pre tag containing the lines from the CMVC defect or
   # calls error_block if there was an error retrieving the text.
-  def show_defect
+  def show_file
     if error.blank?
       build_html do
-        pre.cmvc_defect do
+        pre.src_file do
           lines
         end
       end
