@@ -1,4 +1,11 @@
 Finish triangle things on swinfo page.
+Help text for these presenters:
+    cmvc_defect_change_presenter
+    cmvc_defect_text_line_presenter
+    file_change_presenter
+    swinfo_presenter
+    which_fileset_presenter
+No hits for swinfo is confusing.
 
 Need db restore
 Per User Configuration
