@@ -4,9 +4,12 @@
 # All Rights Reserved
 #
 
+# The welcome controller which displays a form allowing various
+# queries to be made.
 class WelcomeController < ApplicationController
   respond_to :html, :json
   
+  # The action called
   def index
     # describe(self)
     respond_with(create_presenter(:welcome))
@@ -14,6 +17,9 @@ class WelcomeController < ApplicationController
   
   private
   
+  # These are debugging and experimenting functions -- not really part
+  # of the application.
+  # This method describes the methods given a class
   def describe_methods(c)
     logger.debug "Methods for #{c.name}"
     c.instance_methods(false).each do |m|
@@ -21,6 +27,8 @@ class WelcomeController < ApplicationController
     end
   end
   
+  # This method describes the methods for a particular object passed
+  # in.
   def describe(o)
     modules = []
     c = o.class

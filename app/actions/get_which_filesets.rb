@@ -4,7 +4,8 @@
 # All Rights Reserved
 #
 
-# A model to contain the logic needed for a which_fileset request.
+# A service that returns which filesets the specified path was shipped
+# in.
 class GetWhichFilesets
   ##
   # :attr: path
@@ -16,9 +17,17 @@ class GetWhichFilesets
   # the results organized as a hash keyed of the full path.
   attr_reader :paths
 
+  # * *Args*    :
+  #   - +options+ -> A hash containing:
+  #     * +:path+ -> The path to search for.
+  #     * +:model+ -> (optional) To facilitate testing, the model
+  #       searched can be passed in.  The default is AixFile.
+  #     * +:cache+ -> (optional) To facilitate testing.  Defaults to
+  #       Condor3::Application.config.my_dalli.  Used to cache results
+  #       in production.
   def initialize(options = {})
     @options = options.dup
-    @path = options[:path]
+    @path = @options[:path]
 
     @paths = do_find(@path)
     # If 1st try is empty, try removing any 32 or 64 qualifiers.
@@ -44,6 +53,9 @@ class GetWhichFilesets
     @cache ||= @options[:cache] || Condor3::Application.config.my_dalli
   end
 
+  # Executes the actual database query for the specified path.
+  # * *Args*    :
+  #   - +path+ -> The path to search for.
   def do_find(path)
     dalli_params = {
       path: path,

@@ -28,6 +28,13 @@ class CmdResult
   attr_reader :signal
 
   # Initialized with a hash with keys of :stdout, :stderr, :rc, and :signal
+  # * *Args*    :
+  #   - +options+ -> A hash containing:
+  #     * +:stdout+ -> The standard output from the command
+  #     * +:stderr+ -> The standard error from the command
+  #     * +:rc+ -> The exit status from the command
+  #     * +:signal+ -> The string name of the signal which terminated
+  #       the command if any.
   def initialize(options = {})
     @stdout = options.fetch(:stdout, nil)
     @stderr = options.fetch(:stderr, nil)

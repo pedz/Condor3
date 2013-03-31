@@ -4,6 +4,8 @@
 # All Rights Reserved
 #
 
+# A service that retrieves the text lines of a given defect or feature
+# from CMVC.
 class GetCmvcDefectTextLines
   ##
   # :attr: defect
@@ -27,6 +29,17 @@ class GetCmvcDefectTextLines
 
   # Fetches the cmvc text for the defect specified by the :cmvc_defect
   # attribute in the options hash
+  # * *Args*    :
+  #   - +options+ -> A hash containing:
+  #     * +:cmvc_defect+ -> The defect or feature number to retrieve.
+  #     * +:get_user+ -> A lambda returning a duck type with a
+  #       read/write attribute of cmvc_login.
+  #     * +:execute_cmvc_command+ -> (optional) To facilitate
+  #       testing.  Defaults to ExecuteCmvcCommand.  Used to query
+  #       CMVC if no previous version is given.
+  #     * +:cache+ -> (optional) To facilitate testing.  Defaults to
+  #       Condor3::Application.config.my_dalli.  Used to cache results
+  #       in production.
   def initialize(options)
     @options = options.dup
     @defect_name = @options[:cmvc_defect].strip

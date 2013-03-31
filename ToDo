@@ -1,11 +1,9 @@
+Finish triangle things on swinfo page.
+
 Need db restore
-Jasmine Endless Page test raises an alert box.
-Some Jasmine test creates the overlay and forgets to remove it.
-Needed Controllers:
-  apar_drafts SW A SW D
-  file_changes FP 6
-Fix the arrow things on swinfos page
 Per User Configuration
 Set up staging server
 Figure out multi server deploy
-Add rspecs for json good as well as error paths
+Add rspecs for json requests as well as error paths
+Change the various "diffs" calls to supply the previous version so it
+  does not have to be retrieved from CMVC.

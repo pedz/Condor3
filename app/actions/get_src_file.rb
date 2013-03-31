@@ -4,8 +4,7 @@
 # All Rights Reserved
 #
 
-# A class that represents the action that retrieves a source file from
-# CMVC.
+# A service which retrieves the specified file from CMVC.
 class GetSrcFile
   ##
   # :attr: path
@@ -32,6 +31,19 @@ class GetSrcFile
   # The error that occurred when fetching the source file.
   attr_reader :error
   
+  # * *Args*    :
+  #   - +options+ -> A hash containing:
+  #     * +:path+ -> The path for the file to retrieve.
+  #     * +:version+ -> The SCCS version for the file to retrieve.
+  #     * +:release+ -> The CMVC release for the file to retrieve.
+  #     * +:get_user+ -> A lambda returning a duck type with a
+  #       read/write attribute of cmvc_login.
+  #     * +:execute_cmvc_command+ -> (optional) To facilitate
+  #       testing.  Defaults to ExecuteCmvcCommand.  Used to query
+  #       CMVC if no previous version is given.
+  #     * +:cache+ -> (optional) To facilitate testing.  Defaults to
+  #       Condor3::Application.config.my_dalli.  Used to cache results
+  #       in production.
   def initialize(options)
     @options = options.dup
     @path = @options[:path]

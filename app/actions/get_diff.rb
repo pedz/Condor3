@@ -4,8 +4,9 @@
 # All Rights Reserved
 #
 
-# A class that represents the action that retrieves a source file from
-# CMVC.
+# A service that retrieves the specified source file from CMVC, along
+# with its previous version, and then computes and returns the diff of
+# the two files.
 class GetDiff
   ##
   # :attr: old_file
@@ -106,6 +107,8 @@ class GetDiff
 
   private
 
+  # Sends a request to CMVC to determine the previous version of the
+  # file specified.
   def find_prev_version(params)
     options = {
       get_user: @options[:get_user],

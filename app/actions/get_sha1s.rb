@@ -4,8 +4,8 @@
 # All Rights Reserved
 #
 
-# A model passed to the view from the Sha1Controller.  It does the
-# actual database search
+# A service which retrieves a list of ShippedFile models from the
+# database which have a specified SHA1 hash.
 class GetSha1s
   ##
   # :attr: sha1
@@ -17,6 +17,14 @@ class GetSha1s
   # The list of shipped files that match the passed in sha1
   attr_reader :shipped_files
   
+  # * *Args*    :
+  #   - +options+ -> A hash with:
+  #     * +:sha1+ -> The SHA1 to look up.
+  #     * +:model+ -> (optional) To facilitate testing, the model that
+  #       is queried may be passed in.  Defaults to ShippedFile.
+  #     * +:cache+ -> (optional) To facilitate testing, the cache can
+  #       be passed in.  Defaults to
+  #       Condor3::Application.config.my_dalli
   def initialize(options)
     @options = options.dup
     @sha1 = options[:sha1]

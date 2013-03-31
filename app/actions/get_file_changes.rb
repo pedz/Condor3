@@ -4,6 +4,7 @@
 # All Rights Reserved
 #
 
+# A service which retrieves the changes for a specified file.
 class GetFileChanges
   ##
   # :attr: defect
@@ -20,6 +21,17 @@ class GetFileChanges
   # The error to pass back
   attr_reader :error
 
+  # * *Args*    :
+  #   - +options+ -> A hash containing:
+  #     * +:get_user+ -> A lambda returning a duck type with a
+  #       read/write attribute of cmvc_login.
+  #     * +:file+ -> The file to retrieve the changes for.
+  #     * +:execute_cmvc_command+ -> (optional) To facilitate
+  #       testing.  Defaults to ExecuteCmvcCommand.  Used to query
+  #       CMVC if no previous version is given.
+  #     * +:cache+ -> (optional) To facilitate testing.  Defaults to
+  #       Condor3::Application.config.my_dalli.  Used to cache results
+  #       in production.
   def initialize(options)
     @options = options.dup
     @file_name = @options[:file].strip

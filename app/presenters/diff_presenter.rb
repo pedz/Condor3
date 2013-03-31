@@ -9,16 +9,32 @@ class DiffPresenter < ApplicationPresenter
   presents :get_diff
   delegate :error, :page_params, :old_file, :old_seq, :new_file, :new_seq, :diff_count, to: :get_diff
 
+  # The page title comes from page_params
   def page_title
     "diff #{page_params[:release]} #{page_params[:path]} #{page_params[:version]}"
   end
 
+  # The help text.
   def help_text
     build_html do
-      p "Lots of help needed here..."
+      p <<-'P1'
+      The original file is on the top and the new file is on the
+      bottom. Use the prev and next buttons to move from change to
+      change.  The view port of the two files should update to show
+      you the change.
+      P1
+      p <<-'P2'
+      In the top file, you will see red lines which have been deleted
+      and yellow lines which have changed.  In the bottom file, you
+      will see green lines which have been added and yellow lines
+      which match the yellow lines of the top file and indicate that
+      that line has changed.
+      P2
     end
   end
 
+  # If now errors, produces the HTML for the control section of the
+  # page.
   def show_controls
     if error
       return ""
@@ -37,6 +53,9 @@ class DiffPresenter < ApplicationPresenter
     end
   end
 
+  # If an error has occurred, produces the HTML to display the error.
+  # Otherwise, this produces the four sections to display the two
+  # files and their respective heading.
   def show_changes
     if error.blank?
       build_html do
@@ -50,6 +69,8 @@ class DiffPresenter < ApplicationPresenter
 
   private
 
+  # This produces the file heading and the file's lines as two HTML
+  # div's.
   def put_file_div(lines, which, src_file)
     div id: "#{which}-title-table" do
       div id: "#{which}-title" do
@@ -76,35 +97,3 @@ class DiffPresenter < ApplicationPresenter
     end
   end
 end
-
-# <div id="<%= h which %>">
-#   <% last_num = nil -%>
-#   <% lines.each do |type, num, line_id| -%>
-#     <% css_id, css_class, line = get_id_class_line(line_id, type, which, last_num, num) -%>
-#     <% last_num = num -%>
-#     <pre <%= css_id %> <%= css_class %> ><%= h line %></pre>
-#   <% end -%>
-# </div>
-#
-#   def get_id_class_line(line_id, type, which, last_num, num)
-#     if type == "match"
-#       css_id = ""
-#       css_class = "class=\"code\""
-#     else
-#       if last_num != num
-#         css_id = "id=\"diff-#{which}-#{num}\""
-#       else
-#         css_id = ""
-#       end
-#       css_class = "class=\"code #{type.gsub(/_/, '-')}\""
-#     end
-#     # line = line_id.nil? ? " " : StringTable.lookup(line_id).chomp
-#     line = line_id.nil? ? " " : line_id.chomp
-#     return css_id.html_safe, css_class.html_safe, line
-#   end
-#
-# <% @title = "Diff #{@diff.new_file.basename} #{@diff.old_file.version} -> #{@diff.new_file.version}" %>
-# <div id="control-table">
-# </div>
-# <%= put_file_div(@diff.callbacks.old_seq, "top", @diff.old_file) %>
-# <%= put_file_div(@diff.callbacks.new_seq, "bot", @diff.new_file) %>

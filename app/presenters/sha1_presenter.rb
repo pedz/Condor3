@@ -17,7 +17,32 @@ class Sha1Presenter < ApplicationPresenter
   # Returns the HTML for the help text for the page.
   def help_text
     build_html do
-      p "Lots more help needed here"
+      p <<-'P1'
+        This page shows the shipped files that match the SHA1 that was
+        entered.  All the columns should pretty much be self explainatory
+        except perhaps "image path".
+      P1
+      p <<-'P2'
+        "image path" gives where to locate the bff file if you want to
+        install this level.  The files have different base directories
+        which have been lopped off to save space.
+      P2
+      p <<-'P3'
+        If the path starts with 530images, 610images, 710images, or
+        vioimages, then the file can be found on truth starting in its
+        root directory.
+      P3
+      p <<-'P4'
+        If the path starts with aix61L or something similar (aix53X, etc),
+        the base path that has been trimmed off is
+        /gsa/ausgsa/projects/a/aix.  What is often referred to as the
+        backing trees.
+      P4
+      p <<-'P5'
+        If the path starts with VIOS_*, e.g. VIOS_61D_FP1, the base path
+        that has been trimmed off is
+        /gsa/ausgsa/projects/s/service/images/61/update.
+      P5
     end
   end
 

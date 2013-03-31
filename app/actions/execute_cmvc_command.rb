@@ -4,23 +4,46 @@
 # All Rights Reserved
 #
 
+# A service that executes a command with CMVC.
 class ExecuteCmvcCommand
+  # The stdout of the command
   def stdout
     @result.stdout
   end
   
+  # The stderr of the command
   def stderr
     @result.stderr
   end
   
+  # The exit return code of the process that ran the command.
   def rc
     @result.rc
   end
   
+  # The nane of the signal, if any, that caused the command to
+  # terminate.
   def signal
     @result.signal
   end
   
+  # * *Args*    :
+  #   - +options+ -> A hash containing:
+  #     * +:cmd+ -> The CMVC command to issue such as Report or File.
+  #     * +:get_cmvc_from_user+ -> (optional) To facilitate testing,
+  #       the service to map the user to the CMVC id may be passed
+  #       in.  The default is GetCmvcFromUser.
+  #     * +:get_user+ -> A lambda returning a duck type with a
+  #       read/write attribute of cmvc_login.
+  #     * +:cache+ -> (optional) To facilitate testing.  Defaults to
+  #       Condor3::Application.config.my_dalli.  Used to cache results
+  #       in production.
+  #     * +cmd_result+ -> (optional) To facilitate testing, the class
+  #       used to represent the result may be passed in.  The default
+  #       is CmdResult.
+  #     * +cmvc_host+ -> (optional) To facilitate testing, the service
+  #       that is called to actually execute the string built up may
+  #       be passed in.  The default is CmvcHost.
   def initialize(options = {})
     @options = options.dup
 

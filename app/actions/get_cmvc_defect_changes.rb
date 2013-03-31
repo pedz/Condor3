@@ -4,6 +4,8 @@
 # All Rights Reserved
 #
 
+# A service that retrieves the changes introduced into CMVC by a
+# particular defect or feature.
 class GetCmvcDefectChanges
   ##
   # :attr: defect
@@ -20,6 +22,18 @@ class GetCmvcDefectChanges
   # The error to pass back
   attr_reader :error
 
+  # * *Args*    :
+  #   - +options+ -> A hash containing:
+  #     * +:cmvc_change+ -> The defect or feature number to retrieve
+  #       the changes for.
+  #     * +:get_user+ -> A lambda returning a duck type with a
+  #       read/write attribute of cmvc_login.
+  #     * +:execute_cmvc_command+ -> (optional) To facilitate
+  #       testing.  Defaults to ExecuteCmvcCommand.  Used to query
+  #       CMVC if no previous version is given.
+  #     * +:cache+ -> (optional) To facilitate testing.  Defaults to
+  #       Condor3::Application.config.my_dalli.  Used to cache results
+  #       in production.
   def initialize(options)
     @options = options.dup
     @defect_name = @options[:cmvc_change].strip

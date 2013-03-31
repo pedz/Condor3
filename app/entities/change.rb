@@ -61,6 +61,17 @@ class Change
   # The previous SCCS id of the file before the Change.
   attr_reader :prev_sccsid
 
+  # * *Args*    :
+  #   - +release+ -> The CMVC release such as bos53X
+  #   - +defect_type+ -> Either "defect" or "feature"
+  #   - +defect+ -> The CMVC defect or feature number
+  #   - +level+ -> The build level name
+  #   - +sccsid+ -> The SCCS id string
+  #   - +path+ -> The path to the file
+  #   - +type+ -> The type of change
+  #   - +reference+ -> The reference from the defect
+  #   - +prev_sccsid+ -> The previous SCCS id for this file.
+  #   - +abstract+ -> The abstract from the defect or feature.
   def initialize(release, defect_type, defect, level, sccsid, path, type, reference,
                  prev_sccsid, abstract)
     @release = release

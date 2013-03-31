@@ -4,8 +4,9 @@
 # All Rights Reserved
 #
 
-# A model that represents a diff between two source files.  Actually
-# two arrays of lines are passed in.
+# A misnamed service that does a diff of two sequences passed in.
+# Since this is always used for files in the current application, it
+# is called source file diff but it is actually somewhat generic.
 class SrcFileDiff
 
   # Callbacks used to create the sequences describing a diff.  The

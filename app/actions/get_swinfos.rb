@@ -4,7 +4,9 @@
 # All Rights Reserved
 #
 
-# A model passed to the view from the SwinfosController
+# A service which retrieves the list of UpdAparDef models from the
+# database which match the specified criteria.  See find_items for
+# details of the search criteria.
 class GetSwinfos
   ##
   # :attr: errors
@@ -26,6 +28,14 @@ class GetSwinfos
   # to UpdAparDef.  Also may have :cache for the cache which defaults
   # to Condor3::Application.config.my_dalli (yea... that sucks but I'm
   # growing :-)
+  # * *Args*    :
+  #   - +options+ -> A hash containing:
+  #     * +:item+ -> The item to search for.
+  #     * +:model+ -> (optional) To facilitate testing, the model to
+  #       be searched may be passed in.  The default is UpdAparDef.
+  #     * +:cache+ -> (optional) To facilitate testing.  Defaults to
+  #       Condor3::Application.config.my_dalli.  Used to cache results
+  #       in production.
   def initialize(options = {})
     @options = options.dup
     @item = @options[:item]
@@ -56,6 +66,25 @@ class GetSwinfos
   end
 
   # find the items
+  # * *Args*    :
+  #   - +finder_options+ -> A hash containing options passed to the
+  #     database query.  The options can contain:
+  #     * +:sort+ -> How to sort the query.
+  #     * +:limit+ -> The limit of the number of results to return.
+  #     * +:offset+ -> The offset of the result set.
+  #   - +item+ -> A string for what to search for.  Different patterns
+  #     are used to determine what to search for.  These patterns (in
+  #     order of preference) are:
+  #     * +/^I[VXYZ][0-9][0-9][0-9][0-9][0-9]$/+ -> Search for an APAR.
+  #     * +/^[A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9]$/+ -> Search for
+  #       a CQ defect name.
+  #     * +/^[0-9]+$/+ -> Search for a CMVC Defect or Feature.
+  #     * +/^[0-9]{4}-[0-9]{2}-[0-9]{2}/+ or +/^VIOS .*/+ -> Search
+  #       for a service pack.
+  #     * +/^U[0-9][0-9][0-9][0-9][0-9][0-9]$/+ -> Search for a PTF
+  #     * +/^([^ :]+)[ :]+([^ :]+)$/+ -> Search for a fileset with a
+  #       vrmf.
+  #     * else search for a fileset.
   def find_items(finder_options, item)
     dalli_params = finder_options.merge(item: item)
     unless (items = cache.read(dalli_params))
@@ -90,10 +119,12 @@ class GetSwinfos
     return items
   end
 
+  # Regular expression matching the column specification
+  COLUMN_REGEXP = Regexp.new("([-+])?(.*)")
+
   # Returns hash to be used for db search.  sort_order is a comma separate
   # list of columns.  Each can be preceded with a + or -.  + for
   # ascending (the default) and - for descending
-  COLUMN_REGEXP = Regexp.new("([-+])?(.*)")
   def order(sort_order)
     valid_columns = model.columns.map{ |c| c.name }
     list = []

@@ -4,9 +4,9 @@
 # All Rights Reserved
 #
 
-# An _action_ that retrieves the CMVC id for a given "user".  The
-# result is returned in the +stdout+ attribute if there is no error.
-# The "user" is fetched when the +:get_user+ lambda is called.  If the
+# A service that retrieves the CMVC id for a given "user".  The result
+# is returned in the +stdout+ attribute if there is no error.  The
+# "user" is fetched when the +:get_user+ lambda is called.  If the
 # +cmvc_login+ attribute is already set, then that is set into
 # +stdout+.  Otherwise, a call to ExecuteCmvcCommand is done to try
 # and retrieve the id from CMVC.

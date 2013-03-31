@@ -17,7 +17,10 @@ class SrcFilePresenter < ApplicationPresenter
   # Creates the HTML for the help text.
   def help_text
     build_html do
-      p "Lots more help needed here"
+      p <<-'P1'
+      Not much help needed here.  This is just the source file that
+      was pulled from CMVC.
+      P1
     end
   end
   

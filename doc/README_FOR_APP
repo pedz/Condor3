@@ -1,12 +1,55 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+This is the internal documentation for Condor 3.
 
-#
-#
-# * *Args*    :
-#   - ++ ->
-# * *Returns* :
-#   -
-# * *Raises* :
-#   - ++ ->
-#
+Things I need to add:
+* The JSDoc output from app/assets/javascripts/upd_apar_def.js
+* A prettier picture of the database schema
+* A description of the controller, action, presenter, view concept
+  that the application uses.
+
+	defects       apars       versions             families         users
+	 |  |  	       	|      	   |  |	 |     	       	    |  		  |  
+	 |  |  	       	|      	   |  |	 \------------\	    |  		  |
+	 |  V 		V	   V  \-----\  	      V	    V  		  V
+	 |  apar_defect_version_maps    ptfs \ 	     releases  		cmvcs 
+	 |     	       	   |   	       	| | \ \ 	|
+	 |		   |   	  /-----/  \ \ \ 	|
+	 |		   V	  V	    \ \	\      	|
+	 |     adv_ptf_release_maps<--------------------/
+	 |			  	      \	\ \ 	
+	 |			  	       \ \ \ 	
+	 | lpp_base		  	        \ \ \              
+	 |     |   		  	    	 \ \ \ 		   
+	 |     |		  	    	  \ \ \ 	   
+	 |     V		  	       	   | | |	   
+	 |    lpps   		  	   	   | | |	   
+	 |     |     		  	   	   | | |
+	 |     |     		  	   	   | | |
+	 |     V     		  	   	   | | |
+	 |    filesets 	service_packs      	   | | |
+	 |    |	| | |\ 	    | 	     	   	   | | |
+	 |    |	| | | \--\  | 	     	       	   | | |
+	 |    |	| | |    |  |  	       	       	   | | |
+	 |    |	| | |    V  V                      | | |
+	 |    |	| | |  service_pack_fileset_maps   | | |
+	 |    | | | |	       /-------------------/ | |
+	 |    | | | |	       |  		     | |
+	 |    | | | V	       V  		     | |
+	 |    | | | fileset_ptf_maps      aix_files  | |
+	 |    | | |	       	       	    |	     | |
+	 |    | | \-------\		    |	     | |
+	 |    |	|      	  V		    V	     | |
+	 |    |	|	 fileset_aix_file_maps       | |       	       	   
+	 |    |	|				     | |
+	 |    | | packages   			     | |
+	 |    |	| |  | 	      			     | |
+	 |    |	| |  \-----------------\     	     | |
+	 |    |	| |		       |	     | |
+	 |    |	V V		       V     	     | |
+	 |    |	package_fileset_maps   image_paths   | |
+	 |    |					     | |
+	 |    \-----\  	 /---------------------------/ |
+	 \--------\ |	 |  /--------------------------/ 
+		  V V	 V  V 				 
+		  upd_pc_views				 
+
+

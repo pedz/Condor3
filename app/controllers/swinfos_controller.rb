@@ -4,9 +4,12 @@
 # All Rights Reserved
 #
 
+# Controller to retrieve and display the "swinfo" entries for a
+# particular item.
 class SwinfosController < ApplicationController
   respond_to :html, :json
 
+  # The default sort order of the matched entries.
   DEFAULT_SORT_ORDER = 'defect, apar, ptf'
 
   # Currently I've decided to pass the sort order and the page number
@@ -24,12 +27,16 @@ class SwinfosController < ApplicationController
     respond_with(create_presenter(:swinfo, GetSwinfos.new(params)))
   end
 
+  # Method used when called from a submit of the welcome page.  It
+  # redirects to the show method.
   def create
     redirect_to_full_path
   end
 
   private
 
+  # If either the page or sort paramters are missing, they are filled
+  # in by this routine.
   def redirect_to_full_path
     redirect_to swinfo_full_path(params[:item],
                                  (params[:sort] || DEFAULT_SORT_ORDER),
