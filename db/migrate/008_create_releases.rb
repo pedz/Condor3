@@ -15,7 +15,7 @@
 class CreateReleases < ActiveRecord::Migration
   def self.up
     create_table :releases do |t|
-      t.string :name, :null => false
+      t.string :name, null: false
       t.fk :family_id
       t.fk :version_id
       t.timestamps

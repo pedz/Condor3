@@ -5,6 +5,8 @@
 # 
 
 Then /^(.*) should see multiple forms$/ do |not_used|
+  # if you are getting an error here during the real user LDAP test,
+  # then you probably need to fix the password in password.rb
   all('form').should have_at_least(2).forms
 end
 

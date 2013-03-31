@@ -267,6 +267,10 @@ describe("UpdAparDef", function() {
 	    cmd_list = test_td.find('.' + cmd_list_class);
 	});
 
+	afterEach(function () {
+	    $('div.pedz-overlay').remove();
+	});
+
 	it("should initially have the commands hidden and the arrow visable", function () {
 	    expect(test_td).toHaveClass(td_class); // sanity check test selector
 	    expect(test_td.length).toEqual(1);	   // another sanity check

@@ -33,7 +33,7 @@ class GetSrcFile
   attr_reader :error
   
   def initialize(options)
-    @options = options
+    @options = options.dup
     @path = @options[:path]
     @version = @options[:version]
     @release = @options[:release]
@@ -46,7 +46,6 @@ class GetSrcFile
       version: @version,
       release: @release
     }
-
     unless (@lines = cache.read(dalli_params))
       exec_params = {
         get_user: @options[:get_user],

@@ -10,7 +10,7 @@
 class CreateApars < ActiveRecord::Migration
   def self.up
     create_table :apars do |t|
-      t.string :name, :null => false, :unique => true
+      t.string :name, null: false, unique: true
       t.string :abstract
       t.timestamps
     end

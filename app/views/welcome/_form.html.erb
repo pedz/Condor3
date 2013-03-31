@@ -2,8 +2,8 @@
 <%# 									%>  
 <%#  Copyright 2012-2013 Ease Software, Inc. and Perry Smith		%>  
 <%#  All Rights Reserved						%>  
-<%= form_tag send("#{name}_post_path".to_sym), :id => "#{name}_form" do %>
-  <%= label_tag(param, text_label, :class => "form-description") %>
+<%= form_tag send("#{name}_post_path".to_sym), id: "#{name}_form" do %>
+  <%= label_tag(param, text_label, class: "form-description") %>
   <%= text_field_tag param %>
-  <%= submit_tag "Submit", :id => "#{name}_submit" %>
+  <%= submit_tag "Submit", id: "#{name}_submit" %>
 <% end %>

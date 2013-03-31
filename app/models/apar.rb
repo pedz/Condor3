@@ -37,17 +37,17 @@ class Apar < ActiveRecord::Base
   ##
   # :attr: defects
   # A has_many association to Defect via AparDefectVersionMap
-  has_many :defects,              :through => :apar_defect_version_maps
+  has_many :defects,              through: :apar_defect_version_maps
 
   ##
   # :attr: versions
   # A has_many association to Version via AparDefectVersionMap
-  has_many :versions,             :through => :apar_defect_version_maps
+  has_many :versions,             through: :apar_defect_version_maps
 
   ##
   # :attr: adv_ptf_release_maps
   # A has_many association to AdvPtfReleaseMap via AparDefectVersionMap
-  has_many :adv_ptf_release_maps, :through => :apar_defect_version_maps
+  has_many :adv_ptf_release_maps, through: :apar_defect_version_maps
 
   # Returns the PTFs that contain this APAR.
   def ptfs

@@ -6,39 +6,23 @@
 require "spec_helper"
 
 describe "diffs routes" do
+  let(:diff_route) { "/diffs/REL/a/long/file/1.2.3.4" }
+
+  let(:diff_w_v_route) { diff_route + "/p5.6.7.8"}
+  
   it "a GET => /diff/release/some/path/Version1 to diffs#show" do
-    expect(:get => "/diffs/REL/a/long/file/1.2.3.4").to route_to(:controller => "diffs",
-                                                                 :action => "show",
-                                                                 :release => 'REL',
-                                                                 :path => 'a/long/file',
-                                                                 :version => '1.2.3.4')
+    expect(get: diff_route).to route_to(DiffRouteHash)
   end
 
   it "a GET => /diff/release/some/path/Version1.json diffs#show with json format" do
-    expect(:get => "/diffs/REL/a/long/file/1.2.3.4.json").to route_to(:controller => "diffs",
-                                                                      :action => "show",
-                                                                      :release => 'REL',
-                                                                      :path => 'a/long/file',
-                                                                      :version => '1.2.3.4',
-                                                                      :format => 'json')
+    expect(get:  diff_route + ".json").to route_to(DiffRouteHash.merge(format: 'json'))
   end
 
   it "a GET => /diff/release/some/path/Version1/pVersion2 to diffs#show" do
-    expect(:get => "/diffs/REL/a/long/file/1.2.3.4/p5.6.7.8").to route_to(:controller => "diffs",
-                                                                          :action => "show",
-                                                                          :release => 'REL',
-                                                                          :path => 'a/long/file',
-                                                                          :version => '1.2.3.4',
-                                                                          :prev_version => '5.6.7.8')
+    expect(get: diff_w_v_route).to route_to(DiffPrevVersionRouteHash)
   end
 
   it "a GET => /diff/release/some/path/Version1/pVersion2.json to diffs#show with json format" do
-    expect(:get => "/diffs/REL/a/long/file/1.2.3.4/p5.6.7.8.json").to route_to(:controller => "diffs",
-                                                                               :action => "show",
-                                                                               :release => 'REL',
-                                                                               :path => 'a/long/file',
-                                                                               :version => '1.2.3.4',
-                                                                               :prev_version => '5.6.7.8',
-                                                                               :format => 'json')
+    expect(get: diff_w_v_route + ".json").to route_to(DiffPrevVersionRouteHash.merge(format: 'json'))
   end
 end

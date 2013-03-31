@@ -56,7 +56,7 @@ class Package < ActiveRecord::Base
   # :attr: filesets
   # A has_many association to Fileset records via PackageFilesetMap
   # join table elemtsn.
-  has_many :filesets, :through => :package_fileset_maps
+  has_many :filesets, through: :package_fileset_maps
 
   # returns self.name <=> other.name
   def <=>(other)

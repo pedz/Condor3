@@ -7,7 +7,7 @@ export PGDATABASE=condor3_development
 
 function run-jasmine
 {
-    rake jasmine RAILS_ENV=test
+    rake assets:clean jasmine RAILS_ENV=test
 }
 
 function clear-log

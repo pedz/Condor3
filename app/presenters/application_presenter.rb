@@ -26,7 +26,7 @@ class ApplicationPresenter < Keynote::Presenter
   def home_button
     build_html do
       div.home do
-        link_to(welcome_path, :class => 'home-button') do
+        link_to(welcome_path, class: 'home-button') do
           "Home"
         end
       end

@@ -9,7 +9,7 @@
 class CreateLppBases < ActiveRecord::Migration
   def self.up
     create_table :lpp_bases do |t|
-      t.string :name, :null => false, :unique => true
+      t.string :name, null: false, unique: true
       t.timestamps
     end
   end

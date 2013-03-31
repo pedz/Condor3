@@ -3,14 +3,5 @@
     All Rights Reserved
 -%>
 <!-- <%= __FILE__[Rails.root.to_s.length+1 .. -1] %> -->
-<% @title = "Diff #{@diff.new_file.basename} #{@diff.old_file.version} -> #{@diff.new_file.version}" %>
-<div id="control-table">
-  <div id="control">
-    <button id="prev-diff">Prev</button>
-    Hunk <span id="hunk-index">0</span> of
-    <span id="hunk-count"><%= @diff.callbacks.diff_count %></span>
-    <button id="next-diff">Next</button>
-  </div>
-</div>
-<%= put_file_div(@diff.callbacks.old_seq, "top", @diff.old_file) %>
-<%= put_file_div(@diff.callbacks.new_seq, "bot", @diff.new_file) %>
+<%= presenter.show_controls %>
+<%= presenter.show_changes %>

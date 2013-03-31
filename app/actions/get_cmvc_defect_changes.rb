@@ -21,7 +21,7 @@ class GetCmvcDefectChanges
   attr_reader :error
 
   def initialize(options)
-    @options = options
+    @options = options.dup
     @defect_name = @options[:cmvc_change].strip
     @changes = []
     @error = nil

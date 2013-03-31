@@ -10,7 +10,7 @@ class CreateFilesets < ActiveRecord::Migration
   def self.up
     create_table :filesets do |t|
       t.fk :lpp_id
-      t.string :vrmf, :null => false
+      t.string :vrmf, null: false
       t.timestamps
       t.unique [ :lpp_id, :vrmf ]
     end

@@ -45,11 +45,11 @@ class SrcFile
   # fetch the text of the source file.
   def fetch_text
     options = {
-      :extract => @path,
-      :release => @release,
-      :version => @version,
-      :family => 'aix',
-      :stdout => ""
+      extract: @path,
+      release: @release,
+      version: @version,
+      family: 'aix',
+      stdout: ""
     }
     @cmd = @cmvc.file!(options)
   end

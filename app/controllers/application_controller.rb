@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
   # Should this be merged into the lambda above?
   def user
-    @user ||= User.find(:first, :conditions => { :id => session[:user_id]})
+    @user ||= User.find(:first, conditions: { id: session[:user_id]})
   end
 
   # A before_filter for the entire application.  This is a rewrite to

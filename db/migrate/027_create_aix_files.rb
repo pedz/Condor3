@@ -10,8 +10,8 @@
 class CreateAixFiles < ActiveRecord::Migration
   def self.up
     create_table :aix_files do |t|
-      t.string :path, :null => false
-      t.string :sha1, :null => false
+      t.string :path, null: false
+      t.string :sha1, null: false
       t.timestamps
       t.unique [ :path, :sha1 ]
     end

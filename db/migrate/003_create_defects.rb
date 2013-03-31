@@ -7,7 +7,7 @@
 class CreateDefects < ActiveRecord::Migration
   def self.up
     create_table :defects do |t|
-      t.string :name, :null => false, :unique => true
+      t.string :name, null: false, unique: true
       t.timestamps
     end
   end

@@ -14,7 +14,7 @@
 class CreateImagePaths < ActiveRecord::Migration
   def self.up
     create_table :image_paths do |t|
-      t.string :path, :null => false, :unique => true
+      t.string :path, null: false, unique: true
       t.fk :package_id
       t.timestamps
     end

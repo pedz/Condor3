@@ -37,7 +37,7 @@ class AixFile < ActiveRecord::Base
   # :attr: filesets
   # A has_many association to Fileset via the fileset_aix_file_maps
   # association
-  has_many :filesets, :through => :fileset_aix_file_maps
+  has_many :filesets, through: :fileset_aix_file_maps
 
   # returns self.path <=> other.path
   def <=>(other)

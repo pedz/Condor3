@@ -6,8 +6,8 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
-      t.string :ldap_id, :null => false, :unique => true
-      t.boolean :admin, :default => false
+      t.string :ldap_id, null: false, unique: true
+      t.boolean :admin, default: false
 
       t.timestamps
     end

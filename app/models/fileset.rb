@@ -71,22 +71,22 @@ class Fileset < ActiveRecord::Base
   ##
   # :attr: ptfs
   # A has_many to Ptf via FilesetPtfMap
-  has_many :ptfs,          :through => :fileset_ptf_maps
+  has_many :ptfs,          through: :fileset_ptf_maps
 
   ##
   # :attr: service_packs
   # A has_many association to ServicePack via ServicePackFilesetMap
-  has_many :service_packs, :through => :service_pack_fileset_map
+  has_many :service_packs, through: :service_pack_fileset_map
 
   ##
   # :attr: packages
   # A has_many assoication to Packaage via PackageFilesetMap
-  has_many :packages,      :through => :package_fileset_maps
+  has_many :packages,      through: :package_fileset_maps
 
   ##
   # :attr: aix_files
   # A has_many association to AixFile via FilesetAixFileMap
-  has_many :aix_files,     :through => :fileset_aix_file_maps
+  has_many :aix_files,     through: :fileset_aix_file_maps
 
   # The <=> operator for filesets which sorts by the lpp's names first
   # and then the vrmf.

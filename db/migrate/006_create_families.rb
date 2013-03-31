@@ -8,7 +8,7 @@
 class CreateFamilies < ActiveRecord::Migration
   def self.up
     create_table :families do |t|
-      t.string :name, :null => false, :unique => true
+      t.string :name, null: false, unique: true
       t.timestamps
     end
   end

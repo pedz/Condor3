@@ -52,17 +52,17 @@ class Release < ActiveRecord::Base
   ##
   # :attr: apars
   # A has_many association of Apar records via adv_ptf_release_maps
-  has_many :apars,    :through => :adv_ptf_release_maps
+  has_many :apars,    through: :adv_ptf_release_maps
 
   ##
-  # :attr: defects,  :through => :adv_ptf_release_maps
+  # :attr: defects,  through: :adv_ptf_release_maps
   # A has_many association of Defect records via adv_ptf_release_maps
-  has_many :defects,  :through => :adv_ptf_release_maps
+  has_many :defects,  through: :adv_ptf_release_maps
 
   ##
   # :attr: versions
   # A has_many association of Version records via adv_ptf_release_maps
-  has_many :versions, :through => :adv_ptf_release_maps
+  has_many :versions, through: :adv_ptf_release_maps
 
   # returns self.name <=> other.name
   def <=>(other)

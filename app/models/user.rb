@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   attr_protected :ldap_id, :admin
 
   def ldap
-    LdapUser::find(:attribute => 'mail', :value => ldap_id)
+    LdapUser::find(attribute: 'mail', value: ldap_id)
   end
 
   # Used for fun... Returns (or tries to) the first name of the User

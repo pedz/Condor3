@@ -45,17 +45,17 @@ class Ptf < ActiveRecord::Base
   ##
   # :attr: apar_defect_version_maps
   # A has_many association of AparDefectVersionMap via adv_ptf_release_maps
-  has_many :apar_defect_version_maps, :through => :adv_ptf_release_maps
+  has_many :apar_defect_version_maps, through: :adv_ptf_release_maps
 
   ##
   # :attr: releases
   # A has_many association of Release via adv_ptf_release_maps
-  has_many :releases,                 :through => :adv_ptf_release_maps
+  has_many :releases,                 through: :adv_ptf_release_maps
 
   ##
   # :attr: filesets
   # A has_many association of Fileset via fileset_ptf_maps
-  has_many :filesets,                 :through => :fileset_ptf_maps
+  has_many :filesets,                 through: :fileset_ptf_maps
 
   # Returns the Apar records via apar_defect_version_maps
   def apars

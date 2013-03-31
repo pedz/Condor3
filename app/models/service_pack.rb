@@ -35,5 +35,5 @@ class ServicePack < ActiveRecord::Base
   ##
   # :attr: filesets
   # A has_many association of Fileset records via service_pack_fileset_map
-  has_many :filesets, :through => :service_pack_fileset_map
+  has_many :filesets, through: :service_pack_fileset_map
 end

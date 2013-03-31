@@ -21,7 +21,7 @@ class GetFileChanges
   attr_reader :error
 
   def initialize(options)
-    @options = options
+    @options = options.dup
     @file_name = @options[:file].strip
     @changes = []
     @error = nil

@@ -11,7 +11,7 @@
 class CreateServicePacks < ActiveRecord::Migration
   def self.up
     create_table :service_packs do |t|
-      t.string :name, :null => false, :unique => true
+      t.string :name, null: false, unique: true
       t.timestamps
     end
   end

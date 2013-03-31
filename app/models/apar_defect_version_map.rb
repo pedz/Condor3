@@ -64,10 +64,10 @@ class AparDefectVersionMap < ActiveRecord::Base
   ##
   # :attr: ptfs
   # A has_many association to Ptf via the AdvPtfReleaseMap
-  has_many   :ptfs,     :through => :adv_ptf_release_maps
+  has_many   :ptfs,     through: :adv_ptf_release_maps
 
   ##
   # :attr: releases
   # A has_many association to Release via the AdvPtfReleaseMap
-  has_many   :releases, :through => :adv_ptf_release_maps
+  has_many   :releases, through: :adv_ptf_release_maps
 end

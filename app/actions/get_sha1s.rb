@@ -18,12 +18,12 @@ class GetSha1s
   attr_reader :shipped_files
   
   def initialize(options)
-    @options = options
+    @options = options.dup
     @sha1 = options[:sha1]
     dalli_params = { sha1: sha1, request: 'sha1s'}
     unless (@shipped_files = cache.read(dalli_params))
       @shipped_files = model.find(:all,
-                                  :conditions => { :aix_file_sha1 => @sha1})
+                                  conditions: { aix_file_sha1: @sha1})
       # Need to do something with rc
       rc = cache.write(dalli_params, @shipped_files)
     end

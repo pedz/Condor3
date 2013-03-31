@@ -57,7 +57,7 @@ class GetSwinfos
 
   # find the items
   def find_items(finder_options, item)
-    dalli_params = finder_options.merge(:item => item)
+    dalli_params = finder_options.merge(item: item)
     unless (items = cache.read(dalli_params))
       item_upcase = item.upcase
       case item_upcase
@@ -80,7 +80,7 @@ class GetSwinfos
       
       when /^([^ :]+)[ :]+([^ :]+)$/ # Fileset name with vrmf
         lpp, vrmf = item.split(/[ :]+/)
-        items = model.find_all_by_lpp(lpp, finder_options.merge(:conditions => [ 'vrmf LIKE ?', "#{vrmf}%"]))
+        items = model.find_all_by_lpp(lpp, finder_options.merge(conditions: [ 'vrmf LIKE ?', "#{vrmf}%"]))
 
       else                        # Just a fileset name
         items = model.find_all_by_lpp(item, finder_options)

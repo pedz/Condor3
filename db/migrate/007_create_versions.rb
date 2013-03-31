@@ -13,7 +13,7 @@
 class CreateVersions < ActiveRecord::Migration
   def self.up
     create_table :versions do |t|
-      t.string :name, :null => false, :unique => true
+      t.string :name, null: false, unique: true
       t.timestamps
     end
   end

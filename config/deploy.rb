@@ -19,7 +19,7 @@ set :scm, :git
 
 role :web, "condor@condor.austin.ibm.com"                         # Your HTTP server, Apache/etc
 role :app, "condor@condor.austin.ibm.com"                         # This may be the same as your `Web` server
-role :db,  "condor@condor.austin.ibm.com", :primary => true       # This is where Rails migrations will run
+role :db,  "condor@condor.austin.ibm.com", primary: true       # This is where Rails migrations will run
 
 set :branch, "master"
 set :deploy_via, :remote_cache
@@ -39,7 +39,7 @@ namespace :deploy do
   desc "No way to stop the server"
   task :stop do ; end
   desc "Restart the server"
-  task :restart, :roles => :app, :except => { :no_release => true } do
+  task :restart, roles: :app, except: { no_release: true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
@@ -47,7 +47,7 @@ end
 # namespace :deploy do
 #   namespace :assets do
 #     desc 'Run the precompile task locally and rsync with shared'
-#     task :precompile, :roles => :web, :except => { :no_release => true } do
+#     task :precompile, roles: :web, except: { no_release: true } do
 #       # %x{bundle exec rake assets:precompile}
 #       # %x{rsync --recursive --times --rsh=ssh --compress --human-readable --progress public/assets #{user}@#{host}:#{shared_path}}
 #       # %x{bundle exec rake assets:clean}
@@ -98,7 +98,7 @@ namespace :pedz do
       desc <<-DESC
         Create assets into #{compressed_assets_path}
       DESC
-      task :compress, :roles => :app do
+      task :compress, roles: :app do
         transaction do
           # We want to make sure public/assets is not left around.
           on_rollback { clean_compress }

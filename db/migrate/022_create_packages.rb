@@ -8,8 +8,8 @@
 class CreatePackages < ActiveRecord::Migration
   def self.up
     create_table :packages do |t|
-      t.string :name, :null => false
-      t.string :sha1, :null => false
+      t.string :name, null: false
+      t.string :sha1, null: false
       t.timestamps
       t.unique [ :name, :sha1 ]
     end

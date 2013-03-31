@@ -126,6 +126,6 @@ var TestResponses = {
 
     second_success: {
 	status: 200,
-	responseText: ''
+	responseText: JSON.stringify([])
     }
 };

@@ -52,10 +52,10 @@ class GetWhichFilesets
     unless (items = cache.read(dalli_params))
       items = {}
       model.find(:all,
-                 :conditions => ("basename(path) = basename('#{path}') AND " +
+                 conditions: ("basename(path) = basename('#{path}') AND " +
                                  "path LIKE '%#{path}'"),
-                 :order => "path",
-                 :include => [ { :filesets => :lpp }]).each do |f|
+                 order: "path",
+                 include: [ { filesets: :lpp }]).each do |f|
         items[f.path] = ((items[f.path] || []) + f.filesets.map { |fileset| fileset.lpp.name }).sort.uniq
       end
       rc = cache.write(dalli_params, items) # Need to do something with rc

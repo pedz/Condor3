@@ -45,13 +45,13 @@ class Version < ActiveRecord::Base
   # :attr: defects
   # A has_many association of Defect records referencing this Version via
   # apar_defect_version_maps
-  has_many :defects,  :through => :apar_defect_version_maps
+  has_many :defects,  through: :apar_defect_version_maps
 
   ##
-  # :attr: ptfs,     :through => :apar_defect_version_maps
+  # :attr: ptfs,     through: :apar_defect_version_maps
   # A has_many association of Ptf records referencing this Version via
   # apar_defect_version_maps
-  has_many :ptfs,     :through => :apar_defect_version_maps
+  has_many :ptfs,     through: :apar_defect_version_maps
 
   # returns self.name <=> other.name
   def <=>(other)

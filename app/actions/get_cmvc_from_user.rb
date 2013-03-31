@@ -57,7 +57,7 @@ class GetCmvcFromUser
   # * *Args*    :
   #   - +options+ -> A hash providing:
   #     * +:get_user+ -> A lambda returning a duck type with a
-  #       read/write attribute of cmvc_login (required).
+  #       read/write attribute of cmvc_login.
   #     * +:cache+ -> An optional cache objec that defaults to
   #       Condor3::Application.config.my_dalli
   #     * +:cmd_result+ -> An optional class name that defaults to
@@ -65,7 +65,7 @@ class GetCmvcFromUser
   #     * +:execute_cmvc_command+ -> An optional class name that
   #       defaults to ExecuteCmvcCommand
   def initialize(options = {})
-    @options = options
+    @options = options.dup
 
     begin
       if user.nil?

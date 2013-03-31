@@ -34,7 +34,7 @@ describe SwinfoPresenter do
     markup = Capybara.string(subject.show_errors)
     markup.should_not have_selector("section[style='display: none;']")
     markup.should have_selector("ul")
-    markup.should have_selector("li", :text => 'error1')
+    markup.should have_selector("li", text: 'error1')
   end
 
   it "should present the table" do
