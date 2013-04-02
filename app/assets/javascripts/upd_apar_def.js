@@ -144,6 +144,17 @@ condor3.UpdAparDef = function (currentLocation) {
     };
 
     /**
+       Bound to the click event of select-link class elements.  These
+       are the li elements under the triangle that say "Select Text".
+       The function finds the first ancestor with the class of
+       'selectable' and then calls selectText with the id of that
+       element to select the text within that element.
+     */
+    thisThis.callSelectText = function (event) {
+	$(this).closest('.upd_apar_def_outer_td_span').selectText();
+    };
+
+    /**
        Bound to the click event of upd_apar_defs_header_span class
        elements.  These are the header elements of the table.  When
        these are clicked, the sort order is changed and then a new
@@ -242,6 +253,7 @@ condor3.UpdAparDef = function (currentLocation) {
 	});
     
     $('.upd_apar_defs')
+	.on('click', '.select-link', thisThis.callSelectText)
 	.on('click', '.upd_apar_def_inner_td_span', thisThis.click)
 	.on('click', '.upd_apar_defs_header_span', thisThis.alterSort);
     $window.on('scroll', thisThis.myScrollFunction);

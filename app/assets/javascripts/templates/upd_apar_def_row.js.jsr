@@ -8,9 +8,9 @@
       <span class='upd_apar_def_outer_td_span'
             >{{link_to ~swinfo_path(defect) "upd_apar_def_link" defect
         /}}<span class='upd_apar_def_inner_td_span'></span><ul class='upd_apar_def_commands' style='display: none;'>
-          <li>{{link_to ~cmvc_defects_path(defect) "link-to-defect" "Show CMVC Defect" /}}</li>
-          <li>Show Code Changes</li>
-          <li>Show APAR Draft</li>
+          <li>{{link_to ~cmvc_defects_path(defect) "link-to-defect"  "Show CMVC Defect"  /}}</li>
+          <li>{{link_to ~cmvc_changes_path(defect) "link-to-changes" "Show Code Changes" /}}</li>
+	  <li class='select-link'>Select text</li>
       </ul></span>
     </td>
 
@@ -18,16 +18,15 @@
       <span class='upd_apar_def_outer_td_span'
             >{{link_to ~swinfo_path(apar) "upd_apar_def_link" apar
         /}}<span class='upd_apar_def_inner_td_span'></span><ul class='upd_apar_def_commands' style='display: none;'>
-          <li>Show APAR Draft</li>
+	  <li class='select-link'>Select text</li>
       </ul></span>
     </td>
 
     <td class='upd_apar_def-ptf upd_apar_def_dual_button'>
-      <span class='upd_apar_def_outer_td_span'>{{link_to ~swinfo_path(ptf) "upd_apar_def_link" ptf
+      <span class='upd_apar_def_outer_td_span'
+            >{{link_to ~swinfo_path(ptf) "upd_apar_def_link" ptf
         /}}<span class='upd_apar_def_inner_td_span'></span><ul class='upd_apar_def_commands' style='display: none;'>
-          <li>Show CMVC Defect</li>
-          <li>Show Code Changes</li>
-          <li>Show APAR Draft</li>
+	  <li class='select-link'>Select text</li>
       </ul></span>
     </td>
 
@@ -50,7 +49,9 @@
     </td>
 
     <td class='upd_apar_def-service_pack'>
-      {{:service_pack}}
+      <span class='upd_apar_def_outer_td_span'>
+        {{link_to ~swinfo_path(service_pack) "upd_apar_def_link" service_pack /}}
+      </span>
     </td>
   </tr>
 {{/for}}
