@@ -9,10 +9,12 @@ class SwinfoPresenter < ApplicationPresenter
   presents :swinfo
   delegate :item, :errors, :upd_apar_defs, to: :swinfo
 
+  # Returns the string page title
   def page_title
     "swinfo for #{item}"
   end
 
+  # Returns the HTML for the help content.
   def help_text
     build_html do
       p do
@@ -21,6 +23,7 @@ class SwinfoPresenter < ApplicationPresenter
     end
   end
 
+  # Shows the errors encountered if any
   def show_errors
     hash = { id: "errors" }
     hash[:style] = "display: none;" if errors.empty?
@@ -36,6 +39,9 @@ class SwinfoPresenter < ApplicationPresenter
     end
   end
 
+  # Shows the swinfo table.  Most of the work is done via jsrender
+  # (javascript) in the browser.  This effectively just renders and
+  # empty table.
   def show_table
     build_html do
       table.upd_apar_defs do
@@ -61,6 +67,7 @@ class SwinfoPresenter < ApplicationPresenter
     end
   end
 
+  # Appends the json results
   def append_results
     build_html do
       script type: 'text/javascript' do
@@ -69,6 +76,7 @@ class SwinfoPresenter < ApplicationPresenter
     end
   end
 
+  # Produces the output for json requests
   def to_json(options = {})
     upd_apar_defs.to_json(options)
   end
