@@ -1,3 +1,5 @@
+Restrict Menu pop up to be within the page.
+Add APAR draft route / controller?
 Finish triangle things on swinfo page.
 Help text for these presenters:
     cmvc_defect_change_presenter
@@ -7,10 +9,12 @@ Help text for these presenters:
     which_fileset_presenter
 No hits for swinfo is confusing.
 
-Need db restore
+Need better db restore
 Per User Configuration
 Set up staging server
 Figure out multi server deploy
 Add rspecs for json requests as well as error paths
+Add cucumber features to completely describe the interface... probably
+  need to include json requests too.
 Change the various "diffs" calls to supply the previous version so it
   does not have to be retrieved from CMVC.

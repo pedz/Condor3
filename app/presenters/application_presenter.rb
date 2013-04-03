@@ -63,10 +63,78 @@ class ApplicationPresenter < Keynote::Presenter
 
   # Used by many of the subclasses to create a div containing the
   # error message they want to present.
+  #
+  # Added in extra processing for specific CMVC errors to give
+  # directions to the user as to what to do.
   def error_block(error)
     build_html do
       div.error_block do
-        pre error
+        if (md = /0010-183 .* FileExtract/.match(error))
+          p do
+            text "Condor tried to fetch a copy of the file from CMVC but was"
+            text "rejected.  You need to get <q>superGeneral</q> access of the".html_safe
+            text "component mentioned in the above message added to your CMVC id."
+          end
+          p do
+            text "For support personnel, the suggested process is to contact your"
+            text "WW team lead and funnel the requests through them."
+          end
+        elsif (md = /0010-057 Login (\S+) on host (\S+).*\n.* as user (\S+)\./.match(error))
+          pre do
+            error
+          end
+          p do
+            text "There are some choices of how to fix this:"
+          end
+          ol do
+            li do
+              text "Execute the command:"
+              br
+              text "Host -create #{md[1]}@#{md[2]} -become #{md[3]} -family aix"
+              br
+              text "from a host you already have CMVC access from will provide the"
+              text "access Condor is needing."
+            end
+            li do
+              text "Do these steps in a browser"
+              ol do
+                li do
+                  text "Go to "
+                  a("Reqauth4Me", href: 'http://rchasa02.rchland.ibm.com/reqauth4me')
+                end
+                li do
+                  "Pick "
+                  q "Query Logins"
+                  text " on the left side."
+                end
+                li do
+                  text "Enter your CMVC Login Id (#{md[3]}) "
+                  text "and the Family (aix).  The form does a search so your serial number is not needed"
+                end
+                li "Once you see your login, pick it and hit \"Modify\"."
+                li do
+                  text "Then add "
+                  q "#{md[1]}@#{md[2]}"
+                  text " to the "
+                  q "Hosts"
+                  text " list."
+                end
+                li "Hit submit."
+              end
+            end
+            li do
+              text "On my Mac GUI for CMVC (which I hope is the same as the"
+              text "GUI for PCs), I found the place to add a Host under the "
+              q "Actions"
+              text " menu, then pick "
+              q "Users"
+              text ", and finally"
+              q "Add Hosts"
+            end
+          end
+        else
+          pre error
+        end
       end
     end
   end

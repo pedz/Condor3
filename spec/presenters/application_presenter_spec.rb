@@ -6,6 +6,7 @@
 require 'spec_helper'
 
 describe ApplicationPresenter do
+
   subject { ApplicationPresenter.new(view) }
 
   it "should provide the header_tags" do
@@ -28,5 +29,22 @@ describe ApplicationPresenter do
     subject.should_receive(:page_title).and_return('child title')
     markup = subject.title_heading
     markup.should =~ /child title/
+  end
+
+  describe "block_error" do
+    it "should return back a div" do
+      ret = Capybara.string(subject.send(:error_block, "some error"))
+      ret.should have_selector('div.error_block', text: "some error")
+    end
+    
+    it "should modify the login error" do
+      err = "0010-057 Login condor on host raptor.austin.ibm.com is not authorized to
+        access the CMVC server software as user vjlayton.  A host
+        list member must be created for the CMVC user
+        before the login on the specified host can access
+        the CMVC server software.  "
+      ret = Capybara.string(subject.send(:error_block, err))
+      ret.should have_selector('div.error_block', text: "0010-057")
+    end
   end
 end

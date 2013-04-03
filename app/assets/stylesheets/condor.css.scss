@@ -172,17 +172,28 @@ body {
      * of a span.  It needs to be merged in somehow
      */
     div.error_block {
-	text-align: center;
+	@include box-border;
+	margin-left: 1em;
+	margin-right: 1em;
 	padding-top: $title-margin;
 	padding-bottom: $title-margin;
+	padding-left: 1em;
     
 	pre {
-	    @include box-border;
 	    font-family: "DejaVu Sans Mono", Menlo, Monaco, Consolas, Courier, monospace;
-	    text-align: left;
-	    background-color: white;
 	    display: inline-block;
-	    padding: .5em;
+	}
+
+	p {
+	}
+
+	ol {
+	    list-style-type: decimal;
+	    list-style-position: outside;
+	}
+
+	li {
+	    margin-left: 2em;
 	}
     }
 }
