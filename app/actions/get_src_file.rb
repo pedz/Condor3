@@ -46,9 +46,9 @@ class GetSrcFile
   #       in production.
   def initialize(options)
     @options = options.dup
-    @path = @options[:path]
-    @version = @options[:version]
-    @release = @options[:release]
+    @path = @options[:path].strip
+    @version = @options[:version].strip
+    @release = @options[:release].strip
     @lines = nil
     @error = nil
 

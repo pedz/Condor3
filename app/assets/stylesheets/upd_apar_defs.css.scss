@@ -120,12 +120,13 @@ table.upd_apar_defs {
 		list-style-type: none;
 		margin: 0px;
 		padding: 0px;
-		width: 10em;
+		// width: 10em;
 		    
 		li {
 		    text-decoration: underline;
 		    padding: 3px;
 		    text-align: left;
+		    white-space: pre;
 		    word-spacing: normal;
 		
 		    &:hover {

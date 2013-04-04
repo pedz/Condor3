@@ -38,13 +38,13 @@ class GetSwinfos
   #       in production.
   def initialize(options = {})
     @options = options.dup
-    @item = @options[:item]
+    @item = @options[:item].strip
     
     # check the sort order
-    finder_options, @errors = order(@options[:sort])
+    finder_options, @errors = order(@options[:sort].strip)
 
     # check the page
-    unless @options[:page] == "all"
+    unless @options[:page].strip == "all"
       finder_options[:limit] = 1000
       page = @options[:page].to_i
       if page > 1

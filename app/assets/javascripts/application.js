@@ -30,6 +30,7 @@
 /*
  * Finally the rest of our javascript code
  */
+//= require jQuery.fn.selectText
 //= require jQuery.ui.pedzContextMenu
 //= require upd_apar_def
 //= require help_button

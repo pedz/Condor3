@@ -65,7 +65,7 @@ class GetDiff
     @page_params = new_file_params.merge(action: 'diff')
 
     if @options.has_key? :prev_version
-      old_file_params = new_file_params.merge(version: @options[:prev_version])
+      old_file_params = new_file_params.merge(version: @options[:prev_version].strip)
     else
       return if (old_file_params = find_prev_version(new_file_params)).nil?
     end

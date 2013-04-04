@@ -27,7 +27,7 @@ class GetWhichFilesets
   #       in production.
   def initialize(options = {})
     @options = options.dup
-    @path = @options[:path]
+    @path = @options[:path].strip
 
     @paths = do_find(@path)
     # If 1st try is empty, try removing any 32 or 64 qualifiers.

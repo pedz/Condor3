@@ -123,9 +123,16 @@ condor3.UpdAparDef = function (currentLocation) {
      */
     thisThis.click = function (event) {
 	var arrow_span = $(this);
+	var table_offset = arrow_span.parents('table.upd_apar_defs').offset();
 	var td = arrow_span.parents('td');
 	var ui = td.find('.upd_apar_def_commands');
 	var link = td.find('.upd_apar_def_link');
+	var left = link.width() - ui.width();
+	var link_offset = link.offset();
+	var left_to_table_edge = link_offset.left - table_offset.left;
+
+	if (-left > left_to_table_edge)
+	    left = -left_to_table_edge;
 
 	thisThis.pickLi = function (event) {
 	    ui.contextMenu('close');
@@ -138,7 +145,7 @@ condor3.UpdAparDef = function (currentLocation) {
 		ui.off('click', 'li', thisThis.pickLi);
 	    },
 	    bottom: -ui.outerHeight(),
-	    left: link.width() - ui.width()
+	    left: left
 	}).on('click', 'li', thisThis.pickLi);
 	return false;
     };

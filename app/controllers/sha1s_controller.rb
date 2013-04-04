@@ -18,6 +18,6 @@ class Sha1sController < ApplicationController
   # Method used when called from a submit of the welcome page.  It
   # redirects to the show method.
   def create
-    redirect_to sha1s_path(params[:sha1])
+    redirect_to sha1s_path(params[:sha1].strip)
   end
 end

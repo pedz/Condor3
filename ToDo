@@ -1,6 +1,5 @@
-Restrict Menu pop up to be within the page.
-Add APAR draft route / controller?
-Finish triangle things on swinfo page.
+Add APAR draft route and
+  finish triangle things on swinfo page.
 Help text for these presenters:
     cmvc_defect_change_presenter
     cmvc_defect_text_line_presenter

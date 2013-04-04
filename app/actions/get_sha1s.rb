@@ -27,7 +27,7 @@ class GetSha1s
   #       Condor3::Application.config.my_dalli
   def initialize(options)
     @options = options.dup
-    @sha1 = options[:sha1]
+    @sha1 = options[:sha1].strip
     dalli_params = { sha1: sha1, request: 'sha1s'}
     unless (@shipped_files = cache.read(dalli_params))
       @shipped_files = model.find(:all,

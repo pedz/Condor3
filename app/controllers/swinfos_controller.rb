@@ -38,8 +38,8 @@ class SwinfosController < ApplicationController
   # If either the page or sort paramters are missing, they are filled
   # in by this routine.
   def redirect_to_full_path
-    redirect_to swinfo_full_path(params[:item],
-                                 (params[:sort] || DEFAULT_SORT_ORDER),
-                                 (params[:page] || 1))
+    redirect_to swinfo_full_path(params[:item].strip,
+                                 (params[:sort] || DEFAULT_SORT_ORDER).strip,
+                                 (params[:page] || '1').strip)
   end
 end

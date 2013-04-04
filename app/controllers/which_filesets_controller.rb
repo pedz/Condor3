@@ -19,6 +19,6 @@ class WhichFilesetsController < ApplicationController
   # Method used when called from a submit of the welcome page.  It
   # redirects to the show method.
   def create
-    redirect_to which_filesets_path(params[:path])
+    redirect_to which_filesets_path(params[:path].strip)
   end
 end
