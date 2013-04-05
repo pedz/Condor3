@@ -5,6 +5,10 @@
 //
 
 body.welcome {
+    div#vince {
+	background-color: black;
+    }
+
     /*
      * The jquery-ui dialog processing pulls out this div so it is not
      * nested under the div.help when it is being displayed.

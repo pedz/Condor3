@@ -122,4 +122,14 @@ class WelcomePresenter < ApplicationPresenter
       out.html_safe
     end
   end
+
+  def vince
+    if session[:user_name] == 'vjlayton@us.ibm.com'
+      build_html do
+        div.vince! do
+          img src: asset_path('godzilla.jpg')
+        end
+      end
+    end
+  end
 end
