@@ -10,6 +10,7 @@
         /}}<span class='upd_apar_def_inner_td_span'></span><ul class='upd_apar_def_commands' style='display: none;'>
           <li>{{link_to ~cmvc_defects_path(defect) "link-to-defect"  "Show CMVC Defect"  /}}</li>
           <li>{{link_to ~cmvc_changes_path(defect) "link-to-changes" "Show Code Changes" /}}</li>
+	  <li>{{link_to ~apar_draft_path("defect", defect) "link-to-defect-apar-draft" "Show APAR Draft" /}}</li>
 	  <li class='select-link'>Select text</li>
       </ul></span>
     </td>
@@ -18,6 +19,7 @@
       <span class='upd_apar_def_outer_td_span'
             >{{link_to ~swinfo_path(apar) "upd_apar_def_link" apar
         /}}<span class='upd_apar_def_inner_td_span'></span><ul class='upd_apar_def_commands' style='display: none;'>
+	  <li>{{link_to ~apar_draft_path("apar", apar) "link-to-defect-apar-draft" "Show APAR Draft" /}}</li>
 	  <li class='select-link'>Select text</li>
       </ul></span>
     </td>

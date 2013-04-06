@@ -12,9 +12,5 @@ $.views.helpers({
 	} else {
 	    return "#";
 	}
-    },
-
-    test_path: function (a) {
-	return "test";
     }
 });
