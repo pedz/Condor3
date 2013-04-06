@@ -16,21 +16,21 @@ class DiffPresenter < ApplicationPresenter
 
   # The help text.
   def help_text
-    build_html do
-      p <<-'P1'
+    t = <<-P1
+<p>
       The original file is on the top and the new file is on the
       bottom. Use the prev and next buttons to move from change to
       change.  The view port of the two files should update to show
       you the change.
-      P1
-      p <<-'P2'
+</p><p>
       In the top file, you will see red lines which have been deleted
       and yellow lines which have changed.  In the bottom file, you
       will see green lines which have been added and yellow lines
       which match the yellow lines of the top file and indicate that
       that line has changed.
-      P2
-    end
+</p>
+P1
+    return t.html_safe
   end
 
   # If now errors, produces the HTML for the control section of the

@@ -17,7 +17,9 @@ class CmvcDefectTextLinePresenter < ApplicationPresenter
   # Creates the HTML for the help text.
   def help_text
     build_html do
-      p "Lots more help needed here"
+      p <<-P1
+         Not much needed here.
+        P1
     end
   end
   

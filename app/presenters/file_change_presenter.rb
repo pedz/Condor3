@@ -17,7 +17,13 @@ class FileChangePresenter < ApplicationPresenter
   # Returns the HTML for the help for the page.
   def help_text
     build_html do
-      p "Lots more help needed here"
+      p <<-P1
+  This is the list of changes that a particular file has undergone
+  over time.  The changes are grouped by path and then by release.
+  change provides a link to the file or files involved along with a
+  link to a diff of the changes for that file.  The link to the diff
+  is the '->' between the two SCCS ids.
+        P1
     end
   end
   

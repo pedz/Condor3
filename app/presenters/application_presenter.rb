@@ -40,7 +40,7 @@ class ApplicationPresenter < Keynote::Presenter
         button class: 'help-button' do
           'Help ...'
         end
-        div class: 'help-text', style: 'display: none;', title: 'Viewing a Defect' do
+        div class: 'help-text', style: 'display: none;', title: 'Help' do
           help_text
         end
       end
@@ -70,6 +70,9 @@ class ApplicationPresenter < Keynote::Presenter
     build_html do
       div.error_block do
         if (md = /0010-183 .* FileExtract/.match(error))
+          pre do
+            error
+          end
           p do
             text "Condor tried to fetch a copy of the file from CMVC but was"
             text "rejected.  You need to get <q>superGeneral</q> access of the".html_safe

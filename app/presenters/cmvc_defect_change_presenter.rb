@@ -17,7 +17,13 @@ class CmvcDefectChangePresenter < ApplicationPresenter
   # Returns HTML for the help text of the page.
   def help_text
     build_html do
-      p "Lots more help needed here"
+      p <<-P1
+        This is the list of changes that a particular defect or
+  feature introduced.  The changes are grouped by release.  Each
+  change provides a link to the file or files involved along with a
+  link to a diff of the changes for that file.  The link to the diff
+  is the '->' between the two SCCS ids.
+        P1
     end
   end
   

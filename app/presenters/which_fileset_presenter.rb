@@ -15,9 +15,10 @@ class WhichFilesetPresenter < ApplicationPresenter
 
   def help_text
     build_html do
-      p do
-        "Lots more help needed here"
-      end
+      p <<P1
+This page is a simple presentation of the paths that match the file
+that was searched for an the fileset that the file was shipped in.
+P1
     end
   end
 
