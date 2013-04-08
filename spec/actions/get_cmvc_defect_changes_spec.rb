@@ -38,6 +38,17 @@ describe GetCmvcDefectChanges do
     rep.changes[0].release.should eq("Field1")
   end
 
+  it "should work with no changes returned" do
+    local_execute_cmvc_command.should_receive(:new).once do |options|
+      options.should include(cmd: 'Report')
+      OpenStruct.new(stdout: nil, rc: 0)
+    end
+
+    rep = GetCmvcDefectChanges.new(typical_options)
+    rep.defect_name.should eq(defect_name)
+    rep.changes.length.should eq(0)
+  end
+
   it "should return error text if the command fails" do
     local_execute_cmvc_command.should_receive(:new).once do |options|
       options.should include(cmd: 'Report')

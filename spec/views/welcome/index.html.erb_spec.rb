@@ -15,6 +15,7 @@ describe "welcome/index.html.erb" do
       "#{a} #{c} '#{d}'".html_safe
     end
     presenter.should_receive(:welcome_form).exactly(6)
+    presenter.stub(:vince)
     view.stub(:presenter).and_return(presenter)
     render
     rendered.should have_content("swinfo item 'swinfo'")

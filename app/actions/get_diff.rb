@@ -151,6 +151,11 @@ class GetDiff
       return nil
     end
     
+    if  cmd.stdout.blank?
+      @error = "No output returned while fetching previous version"
+      return nil
+    end
+
     prev_params = {}
     prev_params[:release], prev_params[:path], prev_params[:version] = cmd.stdout.chomp.split(/\|/)
     prev_params

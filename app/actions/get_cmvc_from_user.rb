@@ -119,7 +119,7 @@ class GetCmvcFromUser
     
     # Clean up output -- should be a single line with just the cmvc
     # login.
-    @cmd_result.stdout.chomp!
+    @cmd_result.stdout.chomp! unless @cmd_result.stdout.nil?
     # CMVC login must not be blank
     if stdout.blank?
       @cmd_result = cmd_result.new(stderr: "CMVC search for ccnum = #{uid} returned no results")
