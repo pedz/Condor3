@@ -30,10 +30,14 @@ class CmvcDefectChangePresenter < ApplicationPresenter
   # Returns HTML for the changes the defect created.
   def show_changes
     if error.blank?
-      build_html do
-        c_enum = changes.to_enum
-        div.defect do
-          describe_defect_changes(c_enum)
+      if changes.length == 0
+        error_block("No changes for #{defect_name}")
+      else
+        build_html do
+          c_enum = changes.to_enum
+          div.defect do
+            describe_defect_changes(c_enum)
+          end
         end
       end
     else

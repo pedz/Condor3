@@ -46,7 +46,6 @@ describe CmvcDefectChangePresenter do
   it "should present the error when there is one" do
     get_cmvc_defect_changes.stub(:error).and_return(defect_error)
     markup = Capybara.string(subject.show_changes)
-    markup.should have_selector("div.error_block")
-    markup.find("div.error_block").should have_content(defect_error)
+    markup.find("div.center_error_block").should have_content(defect_error)
   end
 end

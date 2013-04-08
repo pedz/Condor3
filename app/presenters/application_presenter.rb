@@ -68,8 +68,8 @@ class ApplicationPresenter < Keynote::Presenter
   # directions to the user as to what to do.
   def error_block(error)
     build_html do
-      div.error_block do
-        if (md = /0010-183 .* FileExtract/.match(error))
+      if (md = /0010-183 .* FileExtract/.match(error))
+        div.error_block do
           pre do
             error
           end
@@ -82,7 +82,9 @@ class ApplicationPresenter < Keynote::Presenter
             text "For support personnel, the suggested process is to contact your"
             text "WW team lead and funnel the requests through them."
           end
-        elsif (md = /0010-057 Login (\S+) on host (\S+).*\n.* as user (\S+)\./.match(error))
+        end
+      elsif (md = /0010-057 Login (\S+) on host (\S+).*\n.* as user (\S+)\./.match(error))
+        div.error_block do
           pre do
             error
           end
@@ -135,8 +137,10 @@ class ApplicationPresenter < Keynote::Presenter
               q "Add Hosts"
             end
           end
-        else
-          pre error
+        end
+      else
+        div.center_error_block do
+          pre.center error
         end
       end
     end

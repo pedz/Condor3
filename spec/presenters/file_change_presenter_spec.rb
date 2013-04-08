@@ -46,7 +46,6 @@ describe FileChangePresenter do
   it "should present the error when there is one" do
     get_file_changes.stub(:error).and_return(file_error)
     markup = Capybara.string(subject.show_changes)
-    markup.should have_selector("div.error_block")
-    markup.find("div.error_block").should have_content(file_error)
+    markup.find("div.center_error_block").should have_content(file_error)
   end
 end

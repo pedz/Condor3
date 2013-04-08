@@ -34,7 +34,7 @@ describe ApplicationPresenter do
   describe "block_error" do
     it "should return back a div" do
       ret = Capybara.string(subject.send(:error_block, "some error"))
-      ret.should have_selector('div.error_block', text: "some error")
+      ret.should have_selector('div.center_error_block', text: "some error")
     end
     
     it "should modify the login error" do

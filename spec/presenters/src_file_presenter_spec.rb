@@ -41,7 +41,6 @@ describe SrcFilePresenter do
   it "should present the error when there is one" do
     get_src_file.stub(:error).and_return(fetch_error)
     markup = Capybara.string(subject.show_file)
-    markup.should have_selector("div.error_block")
-    markup.find("div.error_block").should have_content(fetch_error)
+    markup.find("div.center_error_block").should have_content(fetch_error)
   end
 end

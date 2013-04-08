@@ -167,10 +167,19 @@ body {
 	}
     }
 
-    /*
-     * This is the same as .centered-span except using a pre instead
-     * of a span.  It needs to be merged in somehow
-     */
+    div.center_error_block {
+	padding-top: $title-margin;
+	padding-bottom: $title-margin;
+	text-align: center;
+
+	pre {
+	    @include box-border;
+	    font-family: "DejaVu Sans Mono", Menlo, Monaco, Consolas, Courier, monospace;
+	    display: inline-block;
+	    padding: .5em;
+	}
+    }
+
     div.error_block {
 	@include box-border;
 	margin-left: 1em;
@@ -178,7 +187,8 @@ body {
 	padding-top: $title-margin;
 	padding-bottom: $title-margin;
 	padding-left: 1em;
-    
+	text-align: left;
+
 	pre {
 	    font-family: "DejaVu Sans Mono", Menlo, Monaco, Consolas, Courier, monospace;
 	    display: inline-block;
