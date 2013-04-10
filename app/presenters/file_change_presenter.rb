@@ -46,16 +46,18 @@ class FileChangePresenter < ApplicationPresenter
   # The outter loop for the changes.  Creates a span for the title of
   # the file and an unordered list of changes for each path.
   def describe_changes(enum)
-    begin
-      change = enum.peek
-    rescue StopIteration
-      return ""
-    end
-    span do
-      file_heading(change)
-    end
-    ul.path do
-      list_paths(enum)
+    loop do
+      begin
+        change = enum.peek
+      rescue StopIteration
+        break
+      end
+      span do
+        file_heading(change)
+      end
+      ul.path do
+        list_paths(enum)
+      end
     end
   end
 

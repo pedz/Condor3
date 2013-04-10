@@ -40,7 +40,9 @@ describe FileChangePresenter do
   it "should present the changes if no errors" do
     markup = Capybara.string(subject.show_changes)
     markup.should have_selector("div.changes")
+    markup.find("div.changes").should have_content('path1')
     markup.find("div.changes").should have_content('Initial Drop')
+    markup.find("div.changes").should have_content('path2')
   end
 
   it "should present the error when there is one" do
