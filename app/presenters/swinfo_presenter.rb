@@ -4,7 +4,7 @@
 # All Rights Reserved
 #
 
-# swinfo presenter
+# swinfo presenter.  Presents a GetSwinfos.
 class SwinfoPresenter < ApplicationPresenter
   presents :swinfo
   delegate :item, :errors, :upd_apar_defs, to: :swinfo

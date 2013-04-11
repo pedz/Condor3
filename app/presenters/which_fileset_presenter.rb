@@ -4,15 +4,17 @@
 # All Rights Reserved
 #
 
-# which fileset presenter
+# which fileset presenter.  Presents a GetWhichFilesets.
 class WhichFilesetPresenter < ApplicationPresenter
   presents :which_fileset
   delegate :path, :paths, to: :which_fileset
 
+  # Returns the page title as a string
   def page_title
     "which fileset for #{path}"
   end
 
+  # Returns the html help text
   def help_text
     build_html do
       p <<P1
@@ -22,6 +24,7 @@ P1
     end
   end
 
+  # Returns the HTML to show a table of the results.
   def show_table
     build_html do
       if paths.keys.length == 0

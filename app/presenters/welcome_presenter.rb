@@ -6,10 +6,12 @@
 
 # Welcome page presenter
 class WelcomePresenter < ApplicationPresenter
+  # Retuns the title of the page as a string.
   def page_title
     "Welcome to Condor 3"
   end
 
+  # Returns the html for the help text for the page.
   def help_text
     build_html do
       p do
@@ -111,6 +113,7 @@ class WelcomePresenter < ApplicationPresenter
     end
   end
 
+  # Returns the html for a single form that is on the welcome page.
   def welcome_form(name, path, param, text_label)
     form_tag path, id: "#{name}-form" do
       out = "\n"
@@ -123,6 +126,7 @@ class WelcomePresenter < ApplicationPresenter
     end
   end
 
+  # A fun joke to make Vince more comfortable with the Welcome page.
   def vince
     if session[:user_name] == 'vjlayton@us.ibm.com'
       build_html do
