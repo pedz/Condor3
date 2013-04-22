@@ -100,10 +100,10 @@ module CmvcHost
         # end
       end
       unless stdout_data.nil?
-        stdout_data.encode('utf-8', 'iso-8859-1')
+        stdout_data = stdout_data.encode('utf-8', 'iso-8859-1')
       end
       unless stderr_data.nil?
-        stderr_data.encode('utf-8', 'iso-8859-1')
+        stderr_data = stderr_data.encode('utf-8', 'iso-8859-1')
       end
       [stdout_data, stderr_data, exit_code, exit_signal]
     end
@@ -146,10 +146,10 @@ module CmvcHost
         exit_signal = Signum2Name[exit_code.termsig] || "XXXX"
       end
       unless stdout_data.nil?
-        stdout_data.encode('utf-8', 'iso-8859-1')
+        stdout_data = stdout_data.encode('utf-8', 'iso-8859-1')
       end
       unless stderr_data.nil?
-        stderr_data.encode('utf-8', 'iso-8859-1')
+        stderr_data = stderr_data.encode('utf-8', 'iso-8859-1')
       end
       [stdout_data, stderr_data, exit_code, exit_signal ]
     end
