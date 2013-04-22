@@ -99,6 +99,12 @@ module CmvcHost
         ssh.loop
         # end
       end
+      unless stdout_data.nil?
+        stdout_data.encode('utf-8', 'iso-8859-1')
+      end
+      unless stderr_data.nil?
+        stderr_data.encode('utf-8', 'iso-8859-1')
+      end
       [stdout_data, stderr_data, exit_code, exit_signal]
     end
 
@@ -138,6 +144,12 @@ module CmvcHost
       else
         exit_code = -1
         exit_signal = Signum2Name[exit_code.termsig] || "XXXX"
+      end
+      unless stdout_data.nil?
+        stdout_data.encode('utf-8', 'iso-8859-1')
+      end
+      unless stderr_data.nil?
+        stderr_data.encode('utf-8', 'iso-8859-1')
       end
       [stdout_data, stderr_data, exit_code, exit_signal ]
     end

@@ -61,12 +61,6 @@ class ExecuteCmvcCommand
 
     cmd = cmd.join(' ')
     stdout, stderr, rc, signal = cmvc_host.exec(cmd)
-    unless stdout.nil?
-      stdout.force_encoding('iso-8859-1')
-    end
-    unless stderr.nil?
-      stderr.force_encoding('iso-8859-1')
-    end
     @result = cmd_result.new(stdout: stdout, stderr: stderr, rc: rc, signal: signal)
   end
 
