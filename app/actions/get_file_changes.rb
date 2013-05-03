@@ -107,8 +107,12 @@ class GetFileChanges
 
     cmd = execute_cmvc_command.new(hash)
     if (cmd.rc == 0)
-      @changes = cmd.stdout.split("\n").map do |line|
-        Change.new(*line.split('|', 10))
+      if cmd.stdout.blank?
+        @error = "No output returned"
+      else
+        @changes = cmd.stdout.split("\n").map do |line|
+          Change.new(*line.split('|', 10))
+        end
       end
     else
       @error = cmd.stderr
