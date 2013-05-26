@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# print out number of rows in each table.
+psql -c '\dt' $1 |
+  grep public |
+  awk "{printf \"SELECT '%s',count(*) FROM %s;\\n\", \$3,\$3}" |
+  psql -f - $1 |
+  fgrep '|' |
+  grep -v count

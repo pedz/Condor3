@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Deletes items from a table passed as $1 down to only 100 items
+# left.
+
+psql -c "select id from $1" condor3_template > /tmp/ids
+cnt=$( wc -l < /tmp/ids )
+i=0
+while [[ $i -lt 100 ]] ; do
+    expr $RANDOM \* $cnt / 32767
+    let i=i+1
+done | \
+    sort -u -n | \
+    sed -e 's/$/p/' > /tmp/sed-cmds
+sed -f /tmp/sed-cmds -n /tmp/ids > /tmp/O
+
+(
+    echo "DELETE FROM $1  WHERE id not in ( "
+    first=1
+    while read id; do
+	if [[ $first -eq 1 ]] ; then
+	    first=0
+	else
+	    echo ,
+	fi
+	echo "$id"
+    done < /tmp/O
+    echo ' ); '
+) > /tmp/CMD
+echo psql -f /tmp/CMD condor3_template

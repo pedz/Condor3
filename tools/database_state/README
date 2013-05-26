@@ -1,0 +1,8 @@
+I implemented a way to roll the database back to a particular state
+via restore.  I tried using templates but the restore proved faster.
+You can see this in features/support/database_state.rb and
+features/support/snapshot_hook.rb
+
+These files are various pieces of that work.  Mostly they are tools
+to create the template-smaller.db database.  Unfortunately, at this
+point, I don't remember how to work them.

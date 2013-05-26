@@ -1,0 +1,18 @@
+This directory is like a dirty work bench with various parts and
+pieces lying around.
+
+FetchDefectSequenceDiagram.zargo - a UML diagram that describes the
+	interaction of fetching a defect
+
+README - This file
+
+bin - A set of trivial scripts used in early testing.
+
+database_state - Work directory for the DatabaseState and snapshot
+	hook used in a few Cucumber features.
+	
+picture - a UML'isk picture of the database and its internal
+	relationships.
+
+test_spec.rb - Trying to recreate a simple testcase for an rspec
+	bug.

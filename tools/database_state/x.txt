@@ -1,0 +1,8 @@
+pg_dump took about 26s
+pg_restore took about 1m 17s
+rake db:drop takes about 2s
+rake db:create takes about 11s
+rake db:drop db:create takes about 12
+
+The dump file was 113M.
+

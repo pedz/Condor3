@@ -1,0 +1,3 @@
+This are three simple scripts used in early testing of what became
+CmvcHost.  They three scripts exit with a zero status, exit with
+non zero status, and exit due to a signal.

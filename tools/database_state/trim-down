@@ -1,0 +1,15 @@
+
+Delete defects randomly
+
+Remove filesets not mentioned in upd_pc_views
+Remove lpps not mentioned in filesets
+Remove lpp_bases not mentioned in lpps
+Remove apars not mentioned in apar_defect_version_maps
+Remove ptfs not mentioned in adv_ptf_release_maps
+Remove releases not mentioned in adv_ptf_release_maps
+Remove families not mentioned in releases
+Remove versions not mentioned in releases
+Remove ptfs (again) not mentioned in fileset_ptf_maps
+Remove aix_files not mentioned in fileset_aix_file_maps
+Remove service_packs not mentioned in service_pack_fileset_maps
+Remove packages not mentioned in package_fileset_maps

@@ -1,0 +1,46 @@
+
+defects       apars       versions             families         users
+ |  |  	       	|      	   |  |	 |     	       	    |  		  |  
+ |  |  	       	|      	   |  |	 \------------\	    |  		  |
+ |  V 		V	   V  \-----\  	      V	    V  		  V
+ |  apar_defect_version_maps    ptfs \ 	     releases  		cmvcs 
+ |     	       	   |   	       	| | \ \ 	|
+ |		   |   	  /-----/  \ \ \ 	|
+ |		   V	  V	    \ \	\      	|
+ |     adv_ptf_release_maps<--------------------/
+ |			  	      \	\ \ 	
+ |			  	       \ \ \ 	
+ | lpp_base		  	        \ \ \              
+ |     |   		  	    	 \ \ \ 		   
+ |     |		  	    	  \ \ \ 	   
+ |     V		  	       	   | | |	   
+ |    lpps   		  	   	   | | |	   
+ |     |     		  	   	   | | |
+ |     |     		  	   	   | | |
+ |     V     		  	   	   | | |
+ |    filesets 	service_packs      	   | | |
+ |    |	| | |\ 	    | 	     	   	   | | |
+ |    |	| | | \--\  | 	     	       	   | | |
+ |    |	| | |    |  |  	       	       	   | | |
+ |    |	| | |    V  V                      | | |
+ |    |	| | |  service_pack_fileset_maps   | | |
+ |    | | | |	       /-------------------/ | |
+ |    | | | |	       |  		     | |
+ |    | | | V	       V  		     | |
+ |    | | | fileset_ptf_maps      aix_files  | |
+ |    | | |	       	       	    |	     | |
+ |    | | \-------\		    |	     | |
+ |    |	|      	  V		    V	     | |
+ |    |	|	 fileset_aix_file_maps       | |       	       	   
+ |    |	|				     | |
+ |    | | packages   			     | |
+ |    |	| |  | 	      			     | |
+ |    |	| |  \-----------------\     	     | |
+ |    |	| |		       |	     | |
+ |    |	V V		       V     	     | |
+ |    |	package_fileset_maps   image_paths   | |
+ |    |					     | |
+ |    \-----\  	 /---------------------------/ |
+ \--------\ |	 |  /--------------------------/ 
+       	  V V	 V  V 				 
+          upd_pc_views				 

@@ -10,7 +10,7 @@
 Before('@snapshot') do
   DatabaseState.instance.get_to_state(:template) do 
     system('/usr/local/pgsql/bin/pg_restore -U postgres --clean --single-transaction ' +
-           '--dbname=condor3_test /Users/pedzan/Source/Rails3/condor3/tools/template-smaller.db')
+           '--dbname=condor3_test /Users/pedzan/Source/Rails3/condor3/features/support/template-smaller.db')
 
     # Not 100% sure why this is needed but if it isn't here, the 2nd
     # time the restore is done, the app can no longer find anything in

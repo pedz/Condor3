@@ -1,0 +1,441 @@
+
+condor3_template=> \dt
+\dt
+                  List of relations
+ Schema |           Name            | Type  | Owner  
+--------+---------------------------+-------+--------
+ public | adv_ptf_release_maps      | table | pedzan
+ public | aix_files                 | table | pedzan
+ public | apar_defect_version_maps  | table | pedzan
+ public | apars                     | table | pedzan
+ public | cmvcs                     | table | pedzan
+ public | defects                   | table | pedzan
+ public | families                  | table | pedzan
+ public | fileset_aix_file_maps     | table | pedzan
+ public | fileset_ptf_maps          | table | pedzan
+ public | filesets                  | table | pedzan
+ public | image_paths               | table | pedzan
+ public | lpp_bases                 | table | pedzan
+ public | lpps                      | table | pedzan
+ public | package_fileset_maps      | table | pedzan
+ public | packages                  | table | pedzan
+ public | ptfs                      | table | pedzan
+ public | releases                  | table | pedzan
+ public | schema_migrations         | table | pedzan
+ public | service_pack_fileset_maps | table | pedzan
+ public | service_packs             | table | pedzan
+ public | upd_pc_views              | table | pedzan
+ public | users                     | table | pedzan
+ public | versions                  | table | pedzan
+(23 rows)
+
+condor3_template=> \d adv_ptf_release_maps
+\d adv_ptf_release_maps
+                                             Table "public.adv_ptf_release_maps"
+           Column           |            Type             |                             Modifiers                             
+----------------------------+-----------------------------+-------------------------------------------------------------------
+ id                         | integer                     | not null default nextval('adv_ptf_release_maps_id_seq'::regclass)
+ apar_defect_version_map_id | integer                     | not null
+ ptf_id                     | integer                     | not null
+ release_id                 | integer                     | not null
+ created_at                 | timestamp without time zone | 
+ updated_at                 | timestamp without time zone | 
+Indexes:
+    "adv_ptf_release_maps_pkey" PRIMARY KEY, btree (id)
+    "adv_ptf_release_maps_apar_defect_version_map_id_key" UNIQUE, btree (apar_defect_version_map_id, ptf_id, release_id)
+    "i3" btree (apar_defect_version_map_id)
+    "index_adv_ptf_release_maps_on_apar_defect_version_map_id" btree (apar_defect_version_map_id)
+    "index_adv_ptf_release_maps_on_ptf_id" btree (ptf_id)
+    "index_adv_ptf_release_maps_on_release_id" btree (release_id)
+Foreign-key constraints:
+    "adv_ptf_release_maps_apar_defect_version_map_id_fkey" FOREIGN KEY (apar_defect_version_map_id) REFERENCES apar_defect_version_maps(id) ON DELETE CASCADE DEFERRABLE
+    "adv_ptf_release_maps_ptf_id_fkey" FOREIGN KEY (ptf_id) REFERENCES ptfs(id) ON DELETE CASCADE DEFERRABLE
+    "adv_ptf_release_maps_release_id_fkey" FOREIGN KEY (release_id) REFERENCES releases(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d aix_files
+\d aix_files
+                                     Table "public.aix_files"
+   Column   |            Type             |                       Modifiers                        
+------------+-----------------------------+--------------------------------------------------------
+ id         | integer                     | not null default nextval('aix_files_id_seq'::regclass)
+ path       | character varying(255)      | not null
+ sha1       | character varying(255)      | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "aix_files_pkey" PRIMARY KEY, btree (id)
+    "aix_files_path_key" UNIQUE, btree (path, sha1)
+    "base_file_name_idx" btree (basename(path::text))
+Referenced by:
+    TABLE "fileset_aix_file_maps" CONSTRAINT "fileset_aix_file_maps_aix_file_id_fkey" FOREIGN KEY (aix_file_id) REFERENCES aix_files(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d apar_defect_version_maps
+\d apar_defect_version_maps
+                                     Table "public.apar_defect_version_maps"
+   Column   |            Type             |                               Modifiers                               
+------------+-----------------------------+-----------------------------------------------------------------------
+ id         | integer                     | not null default nextval('apar_defect_version_maps_id_seq'::regclass)
+ apar_id    | integer                     | not null
+ defect_id  | integer                     | not null
+ version_id | integer                     | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+ pc_id      | integer                     | not null default (-1)
+Indexes:
+    "apar_defect_version_maps_pkey" PRIMARY KEY, btree (id)
+    "apar_defect_version_maps_apar_id_key" UNIQUE, btree (apar_id, defect_id, version_id)
+    "i1" btree (defect_id)
+    "i2" btree (apar_id)
+    "index_apar_defect_version_maps_on_defect_id" btree (defect_id)
+    "index_apar_defect_version_maps_on_version_id" btree (version_id)
+Foreign-key constraints:
+    "apar_defect_version_maps_apar_id_fkey" FOREIGN KEY (apar_id) REFERENCES apars(id) ON DELETE CASCADE DEFERRABLE
+    "apar_defect_version_maps_defect_id_fkey" FOREIGN KEY (defect_id) REFERENCES defects(id) ON DELETE CASCADE DEFERRABLE
+    "apar_defect_version_maps_version_id_fkey" FOREIGN KEY (version_id) REFERENCES versions(id) ON DELETE CASCADE DEFERRABLE
+Referenced by:
+    TABLE "adv_ptf_release_maps" CONSTRAINT "adv_ptf_release_maps_apar_defect_version_map_id_fkey" FOREIGN KEY (apar_defect_version_map_id) REFERENCES apar_defect_version_maps(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d apars
+\d apars
+                                     Table "public.apars"
+   Column   |            Type             |                     Modifiers                      
+------------+-----------------------------+----------------------------------------------------
+ id         | integer                     | not null default nextval('apars_id_seq'::regclass)
+ name       | character varying(255)      | not null
+ abstract   | character varying(255)      | 
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "apars_pkey" PRIMARY KEY, btree (id)
+    "apars_name_key" UNIQUE, btree (name)
+Referenced by:
+    TABLE "apar_defect_version_maps" CONSTRAINT "apar_defect_version_maps_apar_id_fkey" FOREIGN KEY (apar_id) REFERENCES apars(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d cmvcs
+\d cmvcs
+                                     Table "public.cmvcs"
+   Column   |            Type             |                     Modifiers                      
+------------+-----------------------------+----------------------------------------------------
+ id         | integer                     | not null default nextval('cmvcs_id_seq'::regclass)
+ user_id    | integer                     | not null
+ login      | character varying(255)      | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "cmvcs_pkey" PRIMARY KEY, btree (id)
+    "cmvcs_login_key" UNIQUE, btree (login)
+    "cmvcs_user_id_key" UNIQUE, btree (user_id)
+Foreign-key constraints:
+    "cmvcs_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d defects
+\d defects
+                                     Table "public.defects"
+   Column   |            Type             |                      Modifiers                       
+------------+-----------------------------+------------------------------------------------------
+ id         | integer                     | not null default nextval('defects_id_seq'::regclass)
+ name       | character varying(255)      | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+ cq_defect  | character varying(255)      | not null default 'NONE'::character varying
+Indexes:
+    "defects_pkey" PRIMARY KEY, btree (id)
+    "defects_name_key" UNIQUE, btree (name)
+Referenced by:
+    TABLE "apar_defect_version_maps" CONSTRAINT "apar_defect_version_maps_defect_id_fkey" FOREIGN KEY (defect_id) REFERENCES defects(id) ON DELETE CASCADE DEFERRABLE
+    TABLE "upd_pc_views" CONSTRAINT "upd_pc_views_defect_id_fkey" FOREIGN KEY (defect_id) REFERENCES defects(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d families
+\d families
+                                     Table "public.families"
+   Column   |            Type             |                       Modifiers                       
+------------+-----------------------------+-------------------------------------------------------
+ id         | integer                     | not null default nextval('families_id_seq'::regclass)
+ name       | character varying(255)      | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "families_pkey" PRIMARY KEY, btree (id)
+    "families_name_key" UNIQUE, btree (name)
+Referenced by:
+    TABLE "releases" CONSTRAINT "releases_family_id_fkey" FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d fileset_aix_file_maps
+\d fileset_aix_file_maps
+                                      Table "public.fileset_aix_file_maps"
+   Column    |            Type             |                             Modifiers                              
+-------------+-----------------------------+--------------------------------------------------------------------
+ id          | integer                     | not null default nextval('fileset_aix_file_maps_id_seq'::regclass)
+ fileset_id  | integer                     | not null
+ aix_file_id | integer                     | not null
+ created_at  | timestamp without time zone | 
+ updated_at  | timestamp without time zone | 
+Indexes:
+    "fileset_aix_file_maps_pkey" PRIMARY KEY, btree (id)
+    "fileset_aix_file_maps_fileset_id_key" UNIQUE, btree (fileset_id, aix_file_id)
+Foreign-key constraints:
+    "fileset_aix_file_maps_aix_file_id_fkey" FOREIGN KEY (aix_file_id) REFERENCES aix_files(id) ON DELETE CASCADE DEFERRABLE
+    "fileset_aix_file_maps_fileset_id_fkey" FOREIGN KEY (fileset_id) REFERENCES filesets(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d fileset_ptf_maps
+\d fileset_ptf_maps
+                                     Table "public.fileset_ptf_maps"
+   Column   |            Type             |                           Modifiers                           
+------------+-----------------------------+---------------------------------------------------------------
+ id         | integer                     | not null default nextval('fileset_ptf_maps_id_seq'::regclass)
+ fileset_id | integer                     | not null
+ ptf_id     | integer                     | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "fileset_ptf_maps_pkey" PRIMARY KEY, btree (id)
+    "fileset_ptf_maps_fileset_id_key" UNIQUE, btree (fileset_id, ptf_id)
+    "i4" btree (ptf_id)
+    "index_fileset_ptf_maps_on_ptf_id" btree (ptf_id)
+Foreign-key constraints:
+    "fileset_ptf_maps_fileset_id_fkey" FOREIGN KEY (fileset_id) REFERENCES filesets(id) ON DELETE CASCADE DEFERRABLE
+    "fileset_ptf_maps_ptf_id_fkey" FOREIGN KEY (ptf_id) REFERENCES ptfs(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d filesets
+\d filesets
+                                     Table "public.filesets"
+   Column   |            Type             |                       Modifiers                       
+------------+-----------------------------+-------------------------------------------------------
+ id         | integer                     | not null default nextval('filesets_id_seq'::regclass)
+ lpp_id     | integer                     | not null
+ vrmf       | character varying(255)      | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "filesets_pkey" PRIMARY KEY, btree (id)
+    "filesets_lpp_id_key" UNIQUE, btree (lpp_id, vrmf)
+Foreign-key constraints:
+    "filesets_lpp_id_fkey" FOREIGN KEY (lpp_id) REFERENCES lpps(id) ON DELETE CASCADE DEFERRABLE
+Referenced by:
+    TABLE "fileset_aix_file_maps" CONSTRAINT "fileset_aix_file_maps_fileset_id_fkey" FOREIGN KEY (fileset_id) REFERENCES filesets(id) ON DELETE CASCADE DEFERRABLE
+    TABLE "fileset_ptf_maps" CONSTRAINT "fileset_ptf_maps_fileset_id_fkey" FOREIGN KEY (fileset_id) REFERENCES filesets(id) ON DELETE CASCADE DEFERRABLE
+    TABLE "package_fileset_maps" CONSTRAINT "package_fileset_maps_fileset_id_fkey" FOREIGN KEY (fileset_id) REFERENCES filesets(id) ON DELETE CASCADE DEFERRABLE
+    TABLE "service_pack_fileset_maps" CONSTRAINT "service_pack_fileset_maps_fileset_id_fkey" FOREIGN KEY (fileset_id) REFERENCES filesets(id) ON DELETE CASCADE DEFERRABLE
+    TABLE "upd_pc_views" CONSTRAINT "upd_pc_views_fileset_id_fkey" FOREIGN KEY (fileset_id) REFERENCES filesets(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d image_paths
+\d image_paths
+                                     Table "public.image_paths"
+   Column   |            Type             |                        Modifiers                         
+------------+-----------------------------+----------------------------------------------------------
+ id         | integer                     | not null default nextval('image_paths_id_seq'::regclass)
+ path       | character varying(255)      | not null
+ package_id | integer                     | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "image_paths_pkey" PRIMARY KEY, btree (id)
+    "image_paths_path_key" UNIQUE, btree (path)
+Foreign-key constraints:
+    "image_paths_package_id_fkey" FOREIGN KEY (package_id) REFERENCES packages(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d lpp_bases
+\d lpp_bases
+                                     Table "public.lpp_bases"
+   Column   |            Type             |                       Modifiers                        
+------------+-----------------------------+--------------------------------------------------------
+ id         | integer                     | not null default nextval('lpp_bases_id_seq'::regclass)
+ name       | character varying(255)      | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "lpp_bases_pkey" PRIMARY KEY, btree (id)
+    "lpp_bases_name_key" UNIQUE, btree (name)
+Referenced by:
+    TABLE "lpps" CONSTRAINT "lpps_lpp_base_id_fkey" FOREIGN KEY (lpp_base_id) REFERENCES lpp_bases(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d lpps
+\d lpps
+                                      Table "public.lpps"
+   Column    |            Type             |                     Modifiers                     
+-------------+-----------------------------+---------------------------------------------------
+ id          | integer                     | not null default nextval('lpps_id_seq'::regclass)
+ name        | character varying(255)      | not null
+ lpp_base_id | integer                     | not null
+ created_at  | timestamp without time zone | 
+ updated_at  | timestamp without time zone | 
+Indexes:
+    "lpps_pkey" PRIMARY KEY, btree (id)
+    "lpps_name_key" UNIQUE, btree (name, lpp_base_id)
+Foreign-key constraints:
+    "lpps_lpp_base_id_fkey" FOREIGN KEY (lpp_base_id) REFERENCES lpp_bases(id) ON DELETE CASCADE DEFERRABLE
+Referenced by:
+    TABLE "filesets" CONSTRAINT "filesets_lpp_id_fkey" FOREIGN KEY (lpp_id) REFERENCES lpps(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d package_fileset_maps
+\d package_fileset_maps
+                                     Table "public.package_fileset_maps"
+   Column   |            Type             |                             Modifiers                             
+------------+-----------------------------+-------------------------------------------------------------------
+ id         | integer                     | not null default nextval('package_fileset_maps_id_seq'::regclass)
+ package_id | integer                     | not null
+ fileset_id | integer                     | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "package_fileset_maps_pkey" PRIMARY KEY, btree (id)
+    "package_fileset_maps_package_id_key" UNIQUE, btree (package_id, fileset_id)
+Foreign-key constraints:
+    "package_fileset_maps_fileset_id_fkey" FOREIGN KEY (fileset_id) REFERENCES filesets(id) ON DELETE CASCADE DEFERRABLE
+    "package_fileset_maps_package_id_fkey" FOREIGN KEY (package_id) REFERENCES packages(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d packages
+\d packages
+                                     Table "public.packages"
+   Column   |            Type             |                       Modifiers                       
+------------+-----------------------------+-------------------------------------------------------
+ id         | integer                     | not null default nextval('packages_id_seq'::regclass)
+ name       | character varying(255)      | not null
+ sha1       | character varying(255)      | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "packages_pkey" PRIMARY KEY, btree (id)
+    "packages_name_key" UNIQUE, btree (name, sha1)
+Referenced by:
+    TABLE "image_paths" CONSTRAINT "image_paths_package_id_fkey" FOREIGN KEY (package_id) REFERENCES packages(id) ON DELETE CASCADE DEFERRABLE
+    TABLE "package_fileset_maps" CONSTRAINT "package_fileset_maps_package_id_fkey" FOREIGN KEY (package_id) REFERENCES packages(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d ptfs
+\d ptfs
+                                     Table "public.ptfs"
+   Column   |            Type             |                     Modifiers                     
+------------+-----------------------------+---------------------------------------------------
+ id         | integer                     | not null default nextval('ptfs_id_seq'::regclass)
+ name       | character varying(255)      | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "ptfs_pkey" PRIMARY KEY, btree (id)
+    "ptfs_name_key" UNIQUE, btree (name)
+Referenced by:
+    TABLE "adv_ptf_release_maps" CONSTRAINT "adv_ptf_release_maps_ptf_id_fkey" FOREIGN KEY (ptf_id) REFERENCES ptfs(id) ON DELETE CASCADE DEFERRABLE
+    TABLE "fileset_ptf_maps" CONSTRAINT "fileset_ptf_maps_ptf_id_fkey" FOREIGN KEY (ptf_id) REFERENCES ptfs(id) ON DELETE CASCADE DEFERRABLE
+    TABLE "upd_pc_views" CONSTRAINT "upd_pc_views_ptf_id_fkey" FOREIGN KEY (ptf_id) REFERENCES ptfs(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d releases
+\d releases
+                                     Table "public.releases"
+   Column   |            Type             |                       Modifiers                       
+------------+-----------------------------+-------------------------------------------------------
+ id         | integer                     | not null default nextval('releases_id_seq'::regclass)
+ name       | character varying(255)      | not null
+ family_id  | integer                     | not null
+ version_id | integer                     | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "releases_pkey" PRIMARY KEY, btree (id)
+    "releases_name_key" UNIQUE, btree (name, family_id)
+Foreign-key constraints:
+    "releases_family_id_fkey" FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE CASCADE DEFERRABLE
+    "releases_version_id_fkey" FOREIGN KEY (version_id) REFERENCES versions(id) ON DELETE CASCADE DEFERRABLE
+Referenced by:
+    TABLE "adv_ptf_release_maps" CONSTRAINT "adv_ptf_release_maps_release_id_fkey" FOREIGN KEY (release_id) REFERENCES releases(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d schema_migrations
+\d schema_migrations
+       Table "public.schema_migrations"
+ Column  |          Type          | Modifiers 
+---------+------------------------+-----------
+ version | character varying(255) | not null
+Indexes:
+    "unique_schema_migrations" UNIQUE, btree (version)
+
+condor3_template=> \d service_pack_fileset_maps
+\d service_pack_fileset_maps
+                                        Table "public.service_pack_fileset_maps"
+     Column      |            Type             |                               Modifiers                                
+-----------------+-----------------------------+------------------------------------------------------------------------
+ id              | integer                     | not null default nextval('service_pack_fileset_maps_id_seq'::regclass)
+ service_pack_id | integer                     | not null
+ fileset_id      | integer                     | not null
+ created_at      | timestamp without time zone | 
+ updated_at      | timestamp without time zone | 
+Indexes:
+    "service_pack_fileset_maps_pkey" PRIMARY KEY, btree (id)
+    "service_pack_fileset_maps_service_pack_id_key" UNIQUE, btree (service_pack_id, fileset_id)
+    "index_service_pack_fileset_maps_on_fileset_id" btree (fileset_id)
+Foreign-key constraints:
+    "service_pack_fileset_maps_fileset_id_fkey" FOREIGN KEY (fileset_id) REFERENCES filesets(id) ON DELETE CASCADE DEFERRABLE
+    "service_pack_fileset_maps_service_pack_id_fkey" FOREIGN KEY (service_pack_id) REFERENCES service_packs(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d service_packs
+\d service_packs
+                                     Table "public.service_packs"
+   Column   |            Type             |                         Modifiers                          
+------------+-----------------------------+------------------------------------------------------------
+ id         | integer                     | not null default nextval('service_packs_id_seq'::regclass)
+ name       | character varying(255)      | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "service_packs_pkey" PRIMARY KEY, btree (id)
+    "service_packs_name_key" UNIQUE, btree (name)
+Referenced by:
+    TABLE "service_pack_fileset_maps" CONSTRAINT "service_pack_fileset_maps_service_pack_id_fkey" FOREIGN KEY (service_pack_id) REFERENCES service_packs(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d upd_pc_views
+\d upd_pc_views
+                                     Table "public.upd_pc_views"
+   Column   |            Type             |                         Modifiers                         
+------------+-----------------------------+-----------------------------------------------------------
+ id         | integer                     | not null default nextval('upd_pc_views_id_seq'::regclass)
+ update_id  | integer                     | 
+ pc_id      | integer                     | 
+ bc_name    | character varying(255)      | 
+ ptf_id     | integer                     | not null
+ fileset_id | integer                     | not null
+ defect_id  | integer                     | not null
+ version_id | integer                     | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "upd_pc_views_pkey" PRIMARY KEY, btree (id)
+    "upd_pc_views_update_id_key" UNIQUE, btree (update_id, pc_id)
+Foreign-key constraints:
+    "upd_pc_views_defect_id_fkey" FOREIGN KEY (defect_id) REFERENCES defects(id) ON DELETE CASCADE DEFERRABLE
+    "upd_pc_views_fileset_id_fkey" FOREIGN KEY (fileset_id) REFERENCES filesets(id) ON DELETE CASCADE DEFERRABLE
+    "upd_pc_views_ptf_id_fkey" FOREIGN KEY (ptf_id) REFERENCES ptfs(id) ON DELETE CASCADE DEFERRABLE
+    "upd_pc_views_version_id_fkey" FOREIGN KEY (version_id) REFERENCES versions(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d users
+\d users
+                                     Table "public.users"
+   Column   |            Type             |                     Modifiers                      
+------------+-----------------------------+----------------------------------------------------
+ id         | integer                     | not null default nextval('users_id_seq'::regclass)
+ ldap_id    | character varying(255)      | not null
+ admin      | boolean                     | default false
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "users_pkey" PRIMARY KEY, btree (id)
+    "users_ldap_id_key" UNIQUE, btree (ldap_id)
+Referenced by:
+    TABLE "cmvcs" CONSTRAINT "cmvcs_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> \d versions
+\d versions
+                                     Table "public.versions"
+   Column   |            Type             |                       Modifiers                       
+------------+-----------------------------+-------------------------------------------------------
+ id         | integer                     | not null default nextval('versions_id_seq'::regclass)
+ name       | character varying(255)      | not null
+ created_at | timestamp without time zone | 
+ updated_at | timestamp without time zone | 
+Indexes:
+    "versions_pkey" PRIMARY KEY, btree (id)
+    "versions_name_key" UNIQUE, btree (name)
+Referenced by:
+    TABLE "apar_defect_version_maps" CONSTRAINT "apar_defect_version_maps_version_id_fkey" FOREIGN KEY (version_id) REFERENCES versions(id) ON DELETE CASCADE DEFERRABLE
+    TABLE "releases" CONSTRAINT "releases_version_id_fkey" FOREIGN KEY (version_id) REFERENCES versions(id) ON DELETE CASCADE DEFERRABLE
+    TABLE "upd_pc_views" CONSTRAINT "upd_pc_views_version_id_fkey" FOREIGN KEY (version_id) REFERENCES versions(id) ON DELETE CASCADE DEFERRABLE
+
+condor3_template=> ^D\q
+pedzan@MagicBook<1> on ttys000
