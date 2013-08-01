@@ -131,7 +131,7 @@ class WelcomePresenter < ApplicationPresenter
     if session[:user_name] == 'vjlayton@us.ibm.com'
       build_html do
         div.vince! do
-          img src: asset_path('godzilla.jpg')
+          img src: asset_path('sydney.jpg')
         end
       end
     end
