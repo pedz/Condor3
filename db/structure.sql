@@ -205,7 +205,8 @@ CREATE TABLE defects (
     name character varying(255) NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    cq_defect character varying(255) DEFAULT 'NONE'::character varying NOT NULL
+    cq_defect character varying(255) DEFAULT 'NONE'::character varying NOT NULL,
+    abstract character varying(255)
 );
 
 
@@ -1620,6 +1621,8 @@ INSERT INTO schema_migrations (version) VALUES ('45');
 INSERT INTO schema_migrations (version) VALUES ('46');
 
 INSERT INTO schema_migrations (version) VALUES ('47');
+
+INSERT INTO schema_migrations (version) VALUES ('48');
 
 INSERT INTO schema_migrations (version) VALUES ('5');
 
