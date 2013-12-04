@@ -109,7 +109,7 @@ class GetCmvcFromUser
       cmd: 'Report',
       family: 'aix',
       general: 'UserView',
-      where: "ccnum = '#{uid.downcase}' or ccnum = '#{uid}'",
+      where: "( ccnum = '#{uid.downcase}' OR ccnum = '#{uid}' ) AND dropDate IS NULL",
       select: "login"
     }
     
