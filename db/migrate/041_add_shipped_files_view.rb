@@ -17,6 +17,7 @@ SELECT
   lpp_id,
   package,
   package_id,
+  package_sha1,
   service_pack,
   service_pack_id,
   aix_file_sha1,
@@ -34,6 +35,7 @@ FROM
       lpp.id as lpp_id,
       p.name as package,
       p.id as package_id,
+      p.sha1 as package_sha1,
       af.sha1 as aix_file_sha1,
       fs.vrmf as vrmf
     FROM
