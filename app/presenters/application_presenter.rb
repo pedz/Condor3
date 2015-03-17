@@ -105,7 +105,7 @@ class ApplicationPresenter < Keynote::Presenter
               ol do
                 li do
                   text "Go to "
-                  a("Reqauth4Me", href: 'http://rchasa02.rchland.ibm.com/reqauth4me')
+                  a("Reqauth4Me", href: 'https://reqauth.rchland.ibm.com/Reqauth4Me/reqauth4me.do')
                 end
                 li do
                   "Pick "
