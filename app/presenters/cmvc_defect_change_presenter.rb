@@ -140,7 +140,8 @@ class CmvcDefectChangePresenter < ApplicationPresenter
       text ' '
       a("->", href: diffs_path(change.release,
                                split_path,
-                               change.sccsid))
+                               change.sccsid,
+                               change.prev_sccsid))
     end
     text ' '
     a(change.sccsid, href: src_files_path(change.release,
