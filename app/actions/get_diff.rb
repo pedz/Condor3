@@ -136,8 +136,7 @@ class GetDiff
                 prev_v.id = prev_c.versionId and \
                 prev_c.pathId = prev_p.id and \
                 prev_c.fileId = prev_f.id and \
-                prev_f.releaseId = prev_r.id and \
-                r.name >= prev_r.name \
+                prev_f.releaseId = prev_r.id \
                 ORDER BY prev_r.name DESC \
                 FETCH FIRST 1 ROW ONLY",
       select:  "prev_r.name as release, \
