@@ -67,6 +67,11 @@ class GetCmvcFromUser
   def initialize(options = {})
     @options = options.dup
 
+    # Somehow sometimes if an error is thrown late in the game, this
+    # comes out with the wrong type.  So call it early and cache up
+    # the value.
+    cmd_result
+    
     begin
       if user.nil?
         @cmd_result = cmd_result.new(stderr: "User not found")
