@@ -67,11 +67,6 @@ class GetCmvcFromUser
   def initialize(options = {})
     @options = options.dup
 
-    # Somehow sometimes if an error is thrown late in the game, this
-    # comes out with the wrong type.  So call it early and cache up
-    # the value.
-    cmd_result
-    
     begin
       if user.nil?
         @cmd_result = cmd_result.new(stderr: "User not found")
@@ -127,6 +122,12 @@ class GetCmvcFromUser
     @cmd_result.stdout.chomp! unless @cmd_result.stdout.nil?
     # CMVC login must not be blank
     if stdout.blank?
+      # My nifty pattern doesn't work here.  cmd_result has been set
+      # above to an execute_cmvc_command but that isn't going to be
+      # the final result of this command.  So we nuke it so a fresh
+      # cmd_result is created.  Note that this call to cmd_result will
+      # actually be the first and only call to cmd_result.
+      @cmd_result = nil
       @cmd_result = cmd_result.new(stderr: "CMVC search for ccnum = #{uid} returned no results")
       return
     end
@@ -142,7 +143,7 @@ class GetCmvcFromUser
   end
 
   def cmd_result
-    @cmd_result ||= @options.delete(:cmd_result) || CmdResult
+    @cmd_result ||= (@options.delete(:cmd_result) || CmdResult)
   end
 
   # Not used yet
