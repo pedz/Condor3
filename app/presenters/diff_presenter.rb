@@ -79,10 +79,21 @@ P1
     end
     div id: which do
       @last_num = nil
+
+      length = lines.length
+      digits = 1
+      while (length > 0)
+        length /= 10
+        digits += 1
+      end
+
+      lineno = 0
+      fmt = "%#{digits}d|%s"
       lines.each do |type, num, line_id|
         attr_hash = { class: "code #{type.gsub(/_/, '-')}"}
         if line_id
-          line = line_id
+          lineno += 1
+          line = fmt % [ lineno, line_id ]
         else
           line = " "
         end

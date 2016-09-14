@@ -30,11 +30,31 @@ class SrcFilePresenter < ApplicationPresenter
     if error.blank?
       build_html do
         pre.src_file do
-          lines
+          lines_with_line_numbers
         end
       end
     else
       error_block(error)
     end
+  end
+
+  private
+
+  # This isn't cheap :-(
+  def lines_with_line_numbers
+    temp_lines = lines.split("\n")
+    length = temp_lines.length
+    digits = 1
+    while (length > 0)
+      length /= 10
+      digits += 1
+    end
+
+    lineno = 0
+    fmt = "%#{digits}d|%s"
+    temp_lines.map do |line|
+      lineno += 1
+      fmt % [lineno, line]
+    end.join("\n")
   end
 end
