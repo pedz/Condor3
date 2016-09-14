@@ -71,7 +71,8 @@ class GetSrcFile
 
       cmd = execute_cmvc_command.new(exec_params)
       if (cmd.rc == 0)
-        @lines = cmd.stdout
+        # @lines = cmd.stdout
+        @lines = add_line_numbers(cmd.stdout)
 
         # Need to do something with rc
         rc = cache.write(dalli_params, @lines)
@@ -91,5 +92,23 @@ class GetSrcFile
 
   def cache
     @cache ||= @options[:cache] || Condor3::Application.config.my_dalli
+  end
+
+  # This isn't cheap :-(
+  def add_line_numbers(src)
+    lines = src.split("\n")
+    length = lines.length
+    digits = 1
+    while (length > 0)
+      length /= 10
+      digits += 1
+    end
+
+    lineno = 0
+    fmt = "%#{digits}d|%s"
+    lines.map do |line|
+      lineno += 1
+      fmt % [lineno, line]
+    end.join("\n")
   end
 end
