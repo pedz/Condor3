@@ -2,7 +2,7 @@
 #
 # Intended to be sourced actually
 #
-prvm_use ruby-1.9.3-p194
+prvm_use ruby-2.3.1
 export PGDATABASE=condor3_development
 
 function run-jasmine

@@ -31,7 +31,8 @@ end
 group :development, :test do
   gem 'aruba'
   gem 'capybara'
-  gem 'capybara-webkit'
+  # I'm going to take this out for now.
+  # gem 'capybara-webkit'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
