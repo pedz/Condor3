@@ -8,16 +8,16 @@ require 'spec_helper'
 describe GetDiff do
   let(:local_cache) {
     double('local_cache').tap do |d|
-      d.stub(:read) { nil }
-      d.stub(:write) { true }
+      allow(d).to receive(:read) { nil }
+      allow(d).to receive(:write) { true }
     end
   }
 
   let(:execute_cmvc_command) do
     double("execute_cmvc_command").tap do |d|
-      d.stub(:new) do |options|
-        options.should include(cmd: "Report")
-        options[:where].should include(src_file_options[:path])
+      allow(d).to receive(:new) do |options|
+        expect(options).to include(cmd: "Report")
+        expect(options[:where]).to include(src_file_options[:path])
         # Return an error to get the processing to stop
         OpenStruct.new(rc: 1, stderr: "mess")
       end
@@ -34,10 +34,10 @@ describe GetDiff do
 
   let(:get_src_file) do
     double("get_src_file").tap do |d|
-      d.stub(:new) do |options|
-        options.should include(path: src_file_options[:path])
-        options.should include(release: src_file_options[:release])
-        options.should include(:version)
+      allow(d).to receive(:new) do |options|
+        expect(options).to include(path: src_file_options[:path])
+        expect(options).to include(release: src_file_options[:release])
+        expect(options).to include(:version)
         case options[:version]
         when "1.2.2"
           OpenStruct.new(error: "bad file")
@@ -54,9 +54,9 @@ describe GetDiff do
   
   let(:src_file_diff) do
     double("src_file_diff").tap do |d|
-      d.stub(:new) do |l1, l2|
-        l1.should eq(lines1.split("\n"))
-        l2.should eq(lines2.split("\n"))
+      allow(d).to receive(:new) do |l1, l2|
+        expect(l1).to eq(lines1.split("\n"))
+        expect(l2).to eq(lines2.split("\n"))
         OpenStruct.new(old_seq: "old_seq", new_seq: "new_seq", diff_count: 3)
       end
     end
@@ -79,20 +79,20 @@ describe GetDiff do
     temp = src_file_options.dup
     temp.delete(:prev_version)
     d = GetDiff.new(temp)
-    d.error.should match("mess")
+    expect(d.error).to match("mess")
   end
 
   it "should get the source files and report back errors if any" do
     d = GetDiff.new(src_file_options.merge(prev_version: "1.2.2"))
-    d.error.should match("bad file")
+    expect(d.error).to match("bad file")
     d = GetDiff.new(src_file_options.merge(version: "1.2.2"))
-    d.error.should match("bad file")
+    expect(d.error).to match("bad file")
   end
 
   it "should create a diff of the files" do
     d = GetDiff.new(src_file_options)
-    d.old_seq.should eq("old_seq")
-    d.new_seq.should eq("new_seq")
-    d.diff_count.should eq(3)
+    expect(d.old_seq).to eq("old_seq")
+    expect(d.new_seq).to eq("new_seq")
+    expect(d.diff_count).to eq(3)
   end
 end

@@ -8,10 +8,10 @@ require "spec_helper"
 describe 'src_files/show' do
   it "should show the source file" do
     presenter = double("presenter")
-    view.stub(:presenter).and_return(presenter)
-    presenter.should_receive(:show_file).once
+    allow(view).to receive(:presenter).and_return(presenter)
+    expect(presenter).to receive(:show_file).once
       .and_return("<pre class='src-file'></pre>".html_safe)
     render
-    rendered.should have_css("pre.src-file")
+    expect(rendered).to have_css("pre.src-file")
   end
 end

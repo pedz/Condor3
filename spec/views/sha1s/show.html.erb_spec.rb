@@ -8,10 +8,10 @@ require "spec_helper"
 describe 'sha1s/show' do
   it "should show the table and results" do
     presenter = double("presenter")
-    view.stub(:presenter).and_return(presenter)
-    presenter.should_receive(:show_table).once
+    allow(view).to receive(:presenter).and_return(presenter)
+    expect(presenter).to receive(:show_table).once
       .and_return("<table class='sha1s'></table>".html_safe)
     render
-    rendered.should have_css("table.sha1s")
+    expect(rendered).to have_css("table.sha1s")
   end
 end

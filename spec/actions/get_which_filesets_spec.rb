@@ -8,8 +8,8 @@ require 'spec_helper'
 describe GetWhichFilesets do
   let(:local_cache) {
     double('local_cache').tap do |d|
-      d.stub(:read) { nil }
-      d.stub(:write) { true }
+      allow(d).to receive(:read) { nil }
+      allow(d).to receive(:write) { true }
     end
   }
 
@@ -23,11 +23,11 @@ describe GetWhichFilesets do
   }
 
   it "should search model for path" do
-    local_model.stub(:find) do |all, options|
+    allow(local_model).to receive(:find) do |all, options|
       base = typical_options[:path]
-      all.should be(:all)
-      options[:order].should eq('path')
-      options[:conditions].should match("basename\\(path\\) = basename\\('#{typical_options[:path]}'\\)")
+      expect(all).to be(:all)
+      expect(options[:order]).to eq('path')
+      expect(options[:conditions]).to match("basename\\(path\\) = basename\\('#{typical_options[:path]}'\\)")
       r = []
       filesets = FactoryGirl.build_list(:fileset, 12)
       [
@@ -47,8 +47,8 @@ describe GetWhichFilesets do
       r
     end
     get_which_filesets = GetWhichFilesets.new(typical_options)
-    get_which_filesets.path.should eq(typical_options[:path])
-    get_which_filesets.paths.should be_a(Hash)
-    get_which_filesets.paths.keys.should have(4).items
+    expect(get_which_filesets.path).to eq(typical_options[:path])
+    expect(get_which_filesets.paths).to be_a(Hash)
+    expect(get_which_filesets.paths.keys).to have(4).items
   end
 end

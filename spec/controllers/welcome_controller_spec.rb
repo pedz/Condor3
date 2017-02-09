@@ -11,13 +11,13 @@ describe WelcomeController do
 
   describe "GET index" do
     it "should require authentication" do
-      controller.unstub(:authenticate)
+      allow(controller).to receive(:authenticate).and_call_original
       get :index
-      response.should_not be_success
+      expect(response).to_not be_success
     end
 
     it "should pass the new model to create_presenter" do
-      controller.should_receive(:create_presenter).with(presenter)
+      expect(controller).to receive(:create_presenter).with(presenter)
       get :index
     end
   end

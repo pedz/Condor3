@@ -92,13 +92,13 @@ describe DiffPresenter do
 
   let(:get_diff) do
     double("GetDiff").tap do |d|
-      d.stub(:error).and_return(nil)
-      d.stub(:old_seq).and_return(old_seq)
-      d.stub(:old_file).and_return(old_file)
-      d.stub(:new_seq).and_return(new_seq)
-      d.stub(:new_file).and_return(new_file)
-      d.stub(:diff_count).and_return(diff_count)
-      d.stub(:page_params).and_return(page_params)
+      allow(d).to receive(:error).and_return(nil)
+      allow(d).to receive(:old_seq).and_return(old_seq)
+      allow(d).to receive(:old_file).and_return(old_file)
+      allow(d).to receive(:new_seq).and_return(new_seq)
+      allow(d).to receive(:new_file).and_return(new_file)
+      allow(d).to receive(:diff_count).and_return(diff_count)
+      allow(d).to receive(:page_params).and_return(page_params)
     end
   end
 
@@ -110,38 +110,38 @@ describe DiffPresenter do
 
   it "should present the controller section" do
     markup = Capybara.string(subject.show_controls)
-    markup.should have_selector("button#prev-diff")
-    markup.should have_selector("span#hunk-index")
-    markup.should have_selector("span#hunk-count")
-    markup.should have_selector("button#next-diff")
+    expect(markup).to have_selector("button#prev-diff")
+    expect(markup).to have_selector("span#hunk-index")
+    expect(markup).to have_selector("span#hunk-count")
+    expect(markup).to have_selector("button#next-diff")
   end
 
   it "should present the file changes" do
     markup = Capybara.string(subject.show_changes)
     markup.find('div#top-title-table div#top-title').tap do |f|
-      f.text.should match(release)
-      f.text.should match(path)
-      f.text.should match(prev_version)
+      expect(f.text).to match(release)
+      expect(f.text).to match(path)
+      expect(f.text).to match(prev_version)
     end
     markup.find('div#top').tap do |top|
       %w[ pre.code pre.match pre.discard-a pre.discard-b pre.change].each do |klass|
-        top.should have_selector(klass)
+        expect(top).to have_selector(klass)
       end
       (1 .. diff_count).each do |cnt|
-        top.should have_selector("pre\#diff-top-#{cnt}")
+        expect(top).to have_selector("pre\#diff-top-#{cnt}")
       end
     end
     markup.find('div#bot-title-table div#bot-title').tap do |f|
-      f.text.should match(release)
-      f.text.should match(path)
-      f.text.should match(version)
+      expect(f.text).to match(release)
+      expect(f.text).to match(path)
+      expect(f.text).to match(version)
     end
     markup.find('div#bot').tap do |bot|
       %w[ pre.code pre.match pre.discard-a pre.discard-b pre.change].each do |klass|
-        bot.should have_selector(klass)
+        expect(bot).to have_selector(klass)
       end
       (1 .. diff_count).each do |cnt|
-        bot.should have_selector("pre\#diff-bot-#{cnt}")
+        expect(bot).to have_selector("pre\#diff-bot-#{cnt}")
       end
     end
   end

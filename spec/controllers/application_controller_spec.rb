@@ -16,57 +16,57 @@ describe ApplicationController do
     let(:test_user_name) { 'test_user' }
     let(:test_user) do
       double("user").tap do |d|
-        d.stub(:id) { test_user_id }
-        d.stub(:touch)
-        d.stub(:ldap_id) { test_user_name }
-        d.stub(:ldap_id=) { |arg| arg }
-        d.stub(:save!) { true }
+        allow(d).to receive(:id) { test_user_id }
+        allow(d).to receive(:touch)
+        allow(d).to receive(:ldap_id) { test_user_name }
+        allow(d).to receive(:ldap_id=) { |arg| arg }
+        allow(d).to receive(:save!) { true }
       end
     end
 
     before(:each) do
-      controller.unstub(:authenticate)
+      allow(controller).to receive(:authenticate).and_call_original
 
       # Set up User to catch the call to find
-      User.stub(:find) do |first, args|
-        first.should eq(:first)
-        args.should include(:conditions)
-        args[:conditions].should include(id: test_user_id)
+      allow(User).to receive(:find) do |first, args|
+        expect(first).to eq(:first)
+        expect(args).to include(:conditions)
+        expect(args[:conditions]).to include(id: test_user_id)
         test_user
       end
 
       # And the call to find_by_ldap_id
-      User.stub(:find_by_ldap_id) do |name|
-        name.should eq(test_user_name)
+      allow(User).to receive(:find_by_ldap_id) do |name|
+        expect(name).to eq(test_user_name)
         test_user
       end
 
       # Make sure that get_user param works.  This could be a separate
       # test but may as well ensure that it works in all the various
       # paths
-      controller.stub(:index) do
-        controller.params.should include(:get_user)
-        controller.params[:get_user].should be_a(Proc)
-        controller.params[:get_user].call.should eq(test_user)
+      allow(controller).to receive(:index) do
+        expect(controller.params).to include(:get_user)
+        expect(controller.params[:get_user]).to be_a(Proc)
+        expect(controller.params[:get_user].call).to eq(test_user)
         controller.render text: "Hello World"
       end
     end
 
     it "should require authentication" do
       get :index
-      response.should_not be_success
+      expect(response).to_not be_success
     end
 
     it "should accept REMOTE_USER from environment" do
       request.env['REMOTE_USER'] = test_user_name
       get :index
-      response.should be_success
+      expect(response).to be_success
     end
 
     it "should accept HTTP_X_FORWARDED_USER from environment" do
       request.env['HTTP_X_FORWARDED_USER'] = test_user_name
       get :index
-      response.should be_success
+      expect(response).to be_success
     end
 
     describe "when using http basic authentication" do
@@ -78,18 +78,18 @@ describe ApplicationController do
       end
 
       it "should pass if ldap authentication passes" do
-        LdapUser.should_receive(:authenticate_from_email) do |user, password|
+        expect(LdapUser).to receive(:authenticate_from_email) do |user, password|
           user == test_user_name && password == test_user_password
         end
 
         get :index
-        response.should be_success
+        expect(response).to be_success
       end
 
       it "should fail if ldap authentication fails" do
-        LdapUser.should_receive(:authenticate_from_email).and_return(false)
+        expect(LdapUser).to receive(:authenticate_from_email).and_return(false)
         get :index
-        response.should_not be_success
+        expect(response).to_not be_success
       end
     end
 
@@ -103,34 +103,34 @@ describe ApplicationController do
 
       it "should accept a valid session" do
         get :index
-        response.should be_success
+        expect(response).to be_success
       end
 
       it "should reject a stale session" do
         session[:tod] = 5.days.ago
         get :index
-        response.should_not be_success
+        expect(response).to_not be_success
       end
 
       it "should reject a session without the authenticated key" do
         session.delete(:authenticated)
         get :index
-        response.should_not be_success
+        expect(response).to_not be_success
       end
 
       it "should reject a session without the user_id key" do
         session.delete(:user_id)
         get :index
-        response.should_not be_success
+        expect(response).to_not be_success
       end
     end
 
     it "should create a new user if necessary" do
-      User.should_receive(:find_by_ldap_id) { nil }
-      User.should_receive(:new) { test_user }
+      expect(User).to receive(:find_by_ldap_id) { nil }
+      expect(User).to receive(:new) { test_user }
       request.env['HTTP_X_FORWARDED_USER'] = test_user_name
       get :index
-      response.should be_success
+      expect(response).to be_success
     end
   end
 end

@@ -12,20 +12,20 @@ describe GetCmvcFromUser do
 
   it "should error off when no get_user option supplied" do
     get_cmvc_from_user = GetCmvcFromUser.new
-    get_cmvc_from_user.rc.should eq(1)
-    get_cmvc_from_user.stderr.should match(/Exception encountered when fetching user/)
+    expect(get_cmvc_from_user.rc).to eq(1)
+    expect(get_cmvc_from_user.stderr).to match(/Exception encountered when fetching user/)
   end
 
   it "should error off when get_user option returns nil" do
     get_cmvc_from_user = GetCmvcFromUser.new get_user: -> { nil }
-    get_cmvc_from_user.rc.should eq(1)
-    get_cmvc_from_user.stderr.should eq("User not found")
+    expect(get_cmvc_from_user.rc).to eq(1)
+    expect(get_cmvc_from_user.stderr).to eq("User not found")
   end
 
   it "should error off when get_user raises an exception" do
     get_cmvc_from_user = GetCmvcFromUser.new get_user: -> { raise "a hullabaloo" }
-    get_cmvc_from_user.rc.should eq(1)
-    get_cmvc_from_user.stderr.should match(/Exception encountered when fetching user/)
+    expect(get_cmvc_from_user.rc).to eq(1)
+    expect(get_cmvc_from_user.stderr).to match(/Exception encountered when fetching user/)
   end
 
   context "with a get_user option producing a complete user" do
@@ -36,8 +36,8 @@ describe GetCmvcFromUser do
 
     it "should set rc = 0 and stdout to the cmvc user when user model has valid cmvc" do
       get_cmvc_from_user = GetCmvcFromUser.new get_user: get_user_proc
-      get_cmvc_from_user.rc.should eq(0)
-      get_cmvc_from_user.stdout.should eq("test_user")
+      expect(get_cmvc_from_user.rc).to eq(0)
+      expect(get_cmvc_from_user.stdout).to eq("test_user")
     end
   end
 
@@ -45,8 +45,8 @@ describe GetCmvcFromUser do
     get_cmvc_from_user = GetCmvcFromUser.new get_user: -> do
       Struct.new(:cmvc_login, :ldap).new(nil, nil)
     end
-    get_cmvc_from_user.rc.should eq(1)
-    get_cmvc_from_user.stderr.should eq("User does not have LDAP entry")
+    expect(get_cmvc_from_user.rc).to eq(1)
+    expect(get_cmvc_from_user.stderr).to eq("User does not have LDAP entry")
   end
 
   context "ldap of the user model" do
@@ -56,44 +56,44 @@ describe GetCmvcFromUser do
         Struct.new(:cmvc_login, :ldap).new(nil, ldap)
       end
       get_cmvc_from_user = GetCmvcFromUser.new( get_user: get_user_proc)
-      get_cmvc_from_user.rc.should eq(1)
-      get_cmvc_from_user.stderr.should eq("User's uid field in LDAP is blank or missing")
+      expect(get_cmvc_from_user.rc).to eq(1)
+      expect(get_cmvc_from_user.stderr).to eq("User's uid field in LDAP is blank or missing")
     end
 
     it "should fail if ldap for user does not have a uid attribute" do
       get_user_proc = -> do
-        ldap = double("ldap").stub(:attribute_present?) { false }
+        allow(ldap = double("ldap")).to receive(:attribute_present?) { false }
         Struct.new(:cmvc_login, :ldap).new(nil, ldap)
       end
       get_cmvc_from_user = GetCmvcFromUser.new(get_user: get_user_proc)
-      get_cmvc_from_user.rc.should eq(1)
-      get_cmvc_from_user.stderr.should eq("User's uid field in LDAP is blank or missing")
+      expect(get_cmvc_from_user.rc).to eq(1)
+      expect(get_cmvc_from_user.stderr).to eq("User's uid field in LDAP is blank or missing")
     end
 
     it "should fail if ldap for user does not have a uid" do
       get_user_proc = -> do
         ldap = double("ldap").tap do |l|
-          l.stub(:attribute_present?) { true }
-          l.stub(:uid) { nil }
+          allow(l).to receive(:attribute_present?) { true }
+          allow(l).to receive(:uid) { nil }
         end
         Struct.new(:cmvc_login, :ldap).new(nil, ldap)
       end
       get_cmvc_from_user = GetCmvcFromUser.new(get_user: get_user_proc)
-      get_cmvc_from_user.rc.should eq(1)
-      get_cmvc_from_user.stderr.should eq("User's uid field in LDAP is blank or missing")
+      expect(get_cmvc_from_user.rc).to eq(1)
+      expect(get_cmvc_from_user.stderr).to eq("User's uid field in LDAP is blank or missing")
     end
 
     it "should fail if ldap for user has a uid but is blank" do
       get_user_proc = -> do
         ldap = double("ldap").tap do |l|
-          l.stub(:attribute_present?) { true }
-          l.stub(:uid) { " " }
+          allow(l).to receive(:attribute_present?) { true }
+          allow(l).to receive(:uid) { " " }
         end
         Struct.new(:cmvc_login, :ldap).new(nil, ldap)
       end
       get_cmvc_from_user = GetCmvcFromUser.new(get_user: get_user_proc)
-      get_cmvc_from_user.rc.should eq(1)
-      get_cmvc_from_user.stderr.should eq("User's uid field in LDAP is blank or missing")
+      expect(get_cmvc_from_user.rc).to eq(1)
+      expect(get_cmvc_from_user.stderr).to eq("User's uid field in LDAP is blank or missing")
     end
   end
 
@@ -101,29 +101,29 @@ describe GetCmvcFromUser do
     stub_const("CmvcHost::BootstrapCmvcUser", " ")
     get_user_proc = -> do
         ldap = double("ldap").tap do |l|
-          l.stub(:attribute_present?) { true }
-          l.stub(:uid) { "123" }
+          allow(l).to receive(:attribute_present?) { true }
+          allow(l).to receive(:uid) { "123" }
         end
       Struct.new(:cmvc_login, :ldap).new(nil, ldap)
     end
     get_cmvc_from_user = GetCmvcFromUser.new(get_user: get_user_proc)
-    get_cmvc_from_user.rc.should eq(1)
-    get_cmvc_from_user.stderr.should eq("No bootstrap CMVC user set up")
+    expect(get_cmvc_from_user.rc).to eq(1)
+    expect(get_cmvc_from_user.stderr).to eq("No bootstrap CMVC user set up")
   end
 
   context "with valid arguments" do
     before(:each) do
       @rc = 0
       @execute_cmvc_command_class = double("execute_cmvc_command_class").tap do |e|
-        e.stub(:new) do |options|
+        allow(e).to receive(:new) do |options|
           @options = options
           Struct.new(:stdout, :stderr, :rc, :signal).new("test_user", "stderr", @rc, "signal")
         end
       end
       
       @ldap = double("ldap").tap do |l|
-        l.stub(:attribute_present?) { true }
-        l.stub(:uid) { "123" }
+        allow(l).to receive(:attribute_present?) { true }
+        allow(l).to receive(:uid) { "123" }
       end
       @user_temp = Struct.new(:cmvc_login, :ldap).new(nil, @ldap)
       @get_user_proc = -> do
@@ -142,14 +142,14 @@ describe GetCmvcFromUser do
       end
     
       it "should return values from the execute_cmvc_command" do
-        @get_cmvc_from_user.rc.should eq(0)
-        @get_cmvc_from_user.stdout.should eq("test_user")
-        @get_cmvc_from_user.stderr.should eq("stderr")
-        @get_cmvc_from_user.signal.should eq("signal")
+        expect(@get_cmvc_from_user.rc).to eq(0)
+        expect(@get_cmvc_from_user.stdout).to eq("test_user")
+        expect(@get_cmvc_from_user.stderr).to eq("stderr")
+        expect(@get_cmvc_from_user.signal).to eq("signal")
       end
     
       it "should assign stdout to cmvc_login" do
-        @user_temp.cmvc_login.should eq("test_user")
+        expect(@user_temp.cmvc_login).to eq("test_user")
       end
     end
 
@@ -165,14 +165,14 @@ describe GetCmvcFromUser do
       end
 
       it "should return values from the execute_cmvc_command" do
-        @get_cmvc_from_user.rc.should eq(1)
-        @get_cmvc_from_user.stdout.should eq("test_user")
-        @get_cmvc_from_user.stderr.should eq("stderr")
-        @get_cmvc_from_user.signal.should eq("signal")
+        expect(@get_cmvc_from_user.rc).to eq(1)
+        expect(@get_cmvc_from_user.stdout).to eq("test_user")
+        expect(@get_cmvc_from_user.stderr).to eq("stderr")
+        expect(@get_cmvc_from_user.signal).to eq("signal")
       end
     
       it "should not assign stdout to cmvc_login" do
-        @user_temp.cmvc_login.should be_nil
+        expect(@user_temp.cmvc_login).to be_nil
       end
     end
   end

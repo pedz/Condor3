@@ -9,17 +9,17 @@ describe "layouts/application" do
   it "adds the header tags into the header" do
     presenter = double('presenter')
     # Title called twice
-    presenter.should_receive(:page_title).and_return('The Title'.html_safe)
-    presenter.should_receive(:header_tags).and_return('<span>Howdy</span>'.html_safe)
-    presenter.should_receive(:help_button).and_return('<div>Very Helpful</div>'.html_safe)
-    presenter.should_receive(:home_button).and_return('Home'.html_safe)
-    presenter.should_receive(:title_heading).and_return('Title Heading'.html_safe)
-    view.stub(:presenter).and_return(presenter)
+    expect(presenter).to receive(:page_title).and_return('The Title'.html_safe)
+    expect(presenter).to receive(:header_tags).and_return('<span>Howdy</span>'.html_safe)
+    expect(presenter).to receive(:help_button).and_return('<div>Very Helpful</div>'.html_safe)
+    expect(presenter).to receive(:home_button).and_return('Home'.html_safe)
+    expect(presenter).to receive(:title_heading).and_return('Title Heading'.html_safe)
+    allow(view).to receive(:presenter).and_return(presenter)
     render
-    rendered.should have_content('The Title')
-    rendered.should have_content('Howdy')
-    rendered.should have_content('Very Helpful')
-    rendered.should have_content('Home')
-    rendered.should have_content('Title Heading')
+    expect(rendered).to have_content('The Title')
+    expect(rendered).to have_content('Howdy')
+    expect(rendered).to have_content('Very Helpful')
+    expect(rendered).to have_content('Home')
+    expect(rendered).to have_content('Title Heading')
   end
 end

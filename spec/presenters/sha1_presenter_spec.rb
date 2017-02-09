@@ -12,8 +12,8 @@ describe Sha1Presenter do
 
   let(:sha1) {
     double("Sha1").tap do |d|
-      d.stub(:sha1).and_return(sha1_sample)
-      d.stub(:shipped_files).and_return(data)
+      allow(d).to receive(:sha1).and_return(sha1_sample)
+      allow(d).to receive(:shipped_files).and_return(data)
     end
   }
 
@@ -25,14 +25,14 @@ describe Sha1Presenter do
 
   it "should present the table" do
     markup = Capybara.string(subject.show_table)
-    markup.should have_selector("table.sha1s thead")
-    markup.should have_selector("table.sha1s tbody")
+    expect(markup).to have_selector("table.sha1s thead")
+    expect(markup).to have_selector("table.sha1s tbody")
   end
 
   it "should present a div when no hits are returned" do
-    sha1.stub(:shipped_files).and_return({})
+    allow(sha1).to receive(:shipped_files).and_return({})
     s = subject.show_table
     markup = Capybara.string(s)
-    markup.should have_selector("div.sha1s span")
+    expect(markup).to have_selector("div.sha1s span")
   end
 end

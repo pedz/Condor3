@@ -16,13 +16,15 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
-  require 'rspec/autorun'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   RSpec.configure do |config|
+    config.infer_spec_type_from_file_location!
+    config.include Capybara::DSL
+
     # ## Mock Framework
     #
     # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -52,20 +54,22 @@ Spork.prefork do
 
     config.include RSpec::CapybaraExtensions, type: :view
 
-    config.include RSpec::Rails::ViewExampleGroup, type: :presenter, example_group: {
-      file_path: config.escaped_path(%w[spec presenters])
-    }
+    config.include RSpec::Rails::ViewExampleGroup, type: :presenter
+    config.define_derived_metadata(:file_path => /spec\/input/) do |metadata|
+      metadata[:type] ||= :presenter
+    end
 
     # The following three items set up specs for the asset pipeline
-    config.include RSpec::Rails::AssetExampleGroup, type: :asset, example_group: {
-      file_path: config.escaped_path(%w[spec assets])
-    }
+    config.include RSpec::Rails::AssetExampleGroup, type: :asset
+    config.define_derived_metadata(:file_path => /spec\/input/) do |metadata|
+      metadata[:type] ||= :asset
+    end
 
     # Not 100% sure I want to do this.  The thought is that, in
     # general, the controller testing is after any authentication and
     # the authentication will be tested explicitly.
     config.before(:each, type: :controller) do
-      controller.stub(:authenticate) { true }
+      allow(controller).to receive(:authenticate).and_return(true)
     end
   
     config.before(:each, type: :asset) do

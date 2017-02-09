@@ -8,8 +8,8 @@ require 'spec_helper'
 describe GetSha1s do
   let(:local_cache) {
     double('local_cache').tap do |d|
-      d.stub(:read) { nil }
-      d.stub(:write) { true }
+      allow(d).to receive(:read) { nil }
+      allow(d).to receive(:write) { true }
     end
   }
 
@@ -25,14 +25,14 @@ describe GetSha1s do
   }
 
   it "should search model for requested sha1" do
-    local_model.stub(:find) do |all, options|
-      all.should be(:all)
-      options[:conditions][:aix_file_sha1].should eq(sample_sha1)
+    allow(local_model).to receive(:find) do |all, options|
+      expect(all).to be(:all)
+      expect(options[:conditions][:aix_file_sha1]).to eq(sample_sha1)
       FactoryGirl.build_list(:shipped_file, 10)
     end
     get_sha1s = GetSha1s.new(typical_options)
-    get_sha1s.sha1.should eq(sample_sha1)
-    get_sha1s.shipped_files.should be_a(Array)
-    get_sha1s.shipped_files.should have(10).items
+    expect(get_sha1s.sha1).to eq(sample_sha1)
+    expect(get_sha1s.shipped_files).to be_a(Array)
+    expect(get_sha1s.shipped_files).to have(10).items
   end
 end

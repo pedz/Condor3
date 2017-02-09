@@ -7,19 +7,19 @@
 # variable cmd_result is passed in
 shared_examples_for "a cmd_result" do
   it "should implement `stdout'" do
-    cmd_result.should respond_to(:stdout)
+    expect(cmd_result).to respond_to(:stdout)
   end
 
   it "should implement `stderr'" do
-    cmd_result.should respond_to(:stderr)
+    expect(cmd_result).to respond_to(:stderr)
   end
 
   it "should implement `rc'" do
-    cmd_result.should respond_to(:rc)
+    expect(cmd_result).to respond_to(:rc)
   end
 
   it "should implement `signal'" do
-    cmd_result.should respond_to(:signal)
+    expect(cmd_result).to respond_to(:signal)
   end
 end
 
@@ -47,18 +47,18 @@ end
 # variable user is passed in
 shared_examples_for "a user" do
   it "should respond to cmvc_login" do
-    user.should respond_to(:cmvc_login)
+    expect(user).to respond_to(:cmvc_login)
   end
   
   it "should return a string when cmvc_login is called" do
-    user.cmvc_login.should be_a(String)
+    expect(user.cmvc_login).to be_a(String)
   end
 end
 
 # variable get_user is passed in
 shared_examples_for "get_user option" do
   it "should respond to `call'" do
-    get_user.should respond_to(:call)
+    expect(get_user).to respond_to(:call)
   end
 
   describe "when called should produce a valid user" do

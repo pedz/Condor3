@@ -7,7 +7,7 @@
 
 FactoryGirl.define do
   factory :apar_defect_version_map, aliases: [ :adv ] do
-    ignore do
+    transient do
       dname nil
       aname nil
       vname nil

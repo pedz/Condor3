@@ -11,30 +11,30 @@ describe ApplicationPresenter do
 
   it "should provide the header_tags" do
     markup = subject.header_tags
-    markup.should =~ /favicon/
+    expect(markup).to match(/favicon/)
   end
 
   it "should provide a home button" do
     markup = subject.home_button
-    markup.should =~ /Home/
+    expect(markup).to match(/Home/)
   end
   
   it "should create a help buttong yielding to block" do
-    subject.should_receive(:help_text).and_return("<div>Wow</div>".html_safe)
+    expect(subject).to receive(:help_text).and_return("<div>Wow</div>".html_safe)
     markup = subject.help_button
     markup =~ /Wow/
   end
 
   it "should provide a title heading which calls `page_title' in child class" do
-    subject.should_receive(:page_title).and_return('child title')
+    expect(subject).to receive(:page_title).and_return('child title')
     markup = subject.title_heading
-    markup.should =~ /child title/
+    expect(markup).to match(/child title/)
   end
 
   describe "block_error" do
     it "should return back a div" do
       ret = Capybara.string(subject.send(:error_block, "some error"))
-      ret.should have_selector('div.center_error_block', text: "some error")
+      expect(ret).to have_selector('div.center_error_block', text: "some error")
     end
     
     it "should modify the login error" do
@@ -44,7 +44,7 @@ describe ApplicationPresenter do
         before the login on the specified host can access
         the CMVC server software.  "
       ret = Capybara.string(subject.send(:error_block, err))
-      ret.should have_selector('div.error_block', text: "0010-057")
+      expect(ret).to have_selector('div.error_block', text: "0010-057")
     end
   end
 end

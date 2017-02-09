@@ -11,18 +11,18 @@ describe "welcome/index.html.erb" do
     # The 2nd argument is the path.  We don't want to test what it is.
     # The fact that the view can make the call says that the path is
     # valid.
-    presenter.stub(:welcome_form) do |a, b, c, d|
+    allow(presenter).to receive(:welcome_form) do |a, b, c, d|
       "#{a} #{c} '#{d}'".html_safe
     end
-    presenter.should_receive(:welcome_form).exactly(6)
-    presenter.stub(:vince)
-    view.stub(:presenter).and_return(presenter)
+    expect(presenter).to receive(:welcome_form).exactly(6)
+    allow(presenter).to receive(:vince)
+    allow(view).to receive(:presenter).and_return(presenter)
     render
-    rendered.should have_content("swinfo item 'swinfo'")
-    rendered.should have_content("which-filesets path 'which fileset'")
-    rendered.should have_content("sha1s sha1 'sha1'")
-    rendered.should have_content("cmvc-defects cmvc_defect 'cmvc defect'")
-    rendered.should have_content("cmvc-changes cmvc_change 'cmvc defect changes'")
-    rendered.should have_content("file-changes file 'file change history'")
+    expect(rendered).to have_content("swinfo item 'swinfo'")
+    expect(rendered).to have_content("which-filesets path 'which fileset'")
+    expect(rendered).to have_content("sha1s sha1 'sha1'")
+    expect(rendered).to have_content("cmvc-defects cmvc_defect 'cmvc defect'")
+    expect(rendered).to have_content("cmvc-changes cmvc_change 'cmvc defect changes'")
+    expect(rendered).to have_content("file-changes file 'file change history'")
   end
 end

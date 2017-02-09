@@ -8,10 +8,10 @@ require "spec_helper"
 describe 'cmvc_defects/show' do
   it "should show the defect" do
     presenter = double("presenter")
-    view.stub(:presenter).and_return(presenter)
-    presenter.should_receive(:show_defect).once
+    allow(view).to receive(:presenter).and_return(presenter)
+    expect(presenter).to receive(:show_defect).once
       .and_return("<pre class='cmvc-defects'></pre>".html_safe)
     render
-    rendered.should have_css("pre.cmvc-defects")
+    expect(rendered).to have_css("pre.cmvc-defects")
   end
 end

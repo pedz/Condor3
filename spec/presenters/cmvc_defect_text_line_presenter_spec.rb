@@ -14,10 +14,10 @@ describe CmvcDefectTextLinePresenter do
 
   let(:get_cmvc_defect_text_lines) do
     double("GetCmvcDefectTextLines").tap do |d|
-      d.stub(:error).and_return(nil)
-      d.stub(:type).and_return("Defect")
-      d.stub(:defect_name).and_return(defect_name)
-      d.stub(:lines).and_return(defect_text)
+      allow(d).to receive(:error).and_return(nil)
+      allow(d).to receive(:type).and_return("Defect")
+      allow(d).to receive(:defect_name).and_return(defect_name)
+      allow(d).to receive(:lines).and_return(defect_text)
     end
   end
 
@@ -29,13 +29,13 @@ describe CmvcDefectTextLinePresenter do
 
   it "should present the text if no errors" do
     markup = Capybara.string(subject.show_defect)
-    markup.should have_selector("pre.cmvc_defect")
-    markup.find("pre.cmvc_defect").should have_content(defect_text)
+    expect(markup).to have_selector("pre.cmvc_defect")
+    expect(markup.find("pre.cmvc_defect")).to have_content(defect_text)
   end
 
   it "should present the error when there is one" do
-    get_cmvc_defect_text_lines.stub(:error).and_return(defect_error)
+    allow(get_cmvc_defect_text_lines).to receive(:error).and_return(defect_error)
     markup = Capybara.string(subject.show_defect)
-    markup.find("div.center_error_block").should have_content(defect_error)
+    expect(markup.find("div.center_error_block")).to have_content(defect_error)
   end
 end
