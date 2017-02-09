@@ -53,7 +53,15 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
+    capistrano-bundler (1.2.0)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
     capistrano-harrow (0.5.3)
+    capistrano-passenger (0.2.0)
+      capistrano (~> 3.0)
+    capistrano-rails (1.2.2)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
     capybara (2.12.0)
       addressable
       mime-types (>= 1.16)
@@ -302,6 +310,8 @@ DEPENDENCIES
   activerecord_constraints
   aruba
   capistrano
+  capistrano-passenger
+  capistrano-rails
   capybara
   coffee-rails (~> 3.2.1)
   compass-rails

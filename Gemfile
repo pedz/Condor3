@@ -10,7 +10,6 @@ gem 'rails', '3.2.22.5'
 
 gem 'activeldap'
 gem 'activerecord_constraints'
-gem 'capistrano'
 gem 'dalli'
 gem 'diff-lcs'
 gem 'jquery-rails'
@@ -31,6 +30,9 @@ end
 
 group :development, :test do
   gem 'aruba'
+  gem 'capistrano'
+  gem 'capistrano-passenger'
+  gem 'capistrano-rails'
   gem 'capybara'
   # I'm going to take this out for now.
   # gem 'capybara-webkit'
