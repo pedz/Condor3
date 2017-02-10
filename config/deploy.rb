@@ -2,7 +2,7 @@
 lock "3.7.2"
 
 set :application, "condor3"
-set :repo_url, "pedzan@truth:/gsa/ausgsa/home/p/e/pedzan/git.repositories/condor3.git"
+set :repo_url, "pedzan@tcp149.aus.stglabs.ibm.com:/gsa/ausgsa/home/p/e/pedzan/git.repositories/condor3.git"
 
 # Default branch is :master
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -27,7 +27,15 @@ set :deploy_to, "/home/condor/app-base"
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
 
 # Default value for default_env is {}
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+# This is first to find the ruby version we want
+# /gsa/ausgsa/projects/r/ruby/prvm/ruby-2.3.1/bin
+# This is somewhere... so we find pg_config
+# /gsa/ausgsa/projects/r/ruby/pgsql/bin
+# This is so we hit our weird ld instead of the default ld
+# /gsa/ausgsa/projects/r/ruby/hide-aixbin
+# This is so we find git and all its friends
+# /gsa/ausgsa/projects/r/ruby/bin
+set :default_env, { path: "/gsa/ausgsa/projects/r/ruby/prvm/ruby-2.3.1/bin:/gsa/ausgsa/projects/r/ruby/pgsql/bin:/gsa/ausgsa/projects/r/ruby/hide-aixbin:/gsa/ausgsa/projects/r/ruby/bin:$PATH" }
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
