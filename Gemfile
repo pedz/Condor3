@@ -15,6 +15,7 @@ gem 'diff-lcs'
 gem 'jquery-rails'
 gem 'keynote'
 gem 'pg'
+gem 'puma'
 gem 'ruby-ldap'
 gem 'test-unit', '~> 3.0'
 
@@ -32,8 +33,8 @@ end
 group :development, :test do
   gem 'aruba'
   gem 'capistrano'
-  gem 'capistrano-passenger'
   gem 'capistrano-rails'
+  gem 'capistrano3-puma'
   gem 'capybara'
   # I'm going to take this out for now.
   # gem 'capybara-webkit'

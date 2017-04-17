@@ -64,11 +64,13 @@ GEM
       capistrano (~> 3.1)
       sshkit (~> 1.2)
     capistrano-harrow (0.5.3)
-    capistrano-passenger (0.2.0)
-      capistrano (~> 3.0)
     capistrano-rails (1.2.2)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
+    capistrano3-puma (3.1.0)
+      capistrano (~> 3.7)
+      capistrano-bundler
+      puma (~> 3.4)
     capybara (2.12.0)
       addressable
       mime-types (>= 1.16)
@@ -217,6 +219,7 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (2.0.5)
+    puma (3.8.2)
     rack (1.4.7)
     rack-cache (1.7.0)
       rack (>= 0.4)
@@ -317,8 +320,8 @@ DEPENDENCIES
   activerecord_constraints
   aruba
   capistrano
-  capistrano-passenger
   capistrano-rails
+  capistrano3-puma
   capybara
   coffee-rails (~> 3.2.1)
   compass-rails
@@ -337,6 +340,7 @@ DEPENDENCIES
   keynote
   launchy
   pg
+  puma
   rails (= 3.2.22.5)
   rails-footnotes (>= 3.7.5.rc4)
   rb-fsevent
