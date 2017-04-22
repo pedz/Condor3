@@ -9,6 +9,7 @@
  */
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require jsviews/jsrender
 //= require jsviews/jquery.observable
 //= require jsviews/jquery.views

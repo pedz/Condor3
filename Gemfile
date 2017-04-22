@@ -13,6 +13,7 @@ gem 'activerecord_constraints'
 gem 'dalli'
 gem 'diff-lcs'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'keynote'
 gem 'pg'
 gem 'puma'
@@ -22,7 +23,8 @@ gem 'test-unit', '~> 3.0'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'duktape', :git => 'git@github.com:pedz/duktape.rb.git', :branch => 'v2'
+  # This doesn't work :-(  Instead of toJSON, it puts NaN
+  # gem 'duktape', :git => 'git@github.c# om:judofyr/duktape.rb.git'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails'
   gem 'js-routes'

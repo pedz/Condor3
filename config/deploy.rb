@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock "3.7.2"
+lock "3.8.1"
 
 set :application, "condor3"
 set :repo_url, "pedzan@tcp149.aus.stglabs.ibm.com:/gsa/ausgsa/home/p/e/pedzan/git.repositories/condor3.git"
@@ -39,3 +39,18 @@ set :default_env, { path: "/gsa/ausgsa/projects/r/ruby/prvm/ruby-2.3.1/bin:/gsa/
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+
+namespace :deploy do
+  namespace :assets do
+    desc 'Run the precompile task locally and rsync with shared'
+    task :precompile do
+      sh "bundle exec rake assets:precompile"
+      roles(:web).each do |host|
+        user = host.user
+        hostname = host.hostname
+        sh "rsync -av public/assets #{user}@#{hostname}:#{release_path}/public"
+      end
+      sh "bundle exec rake assets:clean"
+    end
+  end
+end
