@@ -27,3 +27,8 @@ raptor:
   method: local
   path: /gsa/ausgsa/projects/a/aix_tools/bin/cmvc
   bootstrap_cmvc_user: pedzan
+
+tcp149:
+  method: local
+  path: /gsa/ausgsa/projects/a/aix_tools/bin/cmvc
+  bootstrap_cmvc_user: pedzan

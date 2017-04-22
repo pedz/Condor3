@@ -53,7 +53,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'ruby_gntp'
   gem 'spork', '~> 1.0rc'
-  gem 'thin'
   gem 'xpath'
 end
 
