@@ -326,6 +326,7 @@ DEPENDENCIES
   js-routes
   keynote
   launchy
+  net-ssh
   pg
   puma
   rails (= 3.2.22.5)
