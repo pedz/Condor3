@@ -38,6 +38,32 @@ $block-border-width: 4px;
 $block-border: $block-border-width double $primary-light;
 $text-line-height: 1.25em;
 
+$cornerRadius: 6px;
+$ffDefault: Lucida Grande,Lucida Sans,Arial,sans-serif;
+$fsDefault: 1.0em;
+$fwDefault: normal;
+
+/* Corner radius */
+.ui-corner-all,
+.ui-corner-top,
+.ui-corner-left,
+.ui-corner-tl {
+    border-top-left-radius: $cornerRadius;
+    border-top-right-radius: $cornerRadius;
+    border-bottom-left-radius: $cornerRadius;
+    border-bottom-right-radius: $cornerRadius;
+}
+
+.ui-widget button,
+.ui-button {
+    font-family: $ffDefault;
+    font-size: $fsDefault;
+    border: 2px outset #9A6D3D/*{borderColorDefault}*/;
+    background: #f0f0f0/*{bgColorDefault}*/ /*{bgImgUrlDefault}*/ /*{bgDefaultXPos}*/ /*{bgDefaultYPos}*/ /*{bgDefaultRepeat}*/;
+    font-weight: normal/*{fwDefault}*/;
+    color: #000000/*{fcDefault}*/;
+}
+
 @mixin box-border {
     border: $block-border;
     border-radius: $cornerRadius;
@@ -137,6 +163,7 @@ body {
 
 	a.home-button {
 	    cursor: pointer;
+	    line-height: 1.4;
 	}
     }
     
@@ -156,6 +183,7 @@ body {
 
 	button.help-button {
 	    cursor: help;
+	    line-height: 1.4;
 	}
     }
 
