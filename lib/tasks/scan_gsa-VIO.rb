@@ -9,4 +9,4 @@
 GSA_BASE=Pathname.new("/gsa/ausgsa/projects/s/service/images/61/update")
 GSA_PATTERN = GSA_BASE + "VIOS_*"
 
-require 'lib/tasks/scan_gsa'
+require_relative 'scan_gsa'

@@ -19,7 +19,7 @@
 # interested in.  We mount them in data/mounts.  We mount them only as
 # we need them.
 
-require File.dirname(__FILE__) + "/toc-parser"
+require_relative "toc-parser"
 
 ROOT = Pathname.new(File.dirname(__FILE__) + "/../..").realpath
 DATA = (ROOT + "data").realpath
