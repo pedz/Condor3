@@ -1,0 +1,59 @@
+#!/bin/sh
+
+export RAILS_ENV=production
+CURRENT=/home/condor/app-base/current
+export LDR_CNTRL=MAXDATA=0x30000000
+
+function runner
+{
+  bundle exec script/rails runner "$@"
+}
+
+function upd_views
+{
+    for i in ~/work/upd_pc_view/foo/* ; do
+	echo $i
+	if ! runner lib/tasks/import_upd_pc_views.rb $i; then
+	    return false
+	fi
+    done
+}
+
+
+if ! head /home/condor/current/data/current/gsa/61/ptf.images/prod61J/ptfapardef.constant > /dev/null 2>&1 ; then
+  echo You need a GSA ticket 1>&2
+  exit 1
+fi
+
+cd ~/work/pc_view &&
+  echo pulling updated pc_views &&
+  ./pull-new &&
+  cd "${CURRENT}" &&
+  echo update database with updated pc_views &&
+  runner lib/tasks/import_pc_views.rb ~/work/pc_view/new-out &&
+  cd ~/work/upd_pc_view &&
+  echo pulling updated upd_pc_views &&
+  ./pull-new &&
+  cd "${CURRENT}" &&
+  echo update database with updated upd_pc_views &&
+  upd_views &&
+  cd "${CURRENT}/data/current" &&
+  echo updating from ptfapardef.consts &&
+  ./do-update &&
+  cd "${CURRENT}" &&
+  runner lib/tasks/delete_old.rb
+
+#   As root
+#     Update the ptf image caches
+#       1) cd /usr/local/www/condor/current
+#          script/runner lib/tasks/scan_mounts.rb
+
+#   As pedzan
+#     Delete the old "Not built yet" entries:
+#       1) cd /usr/local/www/condor/current
+#          script/runner lib/tasks/delete_old.rb
+
+#     Now dump the db.  (The condor-20091028.db name will change)
+#       1) cd /usr/local/www/condor/current
+#       2) rake 'db:dump[/usr/sata/dumps/db-snapshots/condor-20091028.db]'
+#       3) scp /usr/sata/dumps/db-snapshots/condor-20091028.db root@tcp237:/usr/local/db-dumps
