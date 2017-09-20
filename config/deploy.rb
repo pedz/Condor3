@@ -24,7 +24,7 @@ set :deploy_to, "/home/condor/app-base"
 # append :linked_files, "config/database.yml", "config/secrets.yml"
 
 # Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/assets"
 
 # Default value for default_env is {}
 # This is first to find the ruby version we want

@@ -1,0 +1,15 @@
+Update the git repository:
+
+git push
+
+Update the code:
+
+cap production deploy
+
+Create the new set of assets:
+
+rake assets:precompile
+
+Move them in place:
+
+rsync -av public/assets/ condor@tcp149:app-base/shared/public/assets
