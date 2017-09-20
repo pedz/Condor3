@@ -1,15 +1,19 @@
-Update the git repository:
+#!/bin/bash
 
-git push
+echo Update the git repository:
+git push --all
 
-Update the code:
-
+echo Update the code:
 cap production deploy
 
-Create the new set of assets:
+# If the assets have changed (rare)
+if [[ "$#" -eq 1 ]] ; then
+  echo Create the new set of assets:
+  rake assets:precompile
 
-rake assets:precompile
+  echo Move them in place:
+  rsync -av public/assets/ condor@tcp149:app-base/shared/public/assets
 
-Move them in place:
-
-rsync -av public/assets/ condor@tcp149:app-base/shared/public/assets
+  echo Delete the assets:
+  rake assets:clean
+fi
