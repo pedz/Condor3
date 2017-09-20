@@ -22,9 +22,10 @@
 require_relative "toc-parser"
 
 ROOT = Pathname.new(File.dirname(__FILE__) + "/../..").realpath
-DATA = (ROOT + "data").realpath
+# Not used anymore
+# DATA = (ROOT + "data").realpath
 TEMP_DIR = Pathname.new("/home/condor/work/tmp")
-TEMP2_DIR = Pathname.new("/home/condor/work/tmp")
+TEMP2_DIR = Pathname.new("/home/condor/work/tmp2")
 LOG_PATH = Pathname.new("log/scan_gsa.log")
 DEBUG = false
 
@@ -68,7 +69,7 @@ class ImageFile
     @image, @full_path = image, full_path
   end
   
-  BACKUP_MAGIC = "\x09\x00\x6b\xea".force_encoding(:binary).freeze
+  BACKUP_MAGIC = "\x09\x00\x6b\xea".force_encoding("binary").freeze
   
   # reads the first four bytes to see if it is a backup file ( a
   # possible install / update image.  If it is not a backup file, then
