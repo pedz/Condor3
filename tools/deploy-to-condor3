@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo Update the git repository:
+git push --all
+
+echo Update the code If this dies, then telnet to tcp149 as pedzan and
+echo log in.
+cap staging deploy
+
+# If the assets have changed (rare)
+if [[ "$#" -eq 1 ]] ; then
+  echo Create the new set of assets:
+  rake assets:precompile
+
+  echo Move them in place:
+  rsync -av public/assets/ condor@condor3:app-base/shared/public/assets
+
+  echo Delete the assets:
+  rake assets:clean
+fi
