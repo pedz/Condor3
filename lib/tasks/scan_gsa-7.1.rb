@@ -7,6 +7,6 @@
 
 # 7.1 base and pattern
 GSA_BASE    = Pathname.new("/gsa/ausgsa/projects/a/aix")
-GSA_PATTERN = GSA_BASE + "aix71[Q-Z]/7100-{*Gold,*_SP}/{update,inst}.images"
+GSA_PATTERN = GSA_BASE + "aix71[R-Za-z]/7100-{*Gold,*_SP}/{update,inst}.images"
 
 require_relative 'scan_gsa'
