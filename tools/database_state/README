@@ -6,3 +6,33 @@ features/support/snapshot_hook.rb
 These files are various pieces of that work.  Mostly they are tools
 to create the template-smaller.db database.  Unfortunately, at this
 point, I don't remember how to work them.
+
+--- Wed Feb  8 15:03:25 CST 2017 ---
+To create (or recreate) the template database, this sequence appears
+to work.  The reason for the sed is because in the past, I had
+_postgres as the diety user.  But with brew, they set up the installer
+as the diety user.  This assumes the condor3_template database
+already exists.  The end status should be 0, E should be empty and
+O has a lot of things that occurred.
+
+dropdb condor3_template &&
+createdb condor3_template &&
+pg_restore --single-transaction features/support/template-smaller.db |
+    sed -e 's%_postgres%pedzan%g' | psql --dbname=condor3_template --file=- > O 2> E
+echo $?
+
+Note that there is a git log entry as follows:
+
+    Note: to run rspec or cucumber, the condor3_test database must be a copy
+    of the condor3_template database.  The way to create this is to
+    uncomment the line:
+
+      #  template: condor3_template
+
+    In the test stanza of config/database.yml.  Then do:
+
+    RAILS_ENV=test rake db:drop db:create
+
+    Then comment out the template line (put it back like it was).  At this
+    point, cucumber and rspec should pass.
+

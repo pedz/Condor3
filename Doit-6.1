@@ -1,0 +1,13 @@
+#!/bin/ksh -x
+#
+# This may be an overkill script but it scans GSA for new updates
+#
+export RAILS_ENV=production
+export LDR_CNTRL=MAXDATA=0x30000000
+
+d="$( date )"
+( cd ~/log ; .old/save-log )
+bundle exec script/rails runner lib/tasks/scan_gsa-6.1.rb
+s=$?
+d2="$( date )"
+echo "$d - Status is $s - $d2" | mail -s '6.1 scan_gsa' pedzan@us.ibm.com

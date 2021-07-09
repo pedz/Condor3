@@ -12,9 +12,9 @@ describe FileChangePresenter do
 
   let(:get_file_changes) do
     double("GetFileChanges").tap do |d|
-      d.stub(:error).and_return(nil)
-      d.stub(:file_name).and_return(file_name)
-      d.stub(:changes) do
+      allow(d).to receive(:error).and_return(nil)
+      allow(d).to receive(:file_name).and_return(file_name)
+      allow(d).to receive(:changes) do
         [
          Change.new('rel1', 'dt1', 'def1', 'lev1', '1.2.3.1', 'path1', 'type1', 'ref1', '2.3.4.1', 'abstract1'),
          Change.new('rel1', 'dt1', 'def2', 'lev1', '1.2.3.2', 'path1', 'type1', 'ref1', '2.3.4.2', 'abstract2'),
@@ -39,15 +39,15 @@ describe FileChangePresenter do
 
   it "should present the changes if no errors" do
     markup = Capybara.string(subject.show_changes)
-    markup.should have_selector("div.changes")
-    markup.find("div.changes").should have_content('path1')
-    markup.find("div.changes").should have_content('Initial Drop')
-    markup.find("div.changes").should have_content('path2')
+    expect(markup).to have_selector("div.changes")
+    expect(markup.find("div.changes")).to have_content('path1')
+    expect(markup.find("div.changes")).to have_content('Initial Drop')
+    expect(markup.find("div.changes")).to have_content('path2')
   end
 
   it "should present the error when there is one" do
-    get_file_changes.stub(:error).and_return(file_error)
+    allow(get_file_changes).to receive(:error).and_return(file_error)
     markup = Capybara.string(subject.show_changes)
-    markup.find("div.center_error_block").should have_content(file_error)
+    expect(markup.find("div.center_error_block")).to have_content(file_error)
   end
 end

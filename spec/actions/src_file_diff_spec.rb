@@ -27,10 +27,10 @@ describe SrcFileDiff do
 
   it "should report back the old and new sequences" do
     sd = SrcFileDiff.new(old_file, new_file)
-    sd.old_seq.length.should eq(8)
-    sd.old_seq[1][0].should eq("discard_a")
-    sd.new_seq.length.should eq(7)
-    sd.new_seq[6][0].should eq("change")
-    sd.diff_count.should eq(3)
+    expect(sd.old_seq.length).to eq(8)
+    expect(sd.old_seq[1][0]).to eq("discard_a")
+    expect(sd.new_seq.length).to eq(7)
+    expect(sd.new_seq[6][0]).to eq("change")
+    expect(sd.diff_count).to eq(3)
   end
 end

@@ -8,14 +8,14 @@ require 'spec_helper'
 describe GetSrcFile do
   let(:local_cache) {
     double('local_cache').tap do |d|
-      d.stub(:read) { nil }
-      d.stub(:write) { true }
+      allow(d).to receive(:read).and_return(nil)
+      allow(d).to receive(:write).and_return(true)
     end
   }
 
   let(:local_execute_cmvc_command) { double('local_execute_cmvc_command')  }
 
-  let(:dummy_get_user) { double('get_user').stub(:call) }
+  let(:dummy_get_user) { allow(double('get_user')).to receive(:call) }
 
   let(:src_file) { 'a/b/c/d.c' }
 
@@ -40,26 +40,26 @@ describe GetSrcFile do
   }
 
   it "should request the specified file and report back the contents if no error" do
-    local_execute_cmvc_command.should_receive(:new).once do |options|
-      options.should include(cmd: 'File', extract: src_file, version: version, release: release)
+    expect(local_execute_cmvc_command).to receive(:new).once do |options|
+      expect(options).to include(cmd: 'File', extract: src_file, version: version, release: release)
       OpenStruct.new(stdout: sample_file, rc: 0)
     end
 
     rep = GetSrcFile.new(typical_options)
-    rep.path.should eq(src_file)
-    rep.version.should eq(version)
-    rep.release.should eq(release)
-    rep.lines.should eq(sample_file)
-    rep.error.should eq(nil)
+    expect(rep.path).to eq(src_file)
+    expect(rep.version).to eq(version)
+    expect(rep.release).to eq(release)
+    expect(rep.lines).to eq(sample_file)
+    expect(rep.error).to eq(nil)
   end
 
   it "should request the specified file and report back the errors if any" do
-    local_execute_cmvc_command.should_receive(:new).once do |options|
-      options.should include(cmd: 'File', extract: src_file, version: version, release: release)
+    expect(local_execute_cmvc_command).to receive(:new).once do |options|
+      expect(options).to include(cmd: 'File', extract: src_file, version: version, release: release)
       OpenStruct.new(stderr: "Bad Message", rc: 1)
     end
 
     rep = GetSrcFile.new(typical_options)
-    rep.error.should eq("Bad Message")
+    expect(rep.error).to eq("Bad Message")
   end
 end

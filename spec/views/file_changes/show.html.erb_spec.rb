@@ -8,10 +8,10 @@ require "spec_helper"
 describe 'file_changes/show' do
   it "should show the defect" do
     presenter = double("presenter")
-    view.stub(:presenter).and_return(presenter)
-    presenter.should_receive(:show_changes).once
+    allow(view).to receive(:presenter).and_return(presenter)
+    expect(presenter).to receive(:show_changes).once
       .and_return("<div class='file-changes'></pre>".html_safe)
     render
-    rendered.should have_css("div.file-changes")
+    expect(rendered).to have_css("div.file-changes")
   end
 end

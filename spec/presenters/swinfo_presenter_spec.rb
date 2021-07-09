@@ -12,9 +12,9 @@ describe SwinfoPresenter do
 
   let(:swinfo) {
     double('Swinfo').tap do |d|
-      d.stub(:upd_apar_defs).and_return(data)
-      d.stub(:errors).and_return([])
-      d.stub(:item).and_return("12345")
+      allow(d).to receive(:upd_apar_defs).and_return(data)
+      allow(d).to receive(:errors).and_return([])
+      allow(d).to receive(:item).and_return("12345")
     end
   }
 
@@ -26,35 +26,35 @@ describe SwinfoPresenter do
 
   it "should hide the errors list if there are no errors" do
     markup = Capybara.string(subject.show_errors)
-    markup.should have_selector("section[style='display: none;']")
+    expect(markup).to have_selector("section[style='display: none;']", visible: false)
   end
 
   it "should list the errors" do
-    swinfo.stub(:errors).and_return(%w{ error1 error2 })
+    allow(swinfo).to receive(:errors).and_return(%w{ error1 error2 })
     markup = Capybara.string(subject.show_errors)
-    markup.should_not have_selector("section[style='display: none;']")
-    markup.should have_selector("ul")
-    markup.should have_selector("li", text: 'error1')
+    expect(markup).to_not have_selector("section[style='display: none;']")
+    expect(markup).to have_selector("ul")
+    expect(markup).to have_selector("li", text: 'error1')
   end
 
   it "should present the table" do
     p = subject.show_table
     markup = Capybara.string(p)
-    markup.should have_selector("table.upd_apar_defs thead")
-    markup.should have_selector("table.upd_apar_defs tbody")
+    expect(markup).to have_selector("table.upd_apar_defs thead")
+    expect(markup).to have_selector("table.upd_apar_defs tbody")
   end
 
   it "should present the results" do
     markup = Capybara.string(subject.append_results)
-    a = JSON.parse(markup.find('script').text.sub(/^[^=]+=/, '').sub(/;$/, ''))
+    a = JSON.parse(markup.find('script', visible: false).text.sub(/^[^=]+=/, '').sub(/;$/, ''))
     swinfo.upd_apar_defs.each_index do |i|
       %w{ apar defect ptf }.each do |field|
-        a[i][field].should == swinfo.upd_apar_defs[i][field]
+        expect(a[i][field]).to eq(swinfo.upd_apar_defs[i][field])
       end
     end
   end
 
   it "should respond with JSON" do
-    subject.to_json.should eq(data.to_json)
+    expect(subject.to_json).to eq(data.to_json)
   end
 end

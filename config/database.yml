@@ -38,6 +38,12 @@ production:
   database: condor3_production
   pool: 5
 
+staging:
+  adapter: postgresql
+  encoding: unicode
+  database: condor3_production
+  pool: 5
+
 newdata:
   adapter: postgresql
   encoding: unicode

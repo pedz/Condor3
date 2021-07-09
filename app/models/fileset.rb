@@ -43,7 +43,7 @@ class Fileset < ActiveRecord::Base
   has_many   :fileset_ptf_maps
 
   ##
-  # :attr: service_pack_fileset_map
+  # :attr: service_pack_fileset_maps
   # A has_many association to ServicePackFilesetMap
   has_many   :service_pack_fileset_maps
 
@@ -76,7 +76,7 @@ class Fileset < ActiveRecord::Base
   ##
   # :attr: service_packs
   # A has_many association to ServicePack via ServicePackFilesetMap
-  has_many :service_packs, through: :service_pack_fileset_map
+  has_many :service_packs, through: :service_pack_fileset_maps
 
   ##
   # :attr: packages

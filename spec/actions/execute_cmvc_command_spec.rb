@@ -12,7 +12,7 @@ describe ExecuteCmvcCommand do
 
   let(:get_cmvc_from_user_class) do
     double('get_cmvc_from_user_class').tap do |d|
-      d.stub(:new) {
+      allow(d).to receive(:new) {
         Struct.new(:stdout, :stderr, :rc, :signal).new("test_user", nil, 0, nil)
       }
     end
@@ -23,7 +23,7 @@ describe ExecuteCmvcCommand do
 
   let(:cmd_result_class) do
     double('cmd_result_class').tap do |d|
-      d.stub(:new) {
+      allow(d).to receive(:new) {
         Struct.new(:stdout, :stderr, :rc, :signal).new("the result", nil, 0, nil)
       }
     end
@@ -34,10 +34,10 @@ describe ExecuteCmvcCommand do
 
   let(:cmvc_host_class) do
     double('cmvc_host_class').tap do |d|
-      d.stub(:new) do |cmd|
-        cmd.should be_a(String)
-        cmd.should match(/^Blah /)
-        cmd.should match(/-become test_user/)
+      allow(d).to receive(:new) do |cmd|
+        expect(cmd).to be_a(String)
+        expect(cmd).to match(/^Blah /)
+        expect(cmd).to match(/-become test_user/)
         Struct.new(:stdout, :stderr, :rc, :signal).new("out", nil, 0, nil)
       end
     end
@@ -54,9 +54,9 @@ describe ExecuteCmvcCommand do
   }
 
   it "should call cmvc_host with the command string and report back the result" do
-    cmvc_host_class.should_receive(:exec).once
+    expect(cmvc_host_class).to receive(:exec).once
     exec = ExecuteCmvcCommand.new(typical_options.merge(cmd: "Blah"))
-    exec.rc.should eq(0)
-    exec.stdout.should eq("the result")
+    expect(exec.rc).to eq(0)
+    expect(exec.stdout).to eq("the result")
   end
 end

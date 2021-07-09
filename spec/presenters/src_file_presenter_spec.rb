@@ -18,11 +18,11 @@ describe SrcFilePresenter do
 
   let(:get_src_file) do
     double("GetSrcFile").tap do |d|
-      d.stub(:error).and_return(nil)
-      d.stub(:path).and_return(path)
-      d.stub(:version).and_return(version)
-      d.stub(:release).and_return(release)
-      d.stub(:lines).and_return(file_text)
+      allow(d).to receive(:error).and_return(nil)
+      allow(d).to receive(:path).and_return(path)
+      allow(d).to receive(:version).and_return(version)
+      allow(d).to receive(:release).and_return(release)
+      allow(d).to receive(:lines).and_return(file_text)
     end
   end
 
@@ -34,13 +34,13 @@ describe SrcFilePresenter do
 
   it "should present the text if no errors" do
     markup = Capybara.string(subject.show_file)
-    markup.should have_selector("pre.src_file")
-    markup.find("pre.src_file").should have_content(file_text)
+    expect(markup).to have_selector("pre.src_file")
+    expect(markup.find("pre.src_file")).to have_content(file_text)
   end
 
   it "should present the error when there is one" do
-    get_src_file.stub(:error).and_return(fetch_error)
+    allow(get_src_file).to receive(:error).and_return(fetch_error)
     markup = Capybara.string(subject.show_file)
-    markup.find("div.center_error_block").should have_content(fetch_error)
+    expect(markup.find("div.center_error_block")).to have_content(fetch_error)
   end
 end

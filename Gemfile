@@ -6,21 +6,26 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.21'
+gem 'rails', '3.2.22.5'
 
 gem 'activeldap'
 gem 'activerecord_constraints'
-gem 'capistrano'
 gem 'dalli'
 gem 'diff-lcs'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'keynote'
+gem 'net-ssh'
 gem 'pg'
+gem 'puma'
 gem 'ruby-ldap'
+gem 'test-unit', '~> 3.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  # This doesn't work :-(  Instead of toJSON, it puts NaN
+  # gem 'duktape', :git => 'git@github.c# om:judofyr/duktape.rb.git'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails'
   gem 'js-routes'
@@ -30,8 +35,12 @@ end
 
 group :development, :test do
   gem 'aruba'
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano3-puma'
   gem 'capybara'
-  gem 'capybara-webkit'
+  # I'm going to take this out for now.
+  # gem 'capybara-webkit'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
@@ -43,10 +52,10 @@ group :development, :test do
   gem 'rails-footnotes', '>= 3.7.5.rc4'
   gem 'rb-fsevent', :require => false
   gem 'rspec', '>= 2.13'
+  gem 'rspec-collection_matchers'
   gem 'rspec-rails'
   gem 'ruby_gntp'
   gem 'spork', '~> 1.0rc'
-  gem 'thin'
   gem 'xpath'
 end
 

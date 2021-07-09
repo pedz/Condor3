@@ -8,14 +8,14 @@ require 'spec_helper'
 describe GetCmvcDefectChanges do
   let(:local_cache) {
     double('local_cache').tap do |d|
-      d.stub(:read) { nil }
-      d.stub(:write) { true }
+      allow(d).to receive(:read) { nil }
+      allow(d).to receive(:write) { true }
     end
   }
 
   let(:local_execute_cmvc_command) { double('local_execute_cmvc_command')  }
 
-  let(:dummy_get_user) { double('get_user').stub(:call) }
+  let(:dummy_get_user) { allow(double('get_user')).to receive(:call) }
 
   let(:defect_name) { '123456' }
 
@@ -28,34 +28,34 @@ describe GetCmvcDefectChanges do
   }
 
   it "should request changes for the defect specified by :defect_name" do
-    local_execute_cmvc_command.should_receive(:new).once do |options|
-      options.should include(cmd: 'Report')
+    expect(local_execute_cmvc_command).to receive(:new).once do |options|
+      expect(options).to include(cmd: 'Report')
       OpenStruct.new(stdout: "Field1|Field2|Field3|Field4|Field5|Field6|Field7|Field8|Field9|Field10", rc: 0)
     end
 
     rep = GetCmvcDefectChanges.new(typical_options)
-    rep.defect_name.should eq(defect_name)
-    rep.changes[0].release.should eq("Field1")
+    expect(rep.defect_name).to eq(defect_name)
+    expect(rep.changes[0].release).to eq("Field1")
   end
 
   it "should work with no changes returned" do
-    local_execute_cmvc_command.should_receive(:new).once do |options|
-      options.should include(cmd: 'Report')
+    expect(local_execute_cmvc_command).to receive(:new).once do |options|
+      expect(options).to include(cmd: 'Report')
       OpenStruct.new(stdout: nil, rc: 0)
     end
 
     rep = GetCmvcDefectChanges.new(typical_options)
-    rep.defect_name.should eq(defect_name)
-    rep.changes.length.should eq(0)
+    expect(rep.defect_name).to eq(defect_name)
+    expect(rep.changes.length).to eq(0)
   end
 
   it "should return error text if the command fails" do
-    local_execute_cmvc_command.should_receive(:new).once do |options|
-      options.should include(cmd: 'Report')
+    expect(local_execute_cmvc_command).to receive(:new).once do |options|
+      expect(options).to include(cmd: 'Report')
       ret = OpenStruct.new(stderr: "Bad", rc: 1)
     end
     rep = GetCmvcDefectChanges.new(typical_options)
-    rep.defect_name.should eq(defect_name)
-    rep.error.should eq("Bad")
+    expect(rep.defect_name).to eq(defect_name)
+    expect(rep.error).to eq("Bad")
   end
 end

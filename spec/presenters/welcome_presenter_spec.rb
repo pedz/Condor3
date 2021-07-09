@@ -11,29 +11,29 @@ describe WelcomePresenter do
   it_behaves_like "a presenter"
   
   it "help text should have welcome specific instruction" do
-    subject.help_text.should match(/<dl>/)
+    expect(subject.help_text).to match(/<dl>/)
   end
 
   it "should have a title" do
-    subject.page_title.should match(/Welcome/)
+    expect(subject.page_title).to match(/Welcome/)
   end
 
   it "should provide a way to create UI forms" do
     markup = Capybara.string(subject.welcome_form('name-thing', 'path/to/name/thing', 'theparam', 'thelabel'))
     form = markup.find('form')
-    form[:action].should eq('path/to/name/thing')
-    form[:id].should eq('name-thing-form')
-    form[:method].should eq('post')
+    expect(form[:action]).to eq('path/to/name/thing')
+    expect(form[:id]).to eq('name-thing-form')
+    expect(form[:method]).to eq('post')
     label = form.find('label')
-    label[:class].should eq('form-description')
-    label[:for].should eq('theparam')
-    label.text.should eq('thelabel')
+    expect(label[:class]).to eq('form-description')
+    expect(label[:for]).to eq('theparam')
+    expect(label.text).to eq('thelabel')
     input = form.find('input[id="theparam"]')
-    input[:name].should eq('theparam')
-    input[:type].should eq('text')
+    expect(input[:name]).to eq('theparam')
+    expect(input[:type]).to eq('text')
     submit = form.find('input[type="submit"]')
-    submit[:id].should eq('name-thing-submit')
-    submit[:name].should eq('commit')
-    submit[:value].should eq('Submit')
+    expect(submit[:id]).to eq('name-thing-submit')
+    expect(submit[:name]).to eq('commit')
+    expect(submit[:value]).to eq('Submit')
   end
 end

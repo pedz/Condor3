@@ -75,7 +75,7 @@ class GetSwinfos
   #   - +item+ -> A string for what to search for.  Different patterns
   #     are used to determine what to search for.  These patterns (in
   #     order of preference) are:
-  #     * +/^I[VXYZ][0-9][0-9][0-9][0-9][0-9]$/+ -> Search for an APAR.
+  #     * +/^I[JVXYZ][0-9][0-9][0-9][0-9][0-9]$/+ -> Search for an APAR.
   #     * +/^[A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9]$/+ -> Search for
   #       a CQ defect name.
   #     * +/^[0-9]+$/+ -> Search for a CMVC Defect or Feature.
@@ -90,7 +90,7 @@ class GetSwinfos
     unless (items = cache.read(dalli_params))
       item_upcase = item.upcase
       case item_upcase
-      when /^I[VXYZ][0-9][0-9][0-9][0-9][0-9]$/ # APAR
+      when /^I[JVXYZ][0-9][0-9][0-9][0-9][0-9]$/ # APAR
         items = model.find_all_by_apar(item_upcase, finder_options)
         
         # This pattern may be too tight.  SW123456 and AX123456 fit but

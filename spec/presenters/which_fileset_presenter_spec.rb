@@ -14,8 +14,8 @@ describe WhichFilesetPresenter do
 
   let(:which_fileset) {
     double('WhichFileset').tap do |d|
-      d.stub(:path).and_return('msnentdd')
-      d.stub(:paths).and_return(data)
+      allow(d).to receive(:path).and_return('msnentdd')
+      allow(d).to receive(:paths).and_return(data)
     end
   }
 
@@ -27,14 +27,14 @@ describe WhichFilesetPresenter do
 
   it "should present the table" do
     markup = Capybara.string(subject.show_table)
-    markup.should have_selector("table.which_filesets thead")
-    markup.should have_selector("table.which_filesets tbody")
+    expect(markup).to have_selector("table.which_filesets thead")
+    expect(markup).to have_selector("table.which_filesets tbody")
   end
 
   it "should present a div when no hits are returned" do
-    which_fileset.stub(:paths).and_return({})
+    allow(which_fileset).to receive(:paths).and_return({})
     s = subject.show_table
     markup = Capybara.string(s)
-    markup.should have_selector("div.which_filesets span")
+    expect(markup).to have_selector("div.which_filesets span")
   end
 end

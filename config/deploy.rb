@@ -1,148 +1,56 @@
-#  -*- coding: utf-8 -*-
-# 
-#  Copyright 2012-2013 Ease Software, Inc. and Perry Smith
-#  All Rights Reserved
-# 
-require "bundler/capistrano"
-
-# I don't want this anymore
-# load 'deploy/assets'
-
-set :default_shell, "bash -l"
+# config valid only for current version of Capistrano
+lock "3.8.1"
 
 set :application, "condor3"
-set :repository,  "ssh://condor@condor.austin.ibm.com/home/condor/app-base/condor3.git"
+set :repo_url, "pedzan@tcp149.aus.stglabs.ibm.com:/gsa/ausgsa/home/p/e/pedzan/git.repositories/condor3.git"
+
+# Default branch is :master
+ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+
+# Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/home/condor/app-base"
 
-set :scm, :git
-# set :user, "condor"
+# Default value for :format is :airbrussh.
+# set :format, :airbrussh
 
-role :web, "condor@condor.austin.ibm.com"                         # Your HTTP server, Apache/etc
-role :app, "condor@condor.austin.ibm.com"                         # This may be the same as your `Web` server
-role :db,  "condor@condor.austin.ibm.com", primary: true       # This is where Rails migrations will run
+# You can configure the Airbrussh format using :format_options.
+# These are the defaults.
+# set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
 
-set :branch, "master"
-set :deploy_via, :remote_cache
-set :git_enable_submodules, 1
-set :use_sudo, false
+# Default value for :pty is false
+# set :pty, true
 
-# Don't need asset gems on production server
-set :bundle_without,  [:development, :test, :assets]
+# Default value for :linked_files is []
+# append :linked_files, "config/database.yml", "config/secrets.yml"
 
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
+# Default value for linked_dirs is []
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/assets"
 
-# If you are using Passenger mod_rails uncomment this:
+# Default value for default_env is {}
+# This is first to find the ruby version we want
+# /gsa/ausgsa/projects/r/ruby/prvm/ruby-2.3.1/bin
+# This is somewhere... so we find pg_config
+# /gsa/ausgsa/projects/r/ruby/pgsql/bin
+# This is so we hit our weird ld instead of the default ld
+# /gsa/ausgsa/projects/r/ruby/hide-aixbin
+# This is so we find git and all its friends
+# /gsa/ausgsa/projects/r/ruby/bin
+set :default_env, { path: "/gsa/ausgsa/projects/r/ruby/prvm/ruby-2.3.1/bin:/gsa/ausgsa/projects/r/ruby/pgsql/bin:/gsa/ausgsa/projects/r/ruby/hide-aixbin:/gsa/ausgsa/projects/r/ruby/bin:$PATH" }
+
+# Default value for keep_releases is 5
+# set :keep_releases, 5
+
 namespace :deploy do
-  desc "No way to start the server"
-  task :start do ; end
-  desc "No way to stop the server"
-  task :stop do ; end
-  desc "Restart the server"
-  task :restart, roles: :app, except: { no_release: true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-  end
-end
-
-# namespace :deploy do
-#   namespace :assets do
-#     desc 'Run the precompile task locally and rsync with shared'
-#     task :precompile, roles: :web, except: { no_release: true } do
-#       # %x{bundle exec rake assets:precompile}
-#       # %x{rsync --recursive --times --rsh=ssh --compress --human-readable --progress public/assets #{user}@#{host}:#{shared_path}}
-#       # %x{bundle exec rake assets:clean}
-#       begin
-#         run_locally "true"
-#       ensure
-#         logger.debug "banana"
-#       end
-#     end
-#   end
-# end
-
-set :compressed_assets_path, "tmp/assets.tar.gz"
-
-namespace :pedz do
-  desc "Just a simple task to dump out the values of variables"
-  task :vars do
-    logger.debug("source=#{source}")
-    logger.debug("current_revision=#{current_revision}")
-    logger.debug("from=#{source.next_revision(current_revision)}")
-  end
-
-  namespace :local do
-    # Note that it appears cap does a cwd to the directory where the
-    # Capfile is found.
-    namespace :assets do
-      desc <<-DESC
-        Clean the local precompiled assets
-      DESC
-      task :clean do
-        run_locally("bundle exec rake assets:clean")
+  namespace :assets do
+    desc 'Run the precompile task locally and rsync with shared'
+    task :precompile do
+      sh "bundle exec rake assets:precompile"
+      roles(:web).each do |host|
+        user = host.user
+        hostname = host.hostname
+        sh "rsync -av public/assets #{user}@#{hostname}:#{release_path}/public"
       end
-
-      desc <<-DESC
-        Clean the local compressed assets
-      DESC
-      task :clean_compress do
-        run_locally("rm -f #{compressed_assets_path}")
-      end
-
-      desc <<-DESC
-        Precompile the assets on the local system
-      DESC
-      task :precompile do 
-        run_locally("bundle exec rake assets:precompile")
-      end
-
-      desc <<-DESC
-        Create assets into #{compressed_assets_path}
-      DESC
-      task :compress, roles: :app do
-        transaction do
-          # We want to make sure public/assets is not left around.
-          on_rollback { clean_compress }
-          begin
-            clean
-            precompile
-            run_locally("tar cf - public/assets | gzip -9 > #{compressed_assets_path}")
-          rescue => e
-            logger.debug "rescue #{e.class}"
-            raise e
-          ensure
-            # Can not leave precompiled assets in public/assets
-            clean
-          end
-        end
-      end
-    end
-  end
-
-  namespace :deploy do
-    desc <<-DESC
-      Upload the assets after compiling them locally to the servers
-      into the current_path.
-    DESC
-    task :upload_assets do
-      pedz.local.assets.compress
-      path = File.join(current_path, compressed_assets_path)
-      run("rm -f #{path}")
-      top.upload(compressed_assets_path, path)
-      run("cd #{current_path} && tar xzf #{compressed_assets_path}")
-    end
-
-    desc <<-DESC
-      Updates the assets after compiling them locally to the servers
-      into the release_path
-    DESC
-    task :update_assets do
-      pedz.local.assets.compress
-      path = File.join(release_path, compressed_assets_path)
-      run("rm -f #{path}")
-      top.upload(compressed_assets_path, path)
-      run("cd #{release_path} && tar xzf #{compressed_assets_path}")
+      sh "bundle exec rake assets:clean"
     end
   end
 end
-
-after "deploy:update_code", "pedz:deploy:update_assets"

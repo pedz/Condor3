@@ -27,7 +27,7 @@ class WelcomePresenter < ApplicationPresenter
             dl do
               dt 'apar'
               dd do
-                "Example: IV12345  Pattern: I[VXYZ][0-9]{5}"
+                "Example: IV12345  Pattern: I[JVXYZ][0-9]{5}"
               end
               
               dt 'cq defect'

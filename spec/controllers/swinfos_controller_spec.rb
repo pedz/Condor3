@@ -21,7 +21,7 @@ describe SwinfosController do
   describe "GET" do
     it "should redirect if sort is not given" do
       get :show, item: item, page: '5'
-      response.should redirect_to(action: 'show',
+      expect(response).to redirect_to(action: 'show',
                                   item: item,
                                   sort: ::SwinfosController::DEFAULT_SORT_ORDER,
                                   page: '5')
@@ -29,7 +29,7 @@ describe SwinfosController do
 
     it "should redirect if page is not given" do
       get :show, item: item, sort: 'cows, love, people'
-      response.should redirect_to(action: 'show',
+      expect(response).to redirect_to(action: 'show',
                                   item: item,
                                   sort: 'cows, love, people',
                                   page: '1')
